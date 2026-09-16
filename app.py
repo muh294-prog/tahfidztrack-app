@@ -1,3 +1,4 @@
+import base64
 import datetime
 import io
 import os
@@ -7,6 +8,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import (
+    Image as RLImage,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -14,13 +16,27 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-# URL Logo Sekolah
-LOGO_URL = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
+# Nama File Gambar Logo
+IMAGE_FILENAME = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
 
-# Konfigurasi Halaman Web (Revisi #10)
+
+# Function Konversi Gambar ke Base64 (Untuk Web)
+def get_image_base64(image_path):
+  if os.path.exists(image_path):
+    with open(image_path, "rb") as img_file:
+      return base64.b64encode(img_file.read()).decode("utf-8")
+  return ""
+
+
+img_base64 = get_image_base64(IMAGE_FILENAME)
+img_src = (
+    f"data:image/jpeg;base64,{img_base64}" if img_base64 else IMAGE_FILENAME
+)
+
+# Konfigurasi Halaman Web
 st.set_page_config(
     page_title="TahfidzTrack SMPIT IBNUL QAYYIM Makassar",
-    page_icon=LOGO_URL,
+    page_icon=IMAGE_FILENAME if os.path.exists(IMAGE_FILENAME) else "📖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -37,7 +53,7 @@ st.markdown(
         color: #F8FAFC;
     }
     
-    /* Header Container dengan Logo di Dalamnya */
+    /* Header Container dengan Logo */
     .main-header {
         background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
         padding: 24px;
@@ -52,7 +68,7 @@ st.markdown(
     .main-header h1 {
         font-size: 26px !important;
         font-weight: 800 !important;
-        margin: 10px 0 0 0 !important;
+        margin: 12px 0 0 0 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.5px;
     }
@@ -131,8 +147,8 @@ CREDENTIALS = {
     "huzaifah@iqis.sch.id": "Tahfizsmp8!",
 }
 
-# Database Santri Per Kelas
-DATABASE_SANTRI = {
+# Database Murid Per Kelas
+DATABASE_MURID = {
     "KELAS VIIIA": [
         "Achmad Sakha Recca Al Fath - 2510288",
         "Ahmad Yasin Mubarak - 2510289",
@@ -190,7 +206,7 @@ def load_data():
             "Tanggal",
             "Guru Input",
             "Kelas",
-            "Nama Santri",
+            "Nama Murid",
             "Jenis Setoran",
             "Surah",
             "Ayat Awal",
@@ -202,13 +218,17 @@ def load_data():
     )
     df_init.to_csv(DATA_FILE, index=False)
     return df_init
-  return pd.read_csv(DATA_FILE)
+  df = pd.read_csv(DATA_FILE)
+  if "Nama Santri" in df.columns:
+    df.rename(columns={"Nama Santri": "Nama Murid"}, inplace=True)
+  return df
 
 
 def save_data(df):
   df.to_csv(DATA_FILE, index=False)
 
 
+# --- REVISI #13: GENERATE PDF DENGAN LOGO DAN HALAMAN TERPISAH PER KELAS ---
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   buffer = io.BytesIO()
   doc = SimpleDocTemplate(
@@ -229,18 +249,25 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
       fontSize=14,
       textColor=colors.HexColor("#10B981"),
       alignment=1,
-      spaceAfter=8,
+      spaceAfter=4,
   )
 
   subtitle_style = ParagraphStyle(
       "SubTitleStyle",
       parent=styles["Normal"],
-      fontName="Helvetica",
+      fontName="Helvetica-Bold",
       fontSize=10,
       textColor=colors.HexColor("#0F172A"),
       alignment=1,
       spaceAfter=15,
   )
+
+  # Tambahkan Logo Sekolah jika File Ada
+  if os.path.exists(IMAGE_FILENAME):
+    img = RLImage(IMAGE_FILENAME, width=60, height=60)
+    img.hAlign = "CENTER"
+    elements.append(img)
+    elements.append(Spacer(1, 8))
 
   elements.append(
       Paragraph(
@@ -255,13 +282,13 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   )
 
   table_data = [
-      ["No", "Tanggal", "Nama Santri", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]
+      ["No", "Tanggal", "Nama Murid", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]
   ]
   for idx, row in df_filtered.reset_index(drop=True).iterrows():
     table_data.append([
         str(idx + 1),
         str(row["Tanggal"]),
-        str(row["Nama Santri"]).split(" - ")[0][:18],
+        str(row["Nama Murid"]).split(" - ")[0][:18],
         str(row["Jenis Setoran"]),
         f"{row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})",
         f"{row['Halaman']}",
@@ -305,12 +332,12 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   return buffer
 
 
-# Function Render Header Hijau dengan Logo di Dalamnya
+# Render Header Hijau
 def render_header(title, subtitle):
   st.markdown(
       f"""
       <div class="main-header">
-          <img src="app/static/{LOGO_URL}" width="75" style="border-radius: 50%; background: white; padding: 3px;" onerror="this.onerror=null; this.src='{LOGO_URL}';">
+          <img src="{img_src}" width="85" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
           <h1>{title}</h1>
           <p>{subtitle}</p>
       </div>
@@ -328,7 +355,7 @@ if "logged_in" not in st.session_state:
 if not st.session_state["logged_in"]:
   render_header(
       "TahfidzTrack SMPIT IBNUL QAYYIM",
-      "Sistem Management & Monitoring Hafalan Qur'an Santri",
+      "Sistem Management & Monitoring Hafalan Qur'an Murid",
   )
 
   col_center, _ = st.columns([2, 1])
@@ -380,7 +407,7 @@ else:
       [
           "📝 Input Setoran",
           "📊 Rekapan & Statistik",
-          "🔍 Dashboard Santri",
+          "🔍 Dashboard Murid",
           "📄 Cetak Laporan PDF",
       ],
   )
@@ -395,16 +422,14 @@ else:
   if menu == "📝 Input Setoran":
     render_header(
         "📝 Form Input Setoran Harian",
-        "Catat capaian hafalan harian Sabaq, Murajaah, atau Manzil santri",
+        "Catat capaian hafalan harian Sabaq, Murajaah, atau Manzil murid",
     )
 
     with st.container():
       c1, c2 = st.columns(2)
       with c1:
-        kelas_sel = st.selectbox("🏷️ Pilih Kelas", list(DATABASE_SANTRI.keys()))
-        santri_sel = st.selectbox(
-            "👦 Nama Santri", DATABASE_SANTRI[kelas_sel]
-        )
+        kelas_sel = st.selectbox("🏷️ Pilih Kelas", list(DATABASE_MURID.keys()))
+        murid_sel = st.selectbox("👦 Nama Murid", DATABASE_MURID[kelas_sel])
         jenis_sel = st.selectbox(
             "📌 Jenis Setoran", ["Sabaq", "Murajaah", "Manzil"]
         )
@@ -458,12 +483,12 @@ else:
           unsafe_allow_html=True,
       )
 
-    if st.button("💾 SIMPAN SETORAN SANTRI", use_container_width=True):
+    if st.button("💾 SIMPAN SETORAN MURID", use_container_width=True):
       new_record = {
           "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
           "Guru Input": st.session_state["user_email"],
           "Kelas": kelas_sel,
-          "Nama Santri": santri_sel,
+          "Nama Murid": murid_sel,
           "Jenis Setoran": jenis_sel,
           "Surah": surah_sel,
           "Ayat Awal": ayat_awal,
@@ -478,14 +503,14 @@ else:
       save_data(df_updated)
       st.balloons()
       st.success(
-          f"Alhamdulillah! Data setoran {santri_sel.split(' - ')[0]} telah berhasil disimpan."
+          f"Alhamdulillah! Data setoran {murid_sel.split(' - ')[0]} telah berhasil disimpan."
       )
 
   # MENU 2: REKAPAN & STATISTIK
   elif menu == "📊 Rekapan & Statistik":
     render_header(
         "📊 Data Rekapan & Statistik Tahfidz",
-        "Ringkasan performa dan riwayat lengkap seluruh setoran santri",
+        "Ringkasan performa dan riwayat lengkap seluruh setoran murid",
     )
 
     k1, k2, k3 = st.columns(3)
@@ -515,7 +540,7 @@ else:
       st.markdown(
           f"""
           <div class="card-box">
-              <div class="metric-label">Rata-rata Nilai Santri</div>
+              <div class="metric-label">Rata-rata Nilai Murid</div>
               <div class="metric-value">{avg_score}</div>
           </div>
       """,
@@ -525,20 +550,20 @@ else:
     st.subheader("📋 Tabel Riwayat Setoran")
     st.dataframe(df_data, use_container_width=True)
 
-  # MENU 3: DASHBOARD SANTRI
-  elif menu == "🔍 Dashboard Santri":
+  # MENU 3: DASHBOARD MURID
+  elif menu == "🔍 Dashboard Murid":
     render_header(
-        "🔍 Monitoring Perkembangan Santri",
-        "Cek statistik individual hafalan santri secara rinci",
+        "🔍 Monitoring Perkembangan Murid",
+        "Cek statistik individual, serta kelola (edit/hapus) riwayat setoran murid",
     )
 
     c_k, c_s = st.columns(2)
     with c_k:
-      k_sel = st.selectbox("Pilih Kelas", list(DATABASE_SANTRI.keys()))
+      k_sel = st.selectbox("Pilih Kelas", list(DATABASE_MURID.keys()))
     with c_s:
-      s_sel = st.selectbox("Pilih Nama Santri", DATABASE_SANTRI[k_sel])
+      s_sel = st.selectbox("Pilih Nama Murid", DATABASE_MURID[k_sel])
 
-    df_filtered = df_data[df_data["Nama Santri"] == s_sel]
+    df_filtered = df_data[df_data["Nama Murid"] == s_sel]
 
     if not df_filtered.empty:
       p1, p2, p3 = st.columns(3)
@@ -560,51 +585,162 @@ else:
         )
 
       st.write("---")
-      st.subheader("📜 Detail Riwayat Setoran Santri")
+      st.subheader("📜 Detail Riwayat Setoran Murid")
       st.dataframe(df_filtered, use_container_width=True)
-    else:
-      st.info("Belum ada catatan setoran untuk santri ini.")
 
-  # MENU 4: LAPORAN PDF
+      st.write("---")
+      st.subheader("⚙️ Kelola / Edit / Hapus Riwayat Setoran")
+
+      options = {
+          f"ID Row [{idx}] | {row['Tanggal']} - {row['Jenis Setoran']} - {row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})": idx
+          for idx, row in df_filtered.iterrows()
+      }
+      selected_label = st.selectbox("Pilih Baris Setoran", list(options.keys()))
+      selected_idx = options[selected_label]
+      selected_row = df_data.loc[selected_idx]
+
+      tab_edit, tab_delete = st.tabs(
+          ["✏️ Edit Data Setoran", "🗑️ Hapus Data Setoran"]
+      )
+
+      with tab_edit:
+        with st.form(key=f"edit_form_{selected_idx}"):
+          st.write(f"**Mengubah Data Indeks Baris #{selected_idx}:**")
+          e_c1, e_c2 = st.columns(2)
+          with e_c1:
+            e_jenis = st.selectbox(
+                "Jenis Setoran",
+                ["Sabaq", "Murajaah", "Manzil"],
+                index=[
+                    "Sabaq",
+                    "Murajaah",
+                    "Manzil",
+                ].index(selected_row["Jenis Setoran"]),
+            )
+            e_surah = st.text_input("Nama Surah", value=selected_row["Surah"])
+            e_hlm = st.number_input(
+                "Jumlah Halaman",
+                min_value=0.1,
+                value=float(selected_row["Halaman"]),
+                step=0.5,
+            )
+          with e_c2:
+            e_a_awal = st.number_input(
+                "Ayat Awal", min_value=1, value=int(selected_row["Ayat Awal"])
+            )
+            e_a_akhir = st.number_input(
+                "Ayat Akhir", min_value=1, value=int(selected_row["Ayat Akhir"])
+            )
+            e_salah = st.number_input(
+                "Jumlah Salah", min_value=0, value=int(selected_row["Salah"])
+            )
+
+          btn_update = st.form_submit_button("💾 SIMPAN PERUBAHAN")
+          if btn_update:
+            calc_new_nilai = max(
+                0.0, min(100.0, round(100.0 - (e_salah * 2.0), 2))
+            )
+            df_data.at[selected_idx, "Jenis Setoran"] = e_jenis
+            df_data.at[selected_idx, "Surah"] = e_surah
+            df_data.at[selected_idx, "Ayat Awal"] = e_a_awal
+            df_data.at[selected_idx, "Ayat Akhir"] = e_a_akhir
+            df_data.at[selected_idx, "Halaman"] = e_hlm
+            df_data.at[selected_idx, "Salah"] = e_salah
+            df_data.at[selected_idx, "Nilai"] = calc_new_nilai
+
+            save_data(df_data)
+            st.success(
+                f"Data setoran Indeks #{selected_idx} telah berhasil diperbarui!"
+            )
+            st.rerun()
+
+      with tab_delete:
+        st.warning(
+            "⚠️ Perhatian: Data yang dihapus tidak dapat dikembalikan lagi."
+        )
+        if st.button("🔴 HAPUS BARIS SETORAN INI", use_container_width=True):
+          df_data = df_data.drop(selected_idx).reset_index(drop=True)
+          save_data(df_data)
+          st.success("Baris setoran telah berhasil dihapus dari database.")
+          st.rerun()
+
+    else:
+      st.info("Belum ada catatan setoran untuk murid ini.")
+
+  # MENU 4: LAPORAN PDF (Revisi #13)
   elif menu == "📄 Cetak Laporan PDF":
     render_header(
         "📄 Cetak Laporan PDF Resmi",
-        "Unduh rekapitulasi nilai bulanan siap cetak atau dibagikan ke Orang Tua Santri",
+        "Unduh rekapitulasi nilai bulanan khusus per kelas dengan logo resmi",
     )
 
     if not df_data.empty:
       df_data["Tanggal_DT"] = pd.to_datetime(df_data["Tanggal"])
       df_data["Bulan_Tahun"] = df_data["Tanggal_DT"].dt.strftime("%Y-%m")
 
-      col_p1, col_p2 = st.columns(2)
-      with col_p1:
-        k_pdf = st.selectbox("Pilih Kelas Laporan", list(DATABASE_SANTRI.keys()))
-      with col_p2:
-        b_pdf = st.selectbox(
-            "Pilih Periode Bulan", df_data["Bulan_Tahun"].unique()
-        )
+      # Tab Khusus Membedakan Cetak Per Kelas
+      tab_8a, tab_8c = st.tabs(["📌 KELAS VIIIA", "📌 KELAS VIIIC"])
 
-      df_pdf = df_data[
-          (df_data["Kelas"] == k_pdf) & (df_data["Bulan_Tahun"] == b_pdf)
-      ]
+      with tab_8a:
+        st.subheader("📄 Cetak Laporan - KELAS VIIIA")
+        df_8a = df_data[df_data["Kelas"] == "KELAS VIIIA"]
+        if not df_8a.empty:
+          b_pdf_8a = st.selectbox(
+              "Pilih Periode Bulan (Kelas VIIIA)",
+              df_8a["Bulan_Tahun"].unique(),
+              key="pdf_8a",
+          )
+          df_pdf_8a = df_8a[df_8a["Bulan_Tahun"] == b_pdf_8a]
 
-      if not df_pdf.empty:
-        st.write(f"**Pratinjau Data Laporan ({len(df_pdf)} entri):**")
-        st.dataframe(df_pdf, use_container_width=True)
+          st.write(
+              f"**Pratinjau Data Laporan KELAS VIIIA ({len(df_pdf_8a)} entri):**"
+          )
+          st.dataframe(df_pdf_8a, use_container_width=True)
 
-        pdf_bytes = generate_pdf(
-            df_pdf, b_pdf, k_pdf, st.session_state["user_email"]
-        )
+          pdf_bytes_8a = generate_pdf(
+              df_pdf_8a, b_pdf_8a, "KELAS VIIIA", st.session_state["user_email"]
+          )
 
-        st.write("")
-        st.download_button(
-            label="📥 UNDUH LAPORAN PDF RESMI",
-            data=pdf_bytes,
-            file_name=f"Laporan_Tahfidz_{k_pdf}_{b_pdf}.pdf",
-            mime="application/pdf",
-            use_container_width=True,
-        )
-      else:
-        st.warning("Belum ada data setoran untuk kelas dan periode ini.")
+          st.write("")
+          st.download_button(
+              label="📥 UNDUH LAPORAN PDF (KELAS VIIIA)",
+              data=pdf_bytes_8a,
+              file_name=f"Laporan_Tahfidz_KELAS_VIIIA_{b_pdf_8a}.pdf",
+              mime="application/pdf",
+              use_container_width=True,
+          )
+        else:
+          st.warning("Belum ada data setoran untuk KELAS VIIIA.")
+
+      with tab_8c:
+        st.subheader("📄 Cetak Laporan - KELAS VIIIC")
+        df_8c = df_data[df_data["Kelas"] == "KELAS VIIIC"]
+        if not df_8c.empty:
+          b_pdf_8c = st.selectbox(
+              "Pilih Periode Bulan (Kelas VIIIC)",
+              df_8c["Bulan_Tahun"].unique(),
+              key="pdf_8c",
+          )
+          df_pdf_8c = df_8c[df_8c["Bulan_Tahun"] == b_pdf_8c]
+
+          st.write(
+              f"**Pratinjau Data Laporan KELAS VIIIC ({len(df_pdf_8c)} entri):**"
+          )
+          st.dataframe(df_pdf_8c, use_container_width=True)
+
+          pdf_bytes_8c = generate_pdf(
+              df_pdf_8c, b_pdf_8c, "KELAS VIIIC", st.session_state["user_email"]
+          )
+
+          st.write("")
+          st.download_button(
+              label="📥 UNDUH LAPORAN PDF (KELAS VIIIC)",
+              data=pdf_bytes_8c,
+              file_name=f"Laporan_Tahfidz_KELAS_VIIIC_{b_pdf_8c}.pdf",
+              mime="application/pdf",
+              use_container_width=True,
+          )
+        else:
+          st.warning("Belum ada data setoran untuk KELAS VIIIC.")
     else:
       st.info("Sistem belum memiliki data setoran untuk dicetak.")
