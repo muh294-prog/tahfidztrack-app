@@ -38,7 +38,7 @@ st.set_page_config(
     page_title="TahfidzTrack SMPIT IBNUL QAYYIM Makassar",
     page_icon=IMAGE_FILENAME if os.path.exists(IMAGE_FILENAME) else "📖",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # CSS Custom Styling
@@ -56,26 +56,26 @@ st.markdown(
     /* Header Container dengan Logo */
     .main-header {
         background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
-        padding: 24px;
+        padding: 20px;
         border-radius: 16px;
         color: white;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
         text-align: center;
         backdrop-filter: blur(5px);
     }
     
     .main-header h1 {
-        font-size: 26px !important;
+        font-size: 24px !important;
         font-weight: 800 !important;
-        margin: 12px 0 0 0 !important;
+        margin: 8px 0 0 0 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.5px;
     }
     
     .main-header p {
-        font-size: 14px;
-        margin-top: 6px;
+        font-size: 13px;
+        margin-top: 4px;
         opacity: 0.9;
     }
 
@@ -110,7 +110,7 @@ st.markdown(
         font-weight: 700 !important;
         border-radius: 12px !important;
         border: none !important;
-        padding: 12px 24px !important;
+        padding: 10px 20px !important;
         box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39) !important;
         transition: all 0.3s ease !important;
         width: 100%;
@@ -228,8 +228,8 @@ def save_data(df):
   df.to_csv(DATA_FILE, index=False)
 
 
-# --- REVISI #13: GENERATE PDF DENGAN LOGO DAN HALAMAN TERPISAH PER KELAS ---
-def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
+# --- REVISI #13.1: GURU PENGAMPU SESUAI KELAS DI PDF ---
+def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   buffer = io.BytesIO()
   doc = SimpleDocTemplate(
       buffer,
@@ -262,7 +262,7 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
       spaceAfter=15,
   )
 
-  # Tambahkan Logo Sekolah jika File Ada
+  # Tambahkan Logo Sekolah
   if os.path.exists(IMAGE_FILENAME):
     img = RLImage(IMAGE_FILENAME, width=60, height=60)
     img.hAlign = "CENTER"
@@ -313,11 +313,17 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   elements.append(t)
   elements.append(Spacer(1, 15))
 
+  # Penentuan Nama Guru Pengampu (Revisi #13.1)
+  if "VIIIA" in nama_kelas:
+    guru_pengampu = "Ustadz Muh. Faiz Gufran, S.H."
+  else:
+    guru_pengampu = "Ustadz Achmad Adnan P.H."
+
   ttd_text = (
       f"Makassar, {datetime.date.today().strftime('%d %B %Y')}\n"
-      f"Guru Pembimbing Tahfidz,\n\n\n\n({guru_name})"
+      f"Guru Pengampu Tahfidz,\n\n\n\n({guru_pengampu})"
   )
-  ttd_table = Table([["", ttd_text]], colWidths=[300, 200])
+  ttd_table = Table([["", ttd_text]], colWidths=[280, 220])
   ttd_table.setStyle(
       TableStyle([
           ("ALIGN", (1, 0), (1, 0), "CENTER"),
@@ -332,12 +338,12 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   return buffer
 
 
-# Render Header Hijau
+# Render Header Utama
 def render_header(title, subtitle):
   st.markdown(
       f"""
       <div class="main-header">
-          <img src="{img_src}" width="85" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+          <img src="{img_src}" width="75" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
           <h1>{title}</h1>
           <p>{subtitle}</p>
       </div>
@@ -355,7 +361,7 @@ if "logged_in" not in st.session_state:
 if not st.session_state["logged_in"]:
   render_header(
       "TahfidzTrack SMPIT IBNUL QAYYIM",
-      "Sistem Management & Monitoring Hafalan Qur'an Murid",
+      "Sistem Management & Monitoring Hafalan Qur'an Murid VIII",
   )
 
   col_center, _ = st.columns([2, 1])
@@ -363,12 +369,12 @@ if not st.session_state["logged_in"]:
     with st.form("login_form"):
       st.subheader("🔐 Login Ustadz / Ustazdah")
       email = st.text_input(
-          "Email Resmi", placeholder="contoh: ustadz@iqis.sch.id"
+          "Email Resmi", placeholder="contoh: mohfaizgufran@iqis.sch.id"
       )
       password = st.text_input(
           "Kata Sandi", type="password", placeholder="••••••••"
       )
-      submit = st.form_submit_button("Masuk Ke Sistem ➔")
+      submit = st.form_submit_button("LOGIN ➡️")
 
       if submit:
         email_clean = email.strip().lower()
@@ -385,44 +391,42 @@ if not st.session_state["logged_in"]:
           st.error("Email atau Kata Sandi tidak sesuai.")
 
 else:
-  # Sidebar Navigasi
-  st.sidebar.markdown(
-      """
-      <div style="text-align: center; padding: 10px 0;">
-          <h2 style="color: #10B981; margin: 0; font-weight: 800;">📖 TahfidzTrack</h2>
-          <p style="font-size: 12px; color: #94A3B8;">SMPIT IBNUL QAYYIM Makassar</p>
-      </div>
-  """,
+  # Header Utama Web
+  render_header(
+      "TahfidzTrack SMPIT IBNUL QAYYIM",
+      "Sistem Management & Monitoring Hafalan Qur'an Murid VIII",
+  )
+
+ # Status User & Tombol Logout Ringkas di Atas
+c_user, c_logout = st.columns([4, 1])
+with c_user:
+  st.markdown(
+      f"👤 **Pembimbing Aktif:** <span"
+      f" class='badge-success'>{st.session_state['user_email']}</span>",
       unsafe_allow_html=True,
   )
+  with c_logout:
+    if st.button("🚪 Keluar"):
+      st.session_state["logged_in"] = False
+      st.rerun()
 
-  st.sidebar.markdown(
-      f"👤 **Pembimbing:**\n`<span class='badge-success'>{st.session_state['user_email']}</span>`",
-      unsafe_allow_html=True,
-  )
-  st.sidebar.write("")
-
-  menu = st.sidebar.radio(
-      "Menu Utama",
-      [
-          "📝 Input Setoran",
-          "📊 Rekapan & Statistik",
-          "🔍 Dashboard Murid",
-          "📄 Cetak Laporan PDF",
-      ],
-  )
-
-  if st.sidebar.button("🚪 Keluar / Logout"):
-    st.session_state["logged_in"] = False
-    st.rerun()
+  st.write("")
 
   df_data = load_data()
 
+  # --- REVISI #14: TOP NAVIGATION BAR (MENU DI ATAS NAIK DI BAWAH HEADER) ---
+  nav_tab1, nav_tab2, nav_tab3, nav_tab4 = st.tabs([
+      "📝 Input Setoran",
+      "📊 Rekapan & Statistik",
+      "🔍 Dashboard Murid",
+      "📄 Cetak Laporan PDF",
+  ])
+
   # MENU 1: INPUT SETORAN
-  if menu == "📝 Input Setoran":
-    render_header(
-        "📝 Form Input Setoran Harian",
-        "Catat capaian hafalan harian Sabaq, Murajaah, atau Manzil murid",
+  with nav_tab1:
+    st.subheader("📝 Form Setoran Harian")
+    st.caption(
+        "Inputan capaian hafalan harian Sabaq, Murajaah, atau Manzil murid"
     )
 
     with st.container():
@@ -507,11 +511,9 @@ else:
       )
 
   # MENU 2: REKAPAN & STATISTIK
-  elif menu == "📊 Rekapan & Statistik":
-    render_header(
-        "📊 Data Rekapan & Statistik Tahfidz",
-        "Ringkasan performa dan riwayat lengkap seluruh setoran murid",
-    )
+  with nav_tab2:
+    st.subheader("📊 Data Rekapan & Statistik Tahfidz")
+    st.caption("Ringkasan performa dan riwayat lengkap seluruh setoran murid")
 
     k1, k2, k3 = st.columns(3)
     with k1:
@@ -550,12 +552,10 @@ else:
     st.subheader("📋 Tabel Riwayat Setoran")
     st.dataframe(df_data, use_container_width=True)
 
-  # MENU 3: DASHBOARD MURID
-  elif menu == "🔍 Dashboard Murid":
-    render_header(
-        "🔍 Monitoring Perkembangan Murid",
-        "Cek statistik individual, serta kelola (edit/hapus) riwayat setoran murid",
-    )
+  # MENU 3: DASHBOARD MURID (REVISI #11.1: EDIT & HAPUS IN-LINE BERSAMA ROW)
+  with nav_tab3:
+    st.subheader("🔍 Monitoring & Kelola Setoran Murid")
+    st.caption("Edit atau hapus entri setoran langsung di ujung baris tabel")
 
     c_k, c_s = st.columns(2)
     with c_k:
@@ -563,7 +563,7 @@ else:
     with c_s:
       s_sel = st.selectbox("Pilih Nama Murid", DATABASE_MURID[k_sel])
 
-    df_filtered = df_data[df_data["Nama Murid"] == s_sel]
+    df_filtered = df_data[df_data["Nama Murid"] == s_sel].copy()
 
     if not df_filtered.empty:
       p1, p2, p3 = st.columns(3)
@@ -585,105 +585,85 @@ else:
         )
 
       st.write("---")
-      st.subheader("📜 Detail Riwayat Setoran Murid")
-      st.dataframe(df_filtered, use_container_width=True)
+      st.subheader("📜 Riwayat Setoran Hafalan Murid (Langsung Edit/Hapus)")
 
-      st.write("---")
-      st.subheader("⚙️ Kelola / Edit / Hapus Riwayat Setoran")
-
-      options = {
-          f"ID Row [{idx}] | {row['Tanggal']} - {row['Jenis Setoran']} - {row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})": idx
-          for idx, row in df_filtered.iterrows()
-      }
-      selected_label = st.selectbox("Pilih Baris Setoran", list(options.keys()))
-      selected_idx = options[selected_label]
-      selected_row = df_data.loc[selected_idx]
-
-      tab_edit, tab_delete = st.tabs(
-          ["✏️ Edit Data Setoran", "🗑️ Hapus Data Setoran"]
+      # Fitur Edit Langsung pada Sel Tabel (Data Editor)
+      st.info(
+          "💡 **Petunjuk:** Anda bisa langsung mengubah nilai di sel tabel di bawah, lalu klik **💾 SIMPAN PERUBAHAN TABEL**."
       )
 
-      with tab_edit:
-        with st.form(key=f"edit_form_{selected_idx}"):
-          st.write(f"**Mengubah Data Indeks Baris #{selected_idx}:**")
-          e_c1, e_c2 = st.columns(2)
-          with e_c1:
-            e_jenis = st.selectbox(
-                "Jenis Setoran",
-                ["Sabaq", "Murajaah", "Manzil"],
-                index=[
-                    "Sabaq",
-                    "Murajaah",
-                    "Manzil",
-                ].index(selected_row["Jenis Setoran"]),
-            )
-            e_surah = st.text_input("Nama Surah", value=selected_row["Surah"])
-            e_hlm = st.number_input(
-                "Jumlah Halaman",
-                min_value=0.1,
-                value=float(selected_row["Halaman"]),
-                step=0.5,
-            )
-          with e_c2:
-            e_a_awal = st.number_input(
-                "Ayat Awal", min_value=1, value=int(selected_row["Ayat Awal"])
-            )
-            e_a_akhir = st.number_input(
-                "Ayat Akhir", min_value=1, value=int(selected_row["Ayat Akhir"])
-            )
-            e_salah = st.number_input(
-                "Jumlah Salah", min_value=0, value=int(selected_row["Salah"])
-            )
+      cols_to_show = [
+          "Tanggal",
+          "Jenis Setoran",
+          "Surah",
+          "Ayat Awal",
+          "Ayat Akhir",
+          "Halaman",
+          "Salah",
+          "Nilai",
+      ]
+      edited_df = st.data_editor(
+          df_filtered[cols_to_show],
+          use_container_width=True,
+          num_rows="fixed",
+          key="inline_editor",
+      )
 
-          btn_update = st.form_submit_button("💾 SIMPAN PERUBAHAN")
-          if btn_update:
-            calc_new_nilai = max(
-                0.0, min(100.0, round(100.0 - (e_salah * 2.0), 2))
-            )
-            df_data.at[selected_idx, "Jenis Setoran"] = e_jenis
-            df_data.at[selected_idx, "Surah"] = e_surah
-            df_data.at[selected_idx, "Ayat Awal"] = e_a_awal
-            df_data.at[selected_idx, "Ayat Akhir"] = e_a_akhir
-            df_data.at[selected_idx, "Halaman"] = e_hlm
-            df_data.at[selected_idx, "Salah"] = e_salah
-            df_data.at[selected_idx, "Nilai"] = calc_new_nilai
+      if st.button("💾 SIMPAN PERUBAHAN TABEL"):
+        for orig_idx in df_filtered.index:
+          df_data.loc[orig_idx, cols_to_show] = edited_df.loc[
+              orig_idx, cols_to_show
+          ]
+          # Recalculate Nilai otomatis
+          salah_val = df_data.loc[orig_idx, "Salah"]
+          df_data.loc[orig_idx, "Nilai"] = max(
+              0.0, min(100.0, round(100.0 - (salah_val * 2.0), 2))
+          )
+        save_data(df_data)
+        st.success("Perubahan tabel berhasil disimpan!")
+        st.rerun()
 
+      # Fitur Hapus Per Row di Ujung Baris
+      st.write("")
+      st.subheader("🗑️ Hapus Baris Setoran Spesifik")
+      for orig_idx, row in df_filtered.iterrows():
+        col_txt, col_btn = st.columns([5, 1])
+        with col_txt:
+          st.write(
+              f"📌 **[{row['Tanggal']}]** {row['Jenis Setoran']} - Surah"
+              f" {row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']}) |"
+              f" Nilai: {row['Nilai']}"
+          )
+        with col_btn:
+          if st.button(
+              "🗑️ Hapus", key=f"btn_del_{orig_idx}", use_container_width=True
+          ):
+            df_data = df_data.drop(orig_idx).reset_index(drop=True)
             save_data(df_data)
-            st.success(
-                f"Data setoran Indeks #{selected_idx} telah berhasil diperbarui!"
-            )
+            st.success("Baris setoran berhasil dihapus!")
             st.rerun()
-
-      with tab_delete:
-        st.warning(
-            "⚠️ Perhatian: Data yang dihapus tidak dapat dikembalikan lagi."
-        )
-        if st.button("🔴 HAPUS BARIS SETORAN INI", use_container_width=True):
-          df_data = df_data.drop(selected_idx).reset_index(drop=True)
-          save_data(df_data)
-          st.success("Baris setoran telah berhasil dihapus dari database.")
-          st.rerun()
 
     else:
       st.info("Belum ada catatan setoran untuk murid ini.")
 
-  # MENU 4: LAPORAN PDF (Revisi #13)
-  elif menu == "📄 Cetak Laporan PDF":
-    render_header(
-        "📄 Cetak Laporan PDF Resmi",
-        "Unduh rekapitulasi nilai bulanan khusus per kelas dengan logo resmi",
+  # MENU 4: LAPORAN PDF (REVISI #13.1)
+  with nav_tab4:
+    st.subheader("📄 Cetak Laporan PDF Resmi")
+    st.caption(
+        "Unduh rekapitulasi nilai bulanan khusus per kelas dengan logo resmi"
     )
 
     if not df_data.empty:
       df_data["Tanggal_DT"] = pd.to_datetime(df_data["Tanggal"])
       df_data["Bulan_Tahun"] = df_data["Tanggal_DT"].dt.strftime("%Y-%m")
 
-      # Tab Khusus Membedakan Cetak Per Kelas
       tab_8a, tab_8c = st.tabs(["📌 KELAS VIIIA", "📌 KELAS VIIIC"])
 
       with tab_8a:
-        st.subheader("📄 Cetak Laporan - KELAS VIIIA")
+        st.write("### Cetak Laporan - KELAS VIIIA")
+        st.caption("Guru Pengampu: **Ustadz Muh. Faiz Gufran, S.H.**")
         df_8a = df_data[df_data["Kelas"] == "KELAS VIIIA"]
+
         if not df_8a.empty:
           b_pdf_8a = st.selectbox(
               "Pilih Periode Bulan (Kelas VIIIA)",
@@ -697,9 +677,7 @@ else:
           )
           st.dataframe(df_pdf_8a, use_container_width=True)
 
-          pdf_bytes_8a = generate_pdf(
-              df_pdf_8a, b_pdf_8a, "KELAS VIIIA", st.session_state["user_email"]
-          )
+          pdf_bytes_8a = generate_pdf(df_pdf_8a, b_pdf_8a, "KELAS VIIIA")
 
           st.write("")
           st.download_button(
@@ -713,8 +691,10 @@ else:
           st.warning("Belum ada data setoran untuk KELAS VIIIA.")
 
       with tab_8c:
-        st.subheader("📄 Cetak Laporan - KELAS VIIIC")
+        st.write("### Cetak Laporan - KELAS VIIIC")
+        st.caption("Guru Pengampu: **Ustadz Achmad Adnan P.H.**")
         df_8c = df_data[df_data["Kelas"] == "KELAS VIIIC"]
+
         if not df_8c.empty:
           b_pdf_8c = st.selectbox(
               "Pilih Periode Bulan (Kelas VIIIC)",
@@ -728,9 +708,7 @@ else:
           )
           st.dataframe(df_pdf_8c, use_container_width=True)
 
-          pdf_bytes_8c = generate_pdf(
-              df_pdf_8c, b_pdf_8c, "KELAS VIIIC", st.session_state["user_email"]
-          )
+          pdf_bytes_8c = generate_pdf(df_pdf_8c, b_pdf_8c, "KELAS VIIIC")
 
           st.write("")
           st.download_button(
