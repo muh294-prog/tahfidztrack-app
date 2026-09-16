@@ -16,11 +16,16 @@ from reportlab.platypus import (
 
 # Konfigurasi Halaman Web
 st.set_page_config(
-    page_title="TahfidzTrack SMP 8 IQIS",
+    page_title="TahfidzTrack SMPIT IBNUL QAYYIM ISLAMIC SCHOOL Kelas VIII",
     page_icon="📖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+st.sidebar.image("WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg", use_container_width=True)
+
+# URL Ikon 3D Al-Qur'an Karim
+ICON_3D_QURAN = "https://cdn-icons-png.flaticon.com/512/4142/4142129.png"
 
 # Custom Styling (CSS Premium & Modern)
 st.markdown(
