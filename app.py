@@ -14,19 +14,22 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-# Konfigurasi Halaman Web
+# URL Logo Sekolah
+LOGO_URL = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
+
+# Konfigurasi Halaman Web (Revisi #10)
 st.set_page_config(
-    page_title="TahfidzTrack SMPIT IBNUL QAYYIM ISLAMIC SCHOOL Kelas VIII",
-    page_icon="📖",
+    page_title="TahfidzTrack SMPIT IBNUL QAYYIM Makassar",
+    page_icon=LOGO_URL,
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# CSS Custom: Background Gambar & Styling Modern
+# CSS Custom Styling
 st.markdown(
     """
 <style>
-    /* Styling Background Halaman Muka dengan Gambar Transparan */
+    /* Styling Background Halaman Muka */
     .stApp {
         background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)), 
                     url("WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg") no-repeat center center fixed;
@@ -34,7 +37,7 @@ st.markdown(
         color: #F8FAFC;
     }
     
-    /* Header Container */
+    /* Header Container dengan Logo di Dalamnya */
     .main-header {
         background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
         padding: 24px;
@@ -49,7 +52,7 @@ st.markdown(
     .main-header h1 {
         font-size: 26px !important;
         font-weight: 800 !important;
-        margin: 0 !important;
+        margin: 10px 0 0 0 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.5px;
     }
@@ -246,8 +249,7 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   )
   elements.append(
       Paragraph(
-          f"SMPIT IBNUL QAYYIM ISLAMIC SCHOOL — {nama_kelas} | Periode:"
-          f" {bulan_tahun}",
+          f"SMPIT IBNUL QAYYIM MAKASSAR — {nama_kelas} | Periode: {bulan_tahun}",
           subtitle_style,
       )
   )
@@ -303,6 +305,20 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   return buffer
 
 
+# Function Render Header Hijau dengan Logo di Dalamnya
+def render_header(title, subtitle):
+  st.markdown(
+      f"""
+      <div class="main-header">
+          <img src="app/static/{LOGO_URL}" width="75" style="border-radius: 50%; background: white; padding: 3px;" onerror="this.onerror=null; this.src='{LOGO_URL}';">
+          <h1>{title}</h1>
+          <p>{subtitle}</p>
+      </div>
+  """,
+      unsafe_allow_html=True,
+  )
+
+
 # Session State Login
 if "logged_in" not in st.session_state:
   st.session_state["logged_in"] = False
@@ -310,14 +326,9 @@ if "logged_in" not in st.session_state:
 
 # Halaman Login
 if not st.session_state["logged_in"]:
-  st.markdown(
-      """
-      <div class="main-header">
-          <h1>📖 TahfidzTrack SMPIT IQIS</h1>
-          <p>Sistem Management & Monitoring Hafalan Qur'an Santri</p>
-      </div>
-  """,
-      unsafe_allow_html=True,
+  render_header(
+      "TahfidzTrack SMPIT IBNUL QAYYIM",
+      "Sistem Management & Monitoring Hafalan Qur'an Santri",
   )
 
   col_center, _ = st.columns([2, 1])
@@ -352,7 +363,7 @@ else:
       """
       <div style="text-align: center; padding: 10px 0;">
           <h2 style="color: #10B981; margin: 0; font-weight: 800;">📖 TahfidzTrack</h2>
-          <p style="font-size: 12px; color: #94A3B8;">SMPIT IBNUL QAYYIM Kelas VIII</p>
+          <p style="font-size: 12px; color: #94A3B8;">SMPIT IBNUL QAYYIM Makassar</p>
       </div>
   """,
       unsafe_allow_html=True,
@@ -382,14 +393,9 @@ else:
 
   # MENU 1: INPUT SETORAN
   if menu == "📝 Input Setoran":
-    st.markdown(
-        """
-        <div class="main-header">
-            <h1>📝 Form Input Setoran Harian</h1>
-            <p>Catat capaian hafalan harian Sabaq, Murajaah, atau Manzil santri</p>
-        </div>
-    """,
-        unsafe_allow_html=True,
+    render_header(
+        "📝 Form Input Setoran Harian",
+        "Catat capaian hafalan harian Sabaq, Murajaah, atau Manzil santri",
     )
 
     with st.container():
@@ -418,8 +424,6 @@ else:
             "⚠️ Jumlah Salah / Bantuan", min_value=0, value=0
         )
 
-    # PERBAIKAN RUMUS NILAI:
-    # Mengurangi 2 poin per kesalahan, dengan batas nilai minimal 0 dan maksimal 100
     nilai_calc = max(0.0, min(100.0, round(100.0 - (salah * 2.0), 2)))
 
     st.write("")
@@ -479,14 +483,9 @@ else:
 
   # MENU 2: REKAPAN & STATISTIK
   elif menu == "📊 Rekapan & Statistik":
-    st.markdown(
-        """
-        <div class="main-header">
-            <h1>📊 Data Rekapan & Statistik Tahfidz</h1>
-            <p>Ringkasan performa dan riwayat lengkap seluruh setoran santri</p>
-        </div>
-    """,
-        unsafe_allow_html=True,
+    render_header(
+        "📊 Data Rekapan & Statistik Tahfidz",
+        "Ringkasan performa dan riwayat lengkap seluruh setoran santri",
     )
 
     k1, k2, k3 = st.columns(3)
@@ -528,14 +527,9 @@ else:
 
   # MENU 3: DASHBOARD SANTRI
   elif menu == "🔍 Dashboard Santri":
-    st.markdown(
-        """
-        <div class="main-header">
-            <h1>🔍 Monitoring Perkembangan Santri</h1>
-            <p>Cek statistik individual hafalan santri secara rinci</p>
-        </div>
-    """,
-        unsafe_allow_html=True,
+    render_header(
+        "🔍 Monitoring Perkembangan Santri",
+        "Cek statistik individual hafalan santri secara rinci",
     )
 
     c_k, c_s = st.columns(2)
@@ -573,14 +567,9 @@ else:
 
   # MENU 4: LAPORAN PDF
   elif menu == "📄 Cetak Laporan PDF":
-    st.markdown(
-        """
-        <div class="main-header">
-            <h1>📄 Cetak Laporan PDF Resmi</h1>
-            <p>Unduh rekapitulasi nilai bulanan siap cetak atau dibagikan ke Orang Tua Santri</p>
-        </div>
-    """,
-        unsafe_allow_html=True,
+    render_header(
+        "📄 Cetak Laporan PDF Resmi",
+        "Unduh rekapitulasi nilai bulanan siap cetak atau dibagikan ke Orang Tua Santri",
     )
 
     if not df_data.empty:
@@ -618,5 +607,4 @@ else:
       else:
         st.warning("Belum ada data setoran untuk kelas dan periode ini.")
     else:
-        
       st.info("Sistem belum memiliki data setoran untuk dicetak.")
