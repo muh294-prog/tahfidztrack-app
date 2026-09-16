@@ -19,31 +19,31 @@ st.set_page_config(
     page_title="TahfidzTrack SMPIT IBNUL QAYYIM ISLAMIC SCHOOL Kelas VIII",
     page_icon="📖",
     layout="wide",
-    initial_sidebar_state="WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg",
+    initial_sidebar_state="expanded",
 )
 
-# URL Ikon 3D Al-Qur'an Karim
-ICON_3D_QURAN = "https://cdn-icons-png.flaticon.com/512/4142/4142129.png"
-
-# Custom Styling (CSS Premium & Modern)
+# CSS Custom: Background Gambar & Styling Modern
 st.markdown(
     """
 <style>
-    /* Main Theme Styling */
+    /* Styling Background Halaman Muka dengan Gambar Transparan */
     .stApp {
-        background-color: #0F172A;
+        background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.88)), 
+                    url("WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg") no-repeat center center fixed;
+        background-size: cover;
         color: #F8FAFC;
     }
     
     /* Header Container */
     .main-header {
-        background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
         padding: 24px;
         border-radius: 16px;
         color: white;
         margin-bottom: 25px;
         box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
         text-align: center;
+        backdrop-filter: blur(5px);
     }
     
     .main-header h1 {
@@ -62,12 +62,13 @@ st.markdown(
 
     /* Metric/Card Box */
     .card-box {
-        background-color: #1E293B;
+        background-color: rgba(30, 41, 59, 0.85);
         border: 1px solid #334155;
         border-radius: 14px;
         padding: 18px;
         margin-bottom: 20px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
     }
     
     .metric-value {
@@ -109,13 +110,6 @@ st.markdown(
         border-radius: 20px;
         font-weight: 600;
         font-size: 12px;
-    }
-    
-    /* Input Form Enhancements */
-    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {
-        border-radius: 10px !important;
-        border-color: #334155 !important;
-        background-color: #1E293B !important;
     }
 </style>
 """,
@@ -252,7 +246,8 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas, guru_name):
   )
   elements.append(
       Paragraph(
-          f"SMP 8 IQIS — {nama_kelas} | Periode: {bulan_tahun}",
+          f"SMPIT IBNUL QAYYIM ISLAMIC SCHOOL — {nama_kelas} | Periode:"
+          f" {bulan_tahun}",
           subtitle_style,
       )
   )
@@ -313,12 +308,12 @@ if "logged_in" not in st.session_state:
   st.session_state["logged_in"] = False
   st.session_state["user_email"] = ""
 
-# Halaman Login Modern
+# Halaman Login
 if not st.session_state["logged_in"]:
   st.markdown(
       """
       <div class="main-header">
-          <h1>📖 TahfidzTrack SMP 8 IQIS</h1>
+          <h1>📖 TahfidzTrack SMPIT IQIS</h1>
           <p>Sistem Management & Monitoring Hafalan Qur'an Santri</p>
       </div>
   """,
@@ -329,7 +324,9 @@ if not st.session_state["logged_in"]:
   with col_center:
     with st.form("login_form"):
       st.subheader("🔐 Login Ustadz / Ustazdah")
-      email = st.text_input("Email Resmi", placeholder="contoh: ustadz@iqis.sch.id")
+      email = st.text_input(
+          "Email Resmi", placeholder="contoh: ustadz@iqis.sch.id"
+      )
       password = st.text_input(
           "Kata Sandi", type="password", placeholder="••••••••"
       )
@@ -350,12 +347,12 @@ if not st.session_state["logged_in"]:
           st.error("Email atau Kata Sandi tidak sesuai.")
 
 else:
-  # Sidebar Navigation Menu
+  # Sidebar Navigasi
   st.sidebar.markdown(
       """
       <div style="text-align: center; padding: 10px 0;">
           <h2 style="color: #10B981; margin: 0; font-weight: 800;">📖 TahfidzTrack</h2>
-          <p style="font-size: 12px; color: #94A3B8;">SMP 8 IQIS Portal</p>
+          <p style="font-size: 12px; color: #94A3B8;">SMPIT IBNUL QAYYIM Kelas VIII</p>
       </div>
   """,
       unsafe_allow_html=True,
@@ -417,10 +414,13 @@ else:
         halaman = st.number_input(
             "📄 Jumlah Halaman", min_value=0.1, value=1.0, step=0.5
         )
-        salah = st.number_input("⚠️ Jumlah Salah / Bantuan", min_value=0, value=0)
+        salah = st.number_input(
+            "⚠️ Jumlah Salah / Bantuan", min_value=0, value=0
+        )
 
-    # Indikator Nilai Real-time
-    nilai_calc = max(0.0, round(100 - (salah * 2.85), 2))
+    # PERBAIKAN RUMUS NILAI:
+    # Mengurangi 2 poin per kesalahan, dengan batas nilai minimal 0 dan maksimal 100
+    nilai_calc = max(0.0, min(100.0, round(100.0 - (salah * 2.0), 2)))
 
     st.write("")
     m1, m2 = st.columns(2)
@@ -435,11 +435,15 @@ else:
           unsafe_allow_html=True,
       )
     with m2:
-      kualitas = (
-          "Mumtaz (Sangat Baik)"
-          if nilai_calc >= 90
-          else ("Jayyid Jiddan (Baik)" if nilai_calc >= 75 else "Maqbul (Cukup)")
-      )
+      if nilai_calc >= 90:
+        kualitas = "Mumtaz (Sangat Baik)"
+      elif nilai_calc >= 75:
+        kualitas = "Jayyid Jiddan (Baik)"
+      elif nilai_calc >= 60:
+        kualitas = "Jayyid (Cukup)"
+      else:
+        kualitas = "Rasib (Perlu Murajaah)"
+
       st.markdown(
           f"""
           <div class="card-box">
