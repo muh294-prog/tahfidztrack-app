@@ -210,11 +210,11 @@ DATA_FILE = "tahfidz_track_data.csv"
 
 # Credentials
 CREDENTIALS = {
-    "mohfaizgufran@iqis.sch.id": "Tahfizsmp8!",
-    "adnanputra@iqis.sch.id": "Tahfizsmp8!",
-    "rafly@iqis.sch.id": "Tahfizsmp8!",
-    "bagusammar@iqis.sch.id": "Tahfizsmp8!",
-    "huzaifah@iqis.sch.id": "Tahfizsmp8!",
+    "mohfaizgufran@iqis.sch.id": "TTIsmp8!",
+    "adnanputra@iqis.sch.id": "TTIsmp8!",
+    "rafly@iqis.sch.id": "TTIsmp8!",
+    "bagusammar@iqis.sch.id": "TTIsmp8!",
+    "huzaifah@iqis.sch.id": "TTIsmp8!",
 }
 
 # Database Santri Per Kelas
