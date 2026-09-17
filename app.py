@@ -113,6 +113,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# REVISI #25: DAFTAR 7 MUHAFFIDZ
 DAFTAR_MUHAFFIDZ = [
     "UST. Rijal, S.Pd.I.",
     "UST. Hudzaifah",
@@ -123,6 +124,7 @@ DAFTAR_MUHAFFIDZ = [
     "UST. Muhammad Rafly Rifadillah",
 ]
 
+# REVISI #26: KEPALA SEKOLAH
 KEPALA_SEKOLAH = "Arief Rahman Syarif, S.Kom., Gr., S.Pd."
 
 DATA_FILE = "tahfidz_track_data.csv"
@@ -348,6 +350,7 @@ def save_tasmi_data(df):
   df.to_csv(TASMI_DATA_FILE, index=False)
 
 
+# REVISI #26: DUA TTD (KEPALA SEKOLAH & PENGUJI/KOORDINATOR)
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   buffer = io.BytesIO()
   doc = SimpleDocTemplate(
@@ -475,7 +478,8 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   return buffer
 
 
-def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=False):
+# REVISI #25.1 & #26: GENERATE PDF TASMI PER PENGUJI (DENGAN TTD GURU PENGUJI + KEPALA SEKOLAH)
+def generate_pdf_tasmi_penguji(df_penguji, nama_penguji):
   buffer = io.BytesIO()
   doc = SimpleDocTemplate(
       buffer,
@@ -516,14 +520,18 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   elements.append(
       Paragraph("REKAPITULASI HASIL UJIAN TASMI' AL-QUR'AN", title_style)
   )
-  sub_text = f"SMPIT IBNUL QAYYIM MAKASSAR | Kelas: {nama_penguji_atau_kelas}" if is_kelas else f"SMPIT IBNUL QAYYIM MAKASSAR | Penguji: {nama_penguji_atau_kelas}"
-  elements.append(Paragraph(sub_text, subtitle_style))
+  elements.append(
+      Paragraph(
+          f"SMPIT IBNUL QAYYIM MAKASSAR | Penguji: {nama_penguji}",
+          subtitle_style,
+      )
+  )
 
   table_data = [
       [
           "No",
           "Tanggal",
-          "Kelas" if not is_kelas else "Penguji",
+          "Kelas",
           "Nama Peserta",
           "Cakupan Surah",
           "Err (B/K)",
@@ -532,24 +540,24 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   ]
   for idx, row in df_penguji.reset_index(drop=True).iterrows():
     err_str = f"{row['Err Besar']} / {row['Err Kecil']}"
-    col_var = str(row["Penguji"]) if is_kelas else str(row["Kelas"])
     table_data.append([
         str(idx + 1),
         str(row["Tanggal"]),
-        col_var,
+        str(row["Kelas"]),
         str(row["Nama Murid"]).split(" - ")[0][:18],
         str(row["Rentang Surah"]),
         err_str,
         str(row["Nilai Akhir"]),
     ])
 
-  t = Table(table_data, colWidths=[20, 60, 85, 130, 120, 45, 40])
+  t = Table(table_data, colWidths=[20, 60, 65, 140, 130, 45, 40])
   t.setStyle(
       TableStyle([
           ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
           ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
           ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-          ("FONTNAME", (0, 0), (-1, 0), 8),
+          ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+          ("FONTSIZE", (0, 0), (-1, 0), 8),
           ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
           ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
           ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
@@ -564,12 +572,7 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   ttd_left = (
       f"Mengetahui,\nKepala Sekolah SMPIT Ibnul Qayyim\n\n\n\n<b>{KEPALA_SEKOLAH}</b>"
   )
-  
-  if is_kelas:
-    penguji_nama = df_penguji["Penguji"].iloc[0] if not df_penguji.empty else "Guru Penguji"
-    ttd_right = f"Makassar, {tgl_str}\nGuru Penguji / Coordinator\n\n\n\n<b>{penguji_nama}</b>"
-  else:
-    ttd_right = f"Makassar, {tgl_str}\nGuru Penguji Tasmi'\n\n\n\n<b>{nama_penguji_atau_kelas}</b>"
+  ttd_right = f"Makassar, {tgl_str}\nGuru Penguji Tasmi'\n\n\n\n<b>{nama_penguji}</b>"
 
   p_left = Paragraph(
       ttd_left.replace("\n", "<br/>"),
@@ -795,13 +798,12 @@ else:
   df_data = load_data()
   df_tasmi = load_tasmi_data()
 
-  nav_tab1, nav_tab2, nav_tab3, nav_tab4, nav_tab5, nav_tab6 = st.tabs([
+  nav_tab1, nav_tab2, nav_tab3, nav_tab4, nav_tab5 = st.tabs([
       "✦ Presensi Setoran",
       "◈ Analytics & Rekap",
       "🪶 Tracking Portal",
       "📜 Certificate & PDF",
       "🎯 Ujian Tasmi'",
-      "📂 Database Tasmi'",
   ])
 
   # --- TAB 1: INPUT SETORAN ---
@@ -816,6 +818,7 @@ else:
             "🏛️ Rombongan Belajar", list(DATABASE_MURID.keys())
         )
         murid_sel = st.selectbox("👤 Profil Murid", DATABASE_MURID[kelas_sel])
+        # REVISI #25: SELECTBOX PENGUJI / MUHAFFIDZ
         penguji_setoran = st.selectbox(
             "👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ
         )
@@ -1059,6 +1062,7 @@ else:
             "👤 Pilih Nama Peserta", DATABASE_MURID[k_tasmi], key="tasmi_m"
         )
       with col_t2:
+        # REVISI #25: SELECTBOX PENGUJI TASMI
         penguji_tasmi = st.selectbox(
             "👨‍🏫 Guru Penguji Tasmi'", DAFTAR_MUHAFFIDZ, key="tasmi_p"
         )
@@ -1066,135 +1070,120 @@ else:
             "📅 Periode Ujian", "Sumatif Akhir Semester II T.A. 2025/2026"
         )
 
+      # REVISI #25.2 & #25.3: AUTOMATIC SURAH ANALYSIS FROM DATABASE
       df_m_history = df_data[df_data["Nama Murid"] == m_tasmi]
 
       if not df_m_history.empty:
-        first_surah = df_m_history.iloc[0]["Surah"].strip()
-        last_surah = df_m_history.iloc[-1]["Surah"].strip()
-
-        try:
-          idx_start = SURAH_DEFAULT.index(first_surah)
-        except ValueError:
-          idx_start = 0
-
-        try:
-          idx_end = SURAH_DEFAULT.index(last_surah)
-        except ValueError:
-          idx_end = len(SURAH_DEFAULT) - 1
-
-        if idx_start > idx_end:
-          idx_start, idx_end = idx_end, idx_start
-
-        daftar_surah_tasmi = SURAH_DEFAULT[idx_start : idx_end + 1]
+        surah_list_user = df_m_history["Surah"].unique().tolist()
+        first_surah = df_m_history.iloc[0]["Surah"]
+        last_surah = df_m_history.iloc[-1]["Surah"]
 
         st.info(
             f"🔍 **Analisis Otomatis System:** Santri **{m_tasmi.split(' - ')[0]}**"
-            f" terdeteksi menyetorkan dari Surah **{first_surah}** hingga Surah"
-            f" **{last_surah}** ({len(daftar_surah_tasmi)} Surah)."
+            f" pertama kali menyetorkan **{first_surah}** dan terakhir"
+            f" **{last_surah}** ({len(surah_list_user)} Surah terdeteksi)."
         )
+        daftar_surah_tasmi = surah_list_user
       else:
-        daftar_surah_tasmi = []
         st.warning(
-            f"⚠️ Santri **{m_tasmi.split(' - ')[0]}** belum memiliki riwayat"
-            " setoran harian di database. Silakan input setoran harian terlebih"
-            " dahulu di Tab Presensi Setoran."
+            "⚠️ Santri belum memiliki riwayat setoran di sistem. Menampilkan"
+            " daftar surah standar."
         )
+        daftar_surah_tasmi = SURAH_DEFAULT[:7]
 
       st.write("---")
+      st.markdown(
+          "**📋 Input Rincian Kesalahan per Surah (Sesuai Capaian Santri)**"
+      )
 
-      if daftar_surah_tasmi:
-        st.markdown(
-            "**📋 Input Rincian Kesalahan per Surah (Sesuai Capaian Santri)**"
+      total_err_besar = 0
+      total_err_kecil = 0
+
+      h1, h2, h3, h4 = st.columns([2, 2, 2, 2])
+      h1.write("**Nama Surah**")
+      h2.write("**Kesalahan Besar (-2)**")
+      h3.write("**Kesalahan Kecil (-1)**")
+      h4.write("**Catatan Kritis**")
+
+      with st.form("form_ujian_tasmi_input"):
+        for idx, surah_name in enumerate(daftar_surah_tasmi):
+          c_s1, c_s2, c_s3, c_s4 = st.columns([2, 2, 2, 2])
+          c_s1.write(f"**{idx+1}. {surah_name}**")
+
+          err_b = c_s2.number_input(
+              "Besar",
+              min_value=0,
+              step=1,
+              key=f"kb_{idx}",
+              label_visibility="collapsed",
+          )
+          err_k = c_s3.number_input(
+              "Kecil",
+              min_value=0,
+              step=1,
+              key=f"kk_{idx}",
+              label_visibility="collapsed",
+          )
+
+          c_s4.text_input(
+              "Ket",
+              placeholder="cth: Kelancaran",
+              key=f"note_{idx}",
+              label_visibility="collapsed",
+          )
+
+          total_err_besar += err_b
+          total_err_kecil += err_k
+
+        st.write("---")
+        catatan_umum = st.text_area(
+            "📝 CATATAN PENGUJI",
+            placeholder="Masukkan catatan evaluasi umum santri...",
         )
 
-        total_err_besar = 0
-        total_err_kecil = 0
+        total_minus, nilai_akhir = hitung_nilai_tasmi(
+            total_err_besar, total_err_kecil
+        )
 
-        h1, h2, h3, h4 = st.columns([2, 2, 2, 2])
-        h1.write("**Nama Surah**")
-        h2.write("**Kesalahan Besar (-2)**")
-        h3.write("**Kesalahan Kecil (-1)**")
-        h4.write("**Catatan Kritis**")
+        res1, res2, res3 = st.columns(3)
+        res1.metric("Total Kesalahan Besar (-2)", f"{total_err_besar} kali")
+        res2.metric("Total Kesalahan Kecil (-1)", f"{total_err_kecil} kali")
+        res3.metric(
+            "NILAI AKHIR TASMI'",
+            f"{nilai_akhir} / 100",
+            delta=f"-{total_minus} Poin",
+            delta_color="inverse",
+        )
 
-        with st.form("form_ujian_tasmi_input"):
-          for idx, surah_name in enumerate(daftar_surah_tasmi):
-            c_s1, c_s2, c_s3, c_s4 = st.columns([2, 2, 2, 2])
-            c_s1.write(f"**{idx+1}. {surah_name}**")
+        btn_simpan_tasmi = st.form_submit_button(
+            "💾 SIMPAN DATA PENILAIAN TASMI'", use_container_width=True
+        )
 
-            err_b = c_s2.number_input(
-                "Besar",
-                min_value=0,
-                step=1,
-                key=f"kb_{idx}",
-                label_visibility="collapsed",
-            )
-            err_k = c_s3.number_input(
-                "Kecil",
-                min_value=0,
-                step=1,
-                key=f"kk_{idx}",
-                label_visibility="collapsed",
-            )
-
-            c_s4.text_input(
-                "Ket",
-                placeholder="cth: Kelancaran",
-                key=f"note_{idx}",
-                label_visibility="collapsed",
-            )
-
-            total_err_besar += err_b
-            total_err_kecil += err_k
-
-          st.write("---")
-          catatan_umum = st.text_area(
-              "📝 CATATAN PENGUJI",
-              placeholder="Masukkan catatan evaluasi umum santri...",
+        if btn_simpan_tasmi:
+          rentang_str = f"{daftar_surah_tasmi[0]} s/d {daftar_surah_tasmi[-1]}"
+          new_tasmi_entry = {
+              "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
+              "Periode": periode_tasmi,
+              "Kelas": k_tasmi,
+              "Nama Murid": m_tasmi,
+              "Penguji": penguji_tasmi,
+              "Rentang Surah": rentang_str,
+              "Err Besar": total_err_besar,
+              "Err Kecil": total_err_kecil,
+              "Nilai Akhir": nilai_akhir,
+              "Catatan": catatan_umum,
+          }
+          df_tasmi_new = pd.concat(
+              [df_tasmi, pd.DataFrame([new_tasmi_entry])], ignore_index=True
           )
-
-          total_minus, nilai_akhir = hitung_nilai_tasmi(
-              total_err_besar, total_err_kecil
+          save_tasmi_data(df_tasmi_new)
+          st.success(
+              f"Data Nilai Tasmi' **{m_tasmi.split(' - ')[0]}** Berhasil"
+              f" Disimpan dengan Nilai: **{nilai_akhir}**!"
           )
+          st.rerun()
 
-          res1, res2, res3 = st.columns(3)
-          res1.metric("Total Kesalahan Besar (-2)", f"{total_err_besar} kali")
-          res2.metric("Total Kesalahan Kecil (-1)", f"{total_err_kecil} kali")
-          res3.metric(
-              "NILAI AKHIR TASMI'",
-              f"{nilai_akhir} / 100",
-              delta=f"-{total_minus} Poin",
-              delta_color="inverse",
-          )
-
-          btn_simpan_tasmi = st.form_submit_button(
-              "💾 SIMPAN DATA PENILAIAN TASMI'", use_container_width=True
-          )
-
-          if btn_simpan_tasmi:
-            rentang_str = f"{daftar_surah_tasmi[0]} s/d {daftar_surah_tasmi[-1]}"
-            new_tasmi_entry = {
-                "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
-                "Periode": periode_tasmi,
-                "Kelas": k_tasmi,
-                "Nama Murid": m_tasmi,
-                "Penguji": penguji_tasmi,
-                "Rentang Surah": rentang_str,
-                "Err Besar": total_err_besar,
-                "Err Kecil": total_err_kecil,
-                "Nilai Akhir": nilai_akhir,
-                "Catatan": catatan_umum,
-            }
-            df_tasmi_new = pd.concat(
-                [df_tasmi, pd.DataFrame([new_tasmi_entry])], ignore_index=True
-            )
-            save_tasmi_data(df_tasmi_new)
-            st.success(
-                f"Data Nilai Tasmi' **{m_tasmi.split(' - ')[0]}** Berhasil"
-                f" Disimpan dengan Nilai: **{nilai_akhir}**!"
-            )
-            st.rerun()
-
-    # SUB-TAB 2: REKAP PDF PER PENGUJI
+    # SUB-TAB 2: REKAP PDF PER PENGUJI (REVISI #25.1)
     with t_sub2:
       st.subheader("📄 Cetak Rekapitulasi Hasil Ujian per Guru Penguji")
       st.caption(
@@ -1228,7 +1217,7 @@ else:
           )
 
           pdf_tasmi_bytes = generate_pdf_tasmi_penguji(
-              df_p_tasmi, penguji_selected, is_kelas=False
+              df_p_tasmi, penguji_selected
           )
 
           st.write("")
@@ -1249,58 +1238,3 @@ else:
           )
       else:
         st.info("Belum ada data ujian Tasmi' yang tersimpan di sistem.")
-
-  # --- TAB 6: DATABASE TASMI' (REVISI #26.2) ---
-  with nav_tab6:
-    st.subheader("📂 Database Rekap Ujian Tasmi'")
-    st.caption("Penerbitan Laporan PDF Ujian Tasmi' per Kelas Lengkap dengan TTD Kepala Sekolah & Penguji")
-
-    if not df_tasmi.empty:
-      tabs_db_tasmi = st.tabs(list(DATABASE_MURID.keys()))
-
-      for idx_t, nama_k in enumerate(DATABASE_MURID.keys()):
-        with tabs_db_tasmi[idx_t]:
-          st.write(f"### Dokumen Rekap Ujian Tasmi' — {nama_k}")
-          df_t_k = df_tasmi[df_tasmi["Kelas"] == nama_k]
-
-          if not df_t_k.empty:
-            periodes = df_t_k["Periode"].unique()
-            periode_sel_db = st.selectbox(
-                f"Pilih Periode Ujian ({nama_k})",
-                periodes,
-                key=f"db_tasmi_select_{nama_k}",
-            )
-            df_tasmi_pdf_k = df_t_k[df_t_k["Periode"] == periode_sel_db]
-
-            st.write(f"**Pratinjau Data Ujian Tasmi' {nama_k} ({len(df_tasmi_pdf_k)} Santri):**")
-            st.dataframe(
-                df_tasmi_pdf_k[[
-                    "Tanggal",
-                    "Nama Murid",
-                    "Penguji",
-                    "Rentang Surah",
-                    "Err Besar",
-                    "Err Kecil",
-                    "Nilai Akhir",
-                    "Catatan",
-                ]],
-                use_container_width=True,
-            )
-
-            pdf_tasmi_k_bytes = generate_pdf_tasmi_penguji(
-                df_tasmi_pdf_k, nama_k, is_kelas=True
-            )
-
-            st.write("")
-            st.download_button(
-                label=f"📥 UNDUH REKAP TASMI PDF ({nama_k})",
-                data=pdf_tasmi_k_bytes,
-                file_name=f"Rekap_Tasmi_{nama_k.replace(' ', '_')}.pdf",
-                mime="application/pdf",
-                use_container_width=True,
-                key=f"btn_dl_tasmi_db_{nama_k}",
-            )
-          else:
-            st.warning(f"Belum ada data Rekap Tasmi' tersimpan untuk {nama_k}.")
-    else:
-      st.info("Sistem belum memiliki data Ujian Tasmi' untuk ditampilkan.")
