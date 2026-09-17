@@ -706,109 +706,103 @@ else:
         df_tasmi_matrix = build_tasmi_matrix(df_tasmi_curr, kelas_tasmi_matrix_sel)
         st.dataframe(df_tasmi_matrix, use_container_width=True, height=400)
 
-    # --- TAB 7: ADMIN BOARD (Proteksi Password & Rekap Tasmi') ---
+  # --- TAB 7: ADMIN BOARD (HANYA MUNCUL JIKA USER = ADMIN) ---
     if st.session_state["is_admin"]:
         with tabs[6]:
-            if not st.session_state["admin_board_unlocked"]:
-                st.subheader("🔒 Area Terkunci Admin Board")
-                col_p1, col_p2 = st.columns([2, 1])
-                with col_p1:
-                    pin_input = st.text_input("Password Akses Admin Board", type="password", key="input_pin_admin")
-                with col_p2:
-                    st.write("")
-                    st.write("")
-                    if st.button("🔓 Buka Akses"):
-                        if pin_input == "1233335":
-                            st.session_state["admin_board_unlocked"] = True
-                            st.rerun()
-                        else:
-                            st.error("Sandi akses salah!")
+            st.title("🛡️ Control Panel & System Governance")
+            st.caption("Pusat kendali sesi pengguna dan manajemen pemeliharaan basis data.")
+
+            # SECTION 1: MONITORING SESI PENGGUNA
+            st.subheader("🟢 Monitoring Sesi Aktif")
+            sessions_data = load_sessions()
+            
+            if sessions_data:
+                df_sessions = pd.DataFrame.from_dict(sessions_data, orient="index").reset_index()
+                df_sessions.columns = ["Email Guru", "Status", "Aktivitas Terakhir", "Waktu Login"]
+
+                # Ringkasan KPI Sesi
+                total_aktif = len(df_sessions[df_sessions["Status"] == "Online"]) if "Status" in df_sessions.columns else len(df_sessions)
+                m1, m2 = st.columns(2)
+                m1.metric("Total Sesi Terdaftar", len(df_sessions))
+                m2.metric("Sesi Aktif / Online", total_aktif)
+
+                # Tabel Interaktif dengan Streamlit Column Config
+                st.dataframe(
+                    df_sessions,
+                    use_container_width=True,
+                    column_config={
+                        "Email Guru": st.column_config.TextColumn("Email Pengguna", help="Alamat email akun terdaftar"),
+                        "Status": st.column_config.TextColumn("Status Sesi"),
+                        "Waktu Login": st.column_config.DatetimeColumn("Waktu Login", format="DD/MM/YYYY - HH:mm"),
+                        "Aktivitas Terakhir": st.column_config.DatetimeColumn("Aktivitas Terakhir", format="DD/MM/YYYY - HH:mm"),
+                    },
+                    hide_index=True
+                )
             else:
-                c_head, c_lock = st.columns([4, 1])
-                with c_head:
-                    st.subheader("🛡️ Admin Executive Board")
-                    st.caption("Monitoring real-time aktivitas pengampu & rekapitulasi nilai Tasmi' siswa.")
-                with c_lock:
-                    if st.button("🔒 Kunci"):
-                        st.session_state["admin_board_unlocked"] = False
-                        st.rerun()
+                st.info("Belum ada log sesi pengguna yang terekam.")
 
-                # SECTION 1: USER ACTIVITY MONITORING
-                sessions = load_sessions()
-                all_teachers = list(CREDENTIALS.keys())
-                online_count = sum(1 for s in sessions.values() if s.get("status") == "Online 🟢")
+            st.divider()
 
-                adm1, adm2, adm3 = st.columns(3)
-                with adm1:
-                    st.markdown(f'<div class="card-box"><div class="metric-label">Total Guru Pengampu</div><div class="metric-value">{len(all_teachers)}</div></div>', unsafe_allow_html=True)
-                with adm2:
-                    st.markdown(f'<div class="card-box"><div class="metric-label">Pengampu Online</div><div class="metric-value" style="color:#34D399;">{online_count}</div></div>', unsafe_allow_html=True)
-                with adm3:
-                    st.markdown(f'<div class="card-box"><div class="metric-label">Akses Role</div><div class="metric-value" style="color:#FCA5A5; font-size:20px; padding-top:6px;">Super Admin</div></div>', unsafe_allow_html=True)
-
-                st.write("### 👥 Status Aktivitas Guru")
-                admin_data = []
-                for email_acc in all_teachers:
-                    sess = sessions.get(email_acc, {})
-                    admin_data.append({
-                        "Email Guru": email_acc,
-                        "Role": "Administrator" if email_acc in ADMIN_ACCOUNTS else "Muhaffidz / Guru",
-                        "Status Live": sess.get("status", "Offline 🔴"),
-                        "Waktu Login": sess.get("login_time", "-"),
-                        "Aktivitas Terakhir": sess.get("last_active", "-"),
-                    })
-                st.dataframe(pd.DataFrame(admin_data), use_container_width=True)
-
-                st.markdown("---")
-
-                # SECTION 2: REKAPITULASI NILAI TASMI' SISWA & RATA-RATA
-                st.write("### 📊 Rekapitulasi Nilai Tasmi' Siswa")
-                
-                df_tasmi_admin = load_tasmi_data()
-                
-                if df_tasmi_admin.empty:
-                    st.info("Belum ada data ujian Tasmi' yang tercatat di database.")
-                else:
-                    # Filter Per Kelas di Admin Board
-                    filter_k_admin = st.selectbox("🔍 Filter Kelas Laporan Tasmi'", ["SEMUA KELAS"] + list(DATABASE_MURID.keys()), key="admin_tasmi_k_filter")
+            # SECTION 2: PEMELIHARAAN & RESTRIKSI DATABASE
+            st.subheader("⚠️ Manajemen Pemeliharaan Data")
+            
+            if not st.session_state["admin_board_unlocked"]:
+                with st.container(border=True):
+                    st.warning("Akses fitur hapus data dibatasi. Masukkan kata sandi admin untuk membuka otorisasi.")
                     
-                    if filter_k_admin != "SEMUA KELAS":
-                        df_tasmi_view = df_tasmi_admin[df_tasmi_admin["Kelas"] == filter_k_admin]
-                    else:
-                        df_tasmi_view = df_tasmi_admin.copy()
+                    with st.form("form_unlock_admin"):
+                        admin_pass_input = st.text_input("Sandi Keamanan Admin", type="password", key="admin_unlock_pass")
+                        btn_unlock = st.form_submit_button("🔓 Buka Otorisasi Fitur Sensitive", type="primary")
 
-                    # Konversi tipe data nilai ke float
-                    df_tasmi_view["Nilai Akhir"] = pd.to_numeric(df_tasmi_view["Nilai Akhir"], errors="coerce").fillna(0)
+                        if btn_unlock:
+                            if admin_pass_input == CREDENTIALS.get(st.session_state["user_email"]):
+                                st.session_state["admin_board_unlocked"] = True
+                                st.success("Otorisasi berhasil. Akses kontrol terbuka.")
+                                st.rerun()
+                            else:
+                                st.error("Kata sandi salah! Akses ditolak.")
+            else:
+                st.success("Sistem Terbuka (Unlocked) — Anda memiliki hak akses penuh untuk menghapus data.", icon="🔓")
+                
+                col_adm1, col_adm2 = st.columns(2)
 
-                    # Metrik Ringkasan Nilai Tasmi'
-                    avg_tasmi_all = round(df_tasmi_view["Nilai Akhir"].mean(), 2) if not df_tasmi_view.empty else 0.0
-                    highest_tasmi = df_tasmi_view["Nilai Akhir"].max() if not df_tasmi_view.empty else 0.0
-                    lowest_tasmi = df_tasmi_view["Nilai Akhir"].min() if not df_tasmi_view.empty else 0.0
+                # Dapur Restriksi: Hapus Setoran Harian
+                with col_adm1:
+                    with st.container(border=True):
+                        st.markdown("##### 🗑️ Hapus Setoran Harian")
+                        if not df_data.empty:
+                            record_to_delete = st.selectbox(
+                                "Pilih Record Setoran:",
+                                df_data.index.tolist(),
+                                format_func=lambda x: f"{df_data.loc[x, 'Tanggal']} | {df_data.loc[x, 'Nama Murid'].split(' - ')[0]} | {df_data.loc[x, 'Surah']}"
+                            )
+                            if st.button("🚨 Hapus Record Setoran", type="primary", use_container_width=True, key="btn_del_setoran"):
+                                df_data_updated = df_data.drop(index=record_to_delete).reset_index(drop=True)
+                                save_data(df_data_updated)
+                                st.toast("Record setoran harian berhasil dihapus.", icon="🗑️")
+                                st.rerun()
+                        else:
+                            st.info("Tidak ada data setoran harian.")
 
-                    col_r1, col_r2, col_r3 = st.columns(3)
-                    with col_r1:
-                        st.markdown(f'<div class="card-box"><div class="metric-label">Rata-Rata Nilai Tasmi\'</div><div class="metric-value">{avg_tasmi_all}</div></div>', unsafe_allow_html=True)
-                    with col_r2:
-                        st.markdown(f'<div class="card-box"><div class="metric-label">Nilai Tertinggi</div><div class="metric-value" style="color:#34D399;">{highest_tasmi}</div></div>', unsafe_allow_html=True)
-                    with col_r3:
-                        st.markdown(f'<div class="card-box"><div class="metric-label">Nilai Terendah</div><div class="metric-value" style="color:#FCA5A5;">{lowest_tasmi}</div></div>', unsafe_allow_html=True)
+                # Dapur Restriksi: Hapus Record Tasmi'
+                with col_adm2:
+                    with st.container(border=True):
+                        st.markdown("##### 🗑️ Hapus Record Tasmi'")
+                        if not df_tasmi.empty:
+                            tasmi_to_delete = st.selectbox(
+                                "Pilih Record Tasmi':",
+                                df_tasmi.index.tolist(),
+                                format_func=lambda x: f"{df_tasmi.loc[x, 'Tanggal']} | {df_tasmi.loc[x, 'Nama Murid'].split(' - ')[0]} | {df_tasmi.loc[x, 'Rentang Surah']}"
+                            )
+                            if st.button("🚨 Hapus Record Tasmi'", type="primary", use_container_width=True, key="btn_del_tasmi"):
+                                df_tasmi_updated = df_tasmi.drop(index=tasmi_to_delete).reset_index(drop=True)
+                                save_tasmi_data(df_tasmi_updated)
+                                st.toast("Record Tasmi' berhasil dihapus.", icon="🗑️")
+                                st.rerun()
+                        else:
+                            st.info("Tidak ada data ujian Tasmi'.")
 
-                    # Tabel Rangkuman Per Siswa (Agregasi Rata-Rata per Siswa)
-                    st.write("#### 📝 Ringkasan Per Siswa (Rata-Rata Rapor Tasmi')")
-                    
-                    summary_student = df_tasmi_view.groupby(["Kelas", "Nama Murid"]).agg(
-                        Jumlah_Ujian=("Nilai Akhir", "count"),
-                        Rata_Rata_Nilai=("Nilai Akhir", lambda x: round(x.mean(), 2)),
-                        Nilai_Terakhir=("Nilai Akhir", "last"),
-                        Surah_Terakhir=("Rentang Surah", "last")
-                    ).reset_index()
-
-                    # Bersihkan tampilan nama murid
-                    summary_student["Nama Murid"] = summary_student["Nama Murid"].apply(lambda x: x.split(" - ")[0])
-                    summary_student.columns = ["Kelas", "Nama Murid", "Total Ujian", "Rata-Rata Nilai", "Nilai Terakhir", "Ujian Surah Terakhir"]
-
-                    st.dataframe(summary_student, use_container_width=True)
-
-                    # Tabel Log Riwayat Seluruh Ujian Tasmi'
-                    with st.expander("📜 Lihat Detail Log Seluruh Ujian Tasmi'"):
-                        st.dataframe(df_tasmi_view, use_container_width=True)
+                st.write("")
+                if st.button("🔒 Kunci Kembali Panel Admin", use_container_width=True):
+                    st.session_state["admin_board_unlocked"] = False
+                    st.rerun()
