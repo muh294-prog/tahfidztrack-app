@@ -55,131 +55,80 @@ st.markdown(
     .stApp::before {{
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 250px;
+        top: 0; left: 0; width: 250px; height: 250px;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%20%2310B981' opacity='0.25' d='M0,0 Q30,10 50,40 Q20,50 0,0 Z'/%3E%3Cpath fill='%20%23059669' opacity='0.3' d='M0,0 Q10,40 40,60 Q50,20 0,0 Z'/%3E%3Cpath fill='%20%2334D399' opacity='0.2' d='M10,0 Q40,20 60,10 Q30,40 10,0 Z'/%3E%3Ccircle cx='35' cy='35' r='4' fill='%20%236EE7B7' opacity='0.4'/%3E%3Ccircle cx='48' cy='22' r='3' fill='%20%23A7F3D0' opacity='0.5'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: 1000;
-        pointer-events: none;
+        background-repeat: no-repeat; background-size: contain; z-index: 1000; pointer-events: none;
     }}
     .stApp::after {{
         content: "";
         position: fixed;
-        top: 0;
-        right: 0;
-        width: 250px;
-        height: 250px;
+        top: 0; right: 0; width: 250px; height: 250px;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%20%2310B981' opacity='0.25' d='M100,0 Q70,10 50,40 Q80,50 100,0 Z'/%3E%3Cpath fill='%20%23059669' opacity='0.3' d='M100,0 Q90,40 60,60 Q50,20 100,0 Z'/%3E%3Cpath fill='%20%2334D399' opacity='0.2' d='M90,0 Q60,20 40,10 Q70,40 90,0 Z'/%3E%3Ccircle cx='65' cy='35' r='4' fill='%20%236EE7B7' opacity='0.4'/%3E%3Ccircle cx='52' cy='22' r='3' fill='%20%23A7F3D0' opacity='0.5'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: contain;
-        z-index: 1000;
-        pointer-events: none;
+        background-repeat: no-repeat; background-size: contain; z-index: 1000; pointer-events: none;
     }}
     .stApp {{
         background: linear-gradient(rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.90)), 
                     url("{img_logo_src}") no-repeat center center fixed;
-        background-size: cover;
-        color: #F8FAFC;
+        background-size: cover; color: #F8FAFC;
     }}
     label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
-        color: #F8FAFC !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-        letter-spacing: 0.3px;
+        color: #F8FAFC !important; font-weight: 600 !important; font-size: 14px !important; letter-spacing: 0.3px;
     }}
     button[data-baseweb="tab"] p {{
-        color: #CBD5E1 !important;
-        font-weight: 600 !important;
-        font-size: 15px !important;
-        letter-spacing: 0.5px;
+        color: #CBD5E1 !important; font-weight: 600 !important; font-size: 15px !important; letter-spacing: 0.5px;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #34D399 !important;
-        font-weight: 800 !important;
+        color: #34D399 !important; font-weight: 800 !important;
     }}
     .main-header {{
         background: linear-gradient(rgba(5, 150, 105, 0.75), rgba(16, 185, 129, 0.85)),
                     url("{header_bg_src}") no-repeat center center;
-        background-size: cover;
-        padding: 35px 20px;
-        border-radius: 20px;
-        color: white;
-        margin-bottom: 22px;
-        box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35);
-        text-align: center;
-        backdrop-filter: blur(4px);
+        background-size: cover; padding: 35px 20px; border-radius: 20px; color: white; margin-bottom: 22px;
+        box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35); text-align: center; backdrop-filter: blur(4px);
         border: 1px solid rgba(52, 211, 153, 0.4);
     }}
     .main-header h1 {{
-        font-size: 28px !important;
-        font-weight: 800 !important;
-        margin: 12px 0 0 0 !important;
-        color: #FFFFFF !important;
-        letter-spacing: 0.8px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        font-size: 28px !important; font-weight: 800 !important; margin: 12px 0 0 0 !important; color: #FFFFFF !important;
+        letter-spacing: 0.8px; text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }}
     .main-header p {{
-        font-size: 14px;
-        margin-top: 6px;
-        opacity: 0.95;
-        letter-spacing: 0.4px;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        font-size: 14px; margin-top: 6px; opacity: 0.95; letter-spacing: 0.4px; text-shadow: 0 1px 3px rgba(0,0,0,0.4);
     }}
     .card-box {{
-        background-color: rgba(30, 41, 59, 0.85);
-        border: 1px solid rgba(51, 65, 85, 0.8);
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(6px);
+        background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 16px;
+        padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); backdrop-filter: blur(6px);
     }}
-    .metric-value {{
-        font-size: 32px;
-        font-weight: 800;
-        color: #10B981;
-    }}
-    .metric-label {{
-        font-size: 12.5px;
-        color: #94A3B8;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 700;
-    }}
+    .metric-value {{ font-size: 32px; font-weight: 800; color: #10B981; }}
+    .metric-label {{ font-size: 12.5px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }}
     .stButton > button {{
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
-        color: white !important;
-        font-weight: 700 !important;
-        border-radius: 12px !important;
-        border: none !important;
-        padding: 10px 18px !important;
-        box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39) !important;
-        transition: all 0.3s ease !important;
-        width: 100%;
-        letter-spacing: 0.5px;
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important; color: white !important;
+        font-weight: 700 !important; border-radius: 12px !important; border: none !important; padding: 10px 18px !important;
+        box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39) !important; transition: all 0.3s ease !important;
+        width: 100%; letter-spacing: 0.5px;
     }}
-    .stButton > button:hover {{
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5) !important;
-    }}
-    .badge-success {{
-        background-color: #064E3B;
-        color: #34D399;
-        padding: 4px 14px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.5px;
-    }}
+    .stButton > button:hover {{ transform: translateY(-2px); box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5) !important; }}
+    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }}
 </style>
 """,
     unsafe_allow_html=True,
 )
 
+# REVISI #25: DAFTAR 7 MUHAFFIDZ
+DAFTAR_MUHAFFIDZ = [
+    "UST. Rijal, S.Pd.I.",
+    "UST. Hudzaifah",
+    "UST. Moh. Faiz Gufran, S.H.",
+    "UST. Achmad Adnan P.H.",
+    "UST. Muhammad Bagus Ammar",
+    "UST. Luthfi Dwi Hatmadja Sudiro",
+    "UST. Muhammad Rafly Rifadillah",
+]
+
+# REVISI #26: KEPALA SEKOLAH
+KEPALA_SEKOLAH = "Arief Rahman Syarif, S.Kom., Gr., S.Pd."
+
 DATA_FILE = "tahfidz_track_data.csv"
+TASMI_DATA_FILE = "tahfidz_tasmi_data.csv"
 
 CREDENTIALS = {
     "mohfaizgufran@iqis.sch.id": "Tahfizsmp8!",
@@ -306,6 +255,46 @@ DATABASE_MURID = {
     ],
 }
 
+SURAH_DEFAULT = [
+    "An-Naba'",
+    "An-Nazi'at",
+    "'Abasa",
+    "At-Takwir",
+    "Al-Infitar",
+    "Al-Mutaffifin",
+    "Al-Inshiqaq",
+    "Al-Buruj",
+    "At-Tariq",
+    "Al-A'la",
+    "Al-Ghashiyah",
+    "Al-Fajr",
+    "Al-Balad",
+    "Ash-Shams",
+    "Al-Lail",
+    "Ad-Duha",
+    "Ash-Sharh",
+    "At-Tin",
+    "Al-'Alaq",
+    "Al-Qadr",
+    "Al-Bayyinah",
+    "Az-Zalzalah",
+    "Al-'Adiyat",
+    "Al-Qari'ah",
+    "At-Takathur",
+    "Al-'Asr",
+    "Al-Humazah",
+    "Al-Fil",
+    "Quraish",
+    "Al-Ma'un",
+    "Al-Kawthar",
+    "Al-Kafirun",
+    "An-Nasr",
+    "Al-Masad",
+    "Al-Ikhlas",
+    "Al-Falaq",
+    "An-Nas",
+]
+
 
 def load_data():
   if not os.path.exists(DATA_FILE):
@@ -336,6 +325,32 @@ def save_data(df):
   df.to_csv(DATA_FILE, index=False)
 
 
+def load_tasmi_data():
+  if not os.path.exists(TASMI_DATA_FILE):
+    df_init = pd.DataFrame(
+        columns=[
+            "Tanggal",
+            "Periode",
+            "Kelas",
+            "Nama Murid",
+            "Penguji",
+            "Rentang Surah",
+            "Err Besar",
+            "Err Kecil",
+            "Nilai Akhir",
+            "Catatan",
+        ]
+    )
+    df_init.to_csv(TASMI_DATA_FILE, index=False)
+    return df_init
+  return pd.read_csv(TASMI_DATA_FILE)
+
+
+def save_tasmi_data(df):
+  df.to_csv(TASMI_DATA_FILE, index=False)
+
+
+# REVISI #26: DUA TTD (KEPALA SEKOLAH & PENGUJI/KOORDINATOR)
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   buffer = io.BytesIO()
   doc = SimpleDocTemplate(
@@ -353,12 +368,11 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
       "TitleStyle",
       parent=styles["Heading1"],
       fontName="Helvetica-Bold",
-      fontSize=14,
+      fontSize=13,
       textColor=colors.HexColor("#10B981"),
       alignment=1,
       spaceAfter=4,
   )
-
   subtitle_style = ParagraphStyle(
       "SubTitleStyle",
       parent=styles["Normal"],
@@ -370,10 +384,10 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   )
 
   if os.path.exists(LOGO_FILENAME):
-    img = RLImage(LOGO_FILENAME, width=60, height=60)
+    img = RLImage(LOGO_FILENAME, width=55, height=55)
     img.hAlign = "CENTER"
     elements.append(img)
-    elements.append(Spacer(1, 8))
+    elements.append(Spacer(1, 6))
 
   elements.append(
       Paragraph("LAPORAN REKAPITULASI BULANAN TAHFIDZ QURAN", title_style)
@@ -415,28 +429,175 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
       ])
   )
   elements.append(t)
-  elements.append(Spacer(1, 15))
+  elements.append(Spacer(1, 20))
 
   if "VII A" in nama_kelas:
-    koordinator = "Ustadz Rijal, S.Pd.I"
+    koordinator = "UST. Rijal, S.Pd.I."
   elif "IX A" in nama_kelas or "IXA" in nama_kelas:
-    koordinator = "Ustadz Hudzaifah"
+    koordinator = "UST. Hudzaifah"
   elif "VIIIA" in nama_kelas or "VIII A" in nama_kelas:
-    koordinator = "Ustadz Muh. Faiz Gufran, S.H."
+    koordinator = "UST. Moh. Faiz Gufran, S.H."
   else:
-    koordinator = "Ustadz Achmad Adnan P.H."
+    koordinator = "UST. Achmad Adnan P.H."
 
-  ttd_text = (
-      f"Makassar, {datetime.date.today().strftime('%d %B %Y')}\n"
-      f"Koordinator Halaqah Tahfidz Kelas,\n\n\n\n({koordinator})"
+  tgl_str = datetime.date.today().strftime("%d %B %Y")
+  ttd_left = (
+      f"Mengetahui,\nKepala Sekolah SMPIT Ibnul Qayyim\n\n\n\n<b>{KEPALA_SEKOLAH}</b>"
   )
-  ttd_table = Table([["", ttd_text]], colWidths=[280, 220])
+  ttd_right = f"Makassar, {tgl_str}\nKoordinator Tahfidz Kelas\n\n\n\n<b>{koordinator}</b>"
+
+  p_left = Paragraph(
+      ttd_left.replace("\n", "<br/>"),
+      ParagraphStyle(
+          "ttdL",
+          parent=styles["Normal"],
+          fontName="Helvetica",
+          fontSize=8,
+          alignment=1,
+      ),
+  )
+  p_right = Paragraph(
+      ttd_right.replace("\n", "<br/>"),
+      ParagraphStyle(
+          "ttdR",
+          parent=styles["Normal"],
+          fontName="Helvetica",
+          fontSize=8,
+          alignment=1,
+      ),
+  )
+
+  ttd_table = Table([[p_left, "", p_right]], colWidths=[220, 60, 220])
   ttd_table.setStyle(
+      TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")])
+  )
+  elements.append(ttd_table)
+
+  doc.build(elements)
+  buffer.seek(0)
+  return buffer
+
+
+# REVISI #25.1 & #26: GENERATE PDF TASMI PER PENGUJI (DENGAN TTD GURU PENGUJI + KEPALA SEKOLAH)
+def generate_pdf_tasmi_penguji(df_penguji, nama_penguji):
+  buffer = io.BytesIO()
+  doc = SimpleDocTemplate(
+      buffer,
+      pagesize=A4,
+      rightMargin=20,
+      leftMargin=20,
+      topMargin=20,
+      bottomMargin=20,
+  )
+  elements = []
+
+  styles = getSampleStyleSheet()
+  title_style = ParagraphStyle(
+      "TitleStyle",
+      parent=styles["Heading1"],
+      fontName="Helvetica-Bold",
+      fontSize=13,
+      textColor=colors.HexColor("#10B981"),
+      alignment=1,
+      spaceAfter=4,
+  )
+  subtitle_style = ParagraphStyle(
+      "SubTitleStyle",
+      parent=styles["Normal"],
+      fontName="Helvetica-Bold",
+      fontSize=10,
+      textColor=colors.HexColor("#0F172A"),
+      alignment=1,
+      spaceAfter=15,
+  )
+
+  if os.path.exists(LOGO_FILENAME):
+    img = RLImage(LOGO_FILENAME, width=55, height=55)
+    img.hAlign = "CENTER"
+    elements.append(img)
+    elements.append(Spacer(1, 6))
+
+  elements.append(
+      Paragraph("REKAPITULASI HASIL UJIAN TASMI' AL-QUR'AN", title_style)
+  )
+  elements.append(
+      Paragraph(
+          f"SMPIT IBNUL QAYYIM MAKASSAR | Penguji: {nama_penguji}",
+          subtitle_style,
+      )
+  )
+
+  table_data = [
+      [
+          "No",
+          "Tanggal",
+          "Kelas",
+          "Nama Peserta",
+          "Cakupan Surah",
+          "Err (B/K)",
+          "Nilai",
+      ]
+  ]
+  for idx, row in df_penguji.reset_index(drop=True).iterrows():
+    err_str = f"{row['Err Besar']} / {row['Err Kecil']}"
+    table_data.append([
+        str(idx + 1),
+        str(row["Tanggal"]),
+        str(row["Kelas"]),
+        str(row["Nama Murid"]).split(" - ")[0][:18],
+        str(row["Rentang Surah"]),
+        err_str,
+        str(row["Nilai Akhir"]),
+    ])
+
+  t = Table(table_data, colWidths=[20, 60, 65, 140, 130, 45, 40])
+  t.setStyle(
       TableStyle([
-          ("ALIGN", (1, 0), (1, 0), "CENTER"),
-          ("FONTNAME", (1, 0), (1, 0), "Helvetica"),
-          ("FONTSIZE", (1, 0), (1, 0), 8),
+          ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
+          ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+          ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+          ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+          ("FONTSIZE", (0, 0), (-1, 0), 8),
+          ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
+          ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
+          ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+          ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+          ("FONTSIZE", (0, 1), (-1, -1), 7.5),
       ])
+  )
+  elements.append(t)
+  elements.append(Spacer(1, 25))
+
+  tgl_str = datetime.date.today().strftime("%d %B %Y")
+  ttd_left = (
+      f"Mengetahui,\nKepala Sekolah SMPIT Ibnul Qayyim\n\n\n\n<b>{KEPALA_SEKOLAH}</b>"
+  )
+  ttd_right = f"Makassar, {tgl_str}\nGuru Penguji Tasmi'\n\n\n\n<b>{nama_penguji}</b>"
+
+  p_left = Paragraph(
+      ttd_left.replace("\n", "<br/>"),
+      ParagraphStyle(
+          "ttdTL",
+          parent=styles["Normal"],
+          fontName="Helvetica",
+          fontSize=8,
+          alignment=1,
+      ),
+  )
+  p_right = Paragraph(
+      ttd_right.replace("\n", "<br/>"),
+      ParagraphStyle(
+          "ttdTR",
+          parent=styles["Normal"],
+          fontName="Helvetica",
+          fontSize=8,
+          alignment=1,
+      ),
+  )
+
+  ttd_table = Table([[p_left, "", p_right]], colWidths=[220, 60, 220])
+  ttd_table.setStyle(
+      TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")])
   )
   elements.append(ttd_table)
 
@@ -569,7 +730,6 @@ def render_interactive_table(
     )
 
 
-# Helper Tasmi Calculation
 def hitung_nilai_tasmi(total_besar, total_kecil, nilai_dasar=100):
   minus_besar = total_besar * 2
   minus_kecil = total_kecil * 1
@@ -636,8 +796,8 @@ else:
 
   st.write("")
   df_data = load_data()
+  df_tasmi = load_tasmi_data()
 
-  # NAVIGASI UTAMA DENGAN TAB UJIAN TASMI'
   nav_tab1, nav_tab2, nav_tab3, nav_tab4, nav_tab5 = st.tabs([
       "✦ Presensi Setoran",
       "◈ Analytics & Rekap",
@@ -646,7 +806,7 @@ else:
       "🎯 Ujian Tasmi'",
   ])
 
-  # TAB 1: INPUT SETORAN
+  # --- TAB 1: INPUT SETORAN ---
   with nav_tab1:
     st.subheader("✨ Form Input Setoran Harian")
     st.caption("Pencatatan progres hafalan harian murid secara real-time")
@@ -658,12 +818,16 @@ else:
             "🏛️ Rombongan Belajar", list(DATABASE_MURID.keys())
         )
         murid_sel = st.selectbox("👤 Profil Murid", DATABASE_MURID[kelas_sel])
+        # REVISI #25: SELECTBOX PENGUJI / MUHAFFIDZ
+        penguji_setoran = st.selectbox(
+            "👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ
+        )
         jenis_sel = st.selectbox(
             "📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"]
         )
-        surah_sel = st.text_input("🪷 Nama Surah Al-Qur'an", "Al-Baqarah")
 
       with c2:
+        surah_sel = st.text_input("🪷 Nama Surah Al-Qur'an", "Al-Baqarah")
         col_a1, col_a2 = st.columns(2)
         with col_a1:
           ayat_awal = st.number_input("🧮 Ayat Awal", min_value=1, value=1)
@@ -714,7 +878,7 @@ else:
     if st.button("🛡️ SIMPAN RECORD SETORAN", use_container_width=True):
       new_record = {
           "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
-          "Guru Input": st.session_state["user_email"],
+          "Guru Input": penguji_setoran,
           "Kelas": kelas_sel,
           "Nama Murid": murid_sel,
           "Jenis Setoran": jenis_sel,
@@ -740,7 +904,7 @@ else:
           " dicatat ke dalam database."
       )
 
-  # TAB 2: REKAPAN & STATISTIK
+  # --- TAB 2: REKAPAN & STATISTIK ---
   with nav_tab2:
     st.subheader("◈ Ringkasan Metrik & Statistik Tahfidz")
     st.caption("Overview capaian kolektif seluruh santri dan riwayat transaksi")
@@ -784,7 +948,7 @@ else:
         df_data, prefix_key="analytics_tb", show_student_col=True
     )
 
-  # TAB 3: DASHBOARD MURID
+  # --- TAB 3: DASHBOARD MURID ---
   with nav_tab3:
     st.subheader("🪶 Monitoring Progres Santri")
     st.caption("Evaluasi individual serta penyesuaian riwayat hafalan")
@@ -828,7 +992,7 @@ else:
     else:
       st.info("Belum ada data rekaman setoran untuk santri ini.")
 
-  # TAB 4: LAPORAN PDF
+  # --- TAB 4: LAPORAN PDF ---
   with nav_tab4:
     st.subheader("📜 Penerbitan Laporan PDF Resmi")
     st.caption("Cetak dokumen rekapitulasi bulanan berformat resmi per kelas")
@@ -875,45 +1039,62 @@ else:
     else:
       st.info("Sistem belum memiliki data setoran untuk dicetak.")
 
-  # TAB 5: UJIAN TASMI'
+  # --- TAB 5: UJIAN TASMI' ---
   with nav_tab5:
-    st.subheader("🎯 Lembar Penilaian Tasmi' Al-Qur'an (Sumatif Akhir)")
+    st.subheader("🎯 Lembar Penilaian & Rekapitulasi Ujian Tasmi'")
     st.caption(
-        "Penilaian Ujian Tasmi' Semester: Kesalahan Besar = -2 Poin | Kesalahan"
-        " Kecil = -1 Poin"
+        "Kesalahan Besar = -2 Poin | Kesalahan Kecil = -1 Poin | Otomatisasi"
+        " Rekap PDF per Guru Penguji"
     )
 
-    with st.form("form_ujian_tasmi"):
+    t_sub1, t_sub2 = st.tabs(
+        ["📝 Form Penilaian Ujian", "📄 Cetak Rekap per Penguji"]
+    )
+
+    # SUB-TAB 1: FORM UJIAN
+    with t_sub1:
       col_t1, col_t2 = st.columns(2)
       with col_t1:
         k_tasmi = st.selectbox(
-            "🏛️ Kelas", list(DATABASE_MURID.keys()), key="tasmi_k"
+            "🏛️ Pilih Kelas", list(DATABASE_MURID.keys()), key="tasmi_k"
         )
         m_tasmi = st.selectbox(
-            "👤 Nama Peserta", DATABASE_MURID[k_tasmi], key="tasmi_m"
+            "👤 Pilih Nama Peserta", DATABASE_MURID[k_tasmi], key="tasmi_m"
         )
       with col_t2:
+        # REVISI #25: SELECTBOX PENGUJI TASMI
+        penguji_tasmi = st.selectbox(
+            "👨‍🏫 Guru Penguji Tasmi'", DAFTAR_MUHAFFIDZ, key="tasmi_p"
+        )
         periode_tasmi = st.text_input(
             "📅 Periode Ujian", "Sumatif Akhir Semester II T.A. 2025/2026"
         )
-        penguji_tasmi = st.text_input(
-            "👨‍🏫 Nama Penguji", "MOH. FAIZ GUFRON, S.H."
+
+      # REVISI #25.2 & #25.3: AUTOMATIC SURAH ANALYSIS FROM DATABASE
+      df_m_history = df_data[df_data["Nama Murid"] == m_tasmi]
+
+      if not df_m_history.empty:
+        surah_list_user = df_m_history["Surah"].unique().tolist()
+        first_surah = df_m_history.iloc[0]["Surah"]
+        last_surah = df_m_history.iloc[-1]["Surah"]
+
+        st.info(
+            f"🔍 **Analisis Otomatis System:** Santri **{m_tasmi.split(' - ')[0]}**"
+            f" pertama kali menyetorkan **{first_surah}** dan terakhir"
+            f" **{last_surah}** ({len(surah_list_user)} Surah terdeteksi)."
         )
+        daftar_surah_tasmi = surah_list_user
+      else:
+        st.warning(
+            "⚠️ Santri belum memiliki riwayat setoran di sistem. Menampilkan"
+            " daftar surah standar."
+        )
+        daftar_surah_tasmi = SURAH_DEFAULT[:7]
 
       st.write("---")
-      st.markdown("**📋 Input Rincian Kesalahan per Surah / Juz**")
-
-      daftar_surah_tasmi = [
-          "An-Nas",
-          "Al-Falaq",
-          "Al-Ikhlas",
-          "Al-Lahab",
-          "An-Nashr",
-          "Al-Kafirun",
-          "Al-Kautsar",
-          "Al-Ma'un",
-          "Al-Quraysh",
-      ]
+      st.markdown(
+          "**📋 Input Rincian Kesalahan per Surah (Sesuai Capaian Santri)**"
+      )
 
       total_err_besar = 0
       total_err_kecil = 0
@@ -924,61 +1105,136 @@ else:
       h3.write("**Kesalahan Kecil (-1)**")
       h4.write("**Catatan Kritis**")
 
-      for idx, surah_name in enumerate(daftar_surah_tasmi):
-        c_s1, c_s2, c_s3, c_s4 = st.columns([2, 2, 2, 2])
-        c_s1.write(f"**{idx+1}. {surah_name}**")
+      with st.form("form_ujian_tasmi_input"):
+        for idx, surah_name in enumerate(daftar_surah_tasmi):
+          c_s1, c_s2, c_s3, c_s4 = st.columns([2, 2, 2, 2])
+          c_s1.write(f"**{idx+1}. {surah_name}**")
 
-        err_b = c_s2.number_input(
-            "Besar",
-            min_value=0,
-            step=1,
-            key=f"kb_{idx}",
-            label_visibility="collapsed",
+          err_b = c_s2.number_input(
+              "Besar",
+              min_value=0,
+              step=1,
+              key=f"kb_{idx}",
+              label_visibility="collapsed",
+          )
+          err_k = c_s3.number_input(
+              "Kecil",
+              min_value=0,
+              step=1,
+              key=f"kk_{idx}",
+              label_visibility="collapsed",
+          )
+
+          c_s4.text_input(
+              "Ket",
+              placeholder="cth: Kelancaran",
+              key=f"note_{idx}",
+              label_visibility="collapsed",
+          )
+
+          total_err_besar += err_b
+          total_err_kecil += err_k
+
+        st.write("---")
+        catatan_umum = st.text_area(
+            "📝 CATATAN PENGUJI",
+            placeholder="Masukkan catatan evaluasi umum santri...",
         )
-        err_k = c_s3.number_input(
-            "Kecil",
-            min_value=0,
-            step=1,
-            key=f"kk_{idx}",
-            label_visibility="collapsed",
+
+        total_minus, nilai_akhir = hitung_nilai_tasmi(
+            total_err_besar, total_err_kecil
         )
 
-        c_s4.text_input(
-            "Ket",
-            placeholder="cth: Kelancaran",
-            key=f"note_{idx}",
-            label_visibility="collapsed",
+        res1, res2, res3 = st.columns(3)
+        res1.metric("Total Kesalahan Besar (-2)", f"{total_err_besar} kali")
+        res2.metric("Total Kesalahan Kecil (-1)", f"{total_err_kecil} kali")
+        res3.metric(
+            "NILAI AKHIR TASMI'",
+            f"{nilai_akhir} / 100",
+            delta=f"-{total_minus} Poin",
+            delta_color="inverse",
         )
 
-        total_err_besar += err_b
-        total_err_kecil += err_k
+        btn_simpan_tasmi = st.form_submit_button(
+            "💾 SIMPAN DATA PENILAIAN TASMI'", use_container_width=True
+        )
 
-      st.write("---")
-      catatan_umum = st.text_area(
-          "📝 CATATAN PENGUJI",
-          placeholder="Masukkan catatan evaluasi umum santri...",
+        if btn_simpan_tasmi:
+          rentang_str = f"{daftar_surah_tasmi[0]} s/d {daftar_surah_tasmi[-1]}"
+          new_tasmi_entry = {
+              "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
+              "Periode": periode_tasmi,
+              "Kelas": k_tasmi,
+              "Nama Murid": m_tasmi,
+              "Penguji": penguji_tasmi,
+              "Rentang Surah": rentang_str,
+              "Err Besar": total_err_besar,
+              "Err Kecil": total_err_kecil,
+              "Nilai Akhir": nilai_akhir,
+              "Catatan": catatan_umum,
+          }
+          df_tasmi_new = pd.concat(
+              [df_tasmi, pd.DataFrame([new_tasmi_entry])], ignore_index=True
+          )
+          save_tasmi_data(df_tasmi_new)
+          st.success(
+              f"Data Nilai Tasmi' **{m_tasmi.split(' - ')[0]}** Berhasil"
+              f" Disimpan dengan Nilai: **{nilai_akhir}**!"
+          )
+          st.rerun()
+
+    # SUB-TAB 2: REKAP PDF PER PENGUJI (REVISI #25.1)
+    with t_sub2:
+      st.subheader("📄 Cetak Rekapitulasi Hasil Ujian per Guru Penguji")
+      st.caption(
+          "Setiap guru penguji dapat mengunduh 1 file PDF lengkap berisi"
+          " seluruh santri yang diuji, disertai TTD Penguji & TTD Kepala"
+          " Sekolah."
       )
 
-      total_minus, nilai_akhir = hitung_nilai_tasmi(
-          total_err_besar, total_err_kecil
-      )
-
-      res1, res2, res3 = st.columns(3)
-      res1.metric("Total Kesalahan Besar (-2)", f"{total_err_besar} kali")
-      res2.metric("Total Kesalahan Kecil (-1)", f"{total_err_kecil} kali")
-      res3.metric(
-          "NILAI AKHIR TASMI'",
-          f"{nilai_akhir} / 100",
-          delta=f"-{total_minus} Poin",
-          delta_color="inverse",
-      )
-
-      btn_simpan_tasmi = st.form_submit_button(
-          "💾 SIMPAN REKAP NILAI TASMI'", use_container_width=True
-      )
-
-      if btn_simpan_tasmi:
-        st.success(
-            f"Data Nilai Tasmi' **{m_tasmi.split(' - ')[0]}** Berhasil Disimpan"
-            f" dengan Nilai Akhir: **{nilai_akhir}**!"
+      if not df_tasmi.empty:
+        penguji_selected = st.selectbox(
+            "Pilih Guru Penguji untuk Dicetak Laporannya:", DAFTAR_MUHAFFIDZ
         )
+
+        df_p_tasmi = df_tasmi[df_tasmi["Penguji"] == penguji_selected]
+
+        if not df_p_tasmi.empty:
+          st.write(
+              f"**Daftar Santri Diuji oleh {penguji_selected} ({len(df_p_tasmi)} Santri):**"
+          )
+          st.dataframe(
+              df_p_tasmi[[
+                  "Tanggal",
+                  "Kelas",
+                  "Nama Murid",
+                  "Rentang Surah",
+                  "Err Besar",
+                  "Err Kecil",
+                  "Nilai Akhir",
+              ]],
+              use_container_width=True,
+          )
+
+          pdf_tasmi_bytes = generate_pdf_tasmi_penguji(
+              df_p_tasmi, penguji_selected
+          )
+
+          st.write("")
+          st.download_button(
+              label=(
+                  f"📥 UNDUH REKAP TASMI PDF ({penguji_selected.split('.')[1].strip() if '.' in penguji_selected else penguji_selected})"
+              ),
+              data=pdf_tasmi_bytes,
+              file_name=(
+                  f"Rekap_Tasmi_{penguji_selected.replace(' ', '_').replace('.', '')}.pdf"
+              ),
+              mime="application/pdf",
+              use_container_width=True,
+          )
+        else:
+          st.warning(
+              f"Belum ada data ujian Tasmi' yang tercatat untuk {penguji_selected}."
+          )
+      else:
+        st.info("Belum ada data ujian Tasmi' yang tersimpan di sistem.")
