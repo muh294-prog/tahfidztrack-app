@@ -253,46 +253,6 @@ DATABASE_MURID = {
     ],
 }
 
-SURAH_DEFAULT = [
-    "An-Naba'",
-    "An-Nazi'at",
-    "'Abasa",
-    "At-Takwir",
-    "Al-Infitar",
-    "Al-Mutaffifin",
-    "Al-Inshiqaq",
-    "Al-Buruj",
-    "At-Tariq",
-    "Al-A'la",
-    "Al-Ghashiyah",
-    "Al-Fajr",
-    "Al-Balad",
-    "Ash-Shams",
-    "Al-Lail",
-    "Ad-Duha",
-    "Ash-Sharh",
-    "At-Tin",
-    "Al-'Alaq",
-    "Al-Qadr",
-    "Al-Bayyinah",
-    "Az-Zalzalah",
-    "Al-'Adiyat",
-    "Al-Qari'ah",
-    "At-Takathur",
-    "Al-'Asr",
-    "Al-Humazah",
-    "Al-Fil",
-    "Quraish",
-    "Al-Ma'un",
-    "Al-Kawthar",
-    "Al-Kafirun",
-    "An-Nasr",
-    "Al-Masad",
-    "Al-Ikhlas",
-    "Al-Falaq",
-    "An-Nas",
-]
-
 
 def load_data():
   if not os.path.exists(DATA_FILE):
@@ -438,35 +398,30 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     koordinator = "UST. Achmad Adnan P.H."
 
   tgl_str = datetime.date.today().strftime("%d %B %Y")
-  ttd_left = (
-      f"Mengetahui,\nKepala Sekolah SMPIT Ibnul Qayyim\n\n\n\n<b>{KEPALA_SEKOLAH}</b>"
-  )
-  ttd_right = f"Makassar, {tgl_str}\nKoordinator Tahfidz Kelas\n\n\n\n<b>{koordinator}</b>"
 
-  p_left = Paragraph(
-      ttd_left.replace("\n", "<br/>"),
-      ParagraphStyle(
-          "ttdL",
-          parent=styles["Normal"],
-          fontName="Helvetica",
-          fontSize=8,
-          alignment=1,
-      ),
-  )
-  p_right = Paragraph(
-      ttd_right.replace("\n", "<br/>"),
-      ParagraphStyle(
-          "ttdR",
-          parent=styles["Normal"],
-          fontName="Helvetica",
-          fontSize=8,
-          alignment=1,
-      ),
-  )
+  p_left_1 = Paragraph("Mengetahui,", styles["Normal"])
+  p_left_2 = Paragraph("Kepala Sekolah SMPIT Ibnul Qayyim", styles["Normal"])
+  p_left_name = Paragraph(KEPALA_SEKOLAH, styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"])
 
-  ttd_table = Table([[p_left, "", p_right]], colWidths=[220, 60, 220])
+  p_right_1 = Paragraph(f"Makassar, {tgl_str}", styles["Normal"])
+  p_right_2 = Paragraph("Koordinator Tahfidz Kelas", styles["Normal"])
+  p_right_name = Paragraph(koordinator, styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"])
+
+  ttd_table = Table(
+      [
+          [p_left_1, "", p_right_1],
+          [p_left_2, "", p_right_2],
+          ["", "", ""],
+          ["", "", ""],
+          [p_left_name, "", p_right_name],
+      ],
+      colWidths=[220, 60, 220],
+  )
   ttd_table.setStyle(
-      TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")])
+      TableStyle([
+          ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+          ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+      ])
   )
   elements.append(ttd_table)
 
@@ -507,6 +462,19 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
       spaceAfter=15,
   )
 
+  style_bold = ParagraphStyle(
+      "StyleBold",
+      parent=styles["Normal"],
+      fontName="Helvetica-Bold",
+      alignment=1,
+  )
+  style_normal = ParagraphStyle(
+      "StyleNormal",
+      parent=styles["Normal"],
+      fontName="Helvetica",
+      alignment=1,
+  )
+
   if os.path.exists(LOGO_FILENAME):
     img = RLImage(LOGO_FILENAME, width=55, height=55)
     img.hAlign = "CENTER"
@@ -516,7 +484,11 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   elements.append(
       Paragraph("REKAPITULASI HASIL UJIAN TASMI' AL-QUR'AN", title_style)
   )
-  sub_text = f"SMPIT IBNUL QAYYIM MAKASSAR | Kelas: {nama_penguji_atau_kelas}" if is_kelas else f"SMPIT IBNUL QAYYIM MAKASSAR | Penguji: {nama_penguji_atau_kelas}"
+  sub_text = (
+      f"SMPIT IBNUL QAYYIM MAKASSAR | Kelas: {nama_penguji_atau_kelas}"
+      if is_kelas
+      else f"SMPIT IBNUL QAYYIM MAKASSAR | Penguji: {nama_penguji_atau_kelas}"
+  )
   elements.append(Paragraph(sub_text, subtitle_style))
 
   table_data = [
@@ -549,7 +521,8 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
           ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
           ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
           ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-          ("FONTNAME", (0, 0), (-1, 0), 8),
+          ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+          ("FONTSIZE", (0, 0), (-1, 0), 8),
           ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
           ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
           ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
@@ -561,40 +534,38 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   elements.append(Spacer(1, 25))
 
   tgl_str = datetime.date.today().strftime("%d %B %Y")
-  ttd_left = (
-      f"Mengetahui,\nKepala Sekolah SMPIT Ibnul Qayyim\n\n\n\n<b>{KEPALA_SEKOLAH}</b>"
-  )
   
   if is_kelas:
-    penguji_nama = df_penguji["Penguji"].iloc[0] if not df_penguji.empty else "Guru Penguji"
-    ttd_right = f"Makassar, {tgl_str}\nGuru Penguji / Coordinator\n\n\n\n<b>{penguji_nama}</b>"
+    penguji_nama = (
+        df_penguji["Penguji"].iloc[0] if not df_penguji.empty else "Guru Penguji"
+    )
+    p_right_2 = Paragraph("Guru Penguji / Coordinator", style_normal)
+    p_right_name = Paragraph(str(penguji_nama), style_bold)
   else:
-    ttd_right = f"Makassar, {tgl_str}\nGuru Penguji Tasmi'\n\n\n\n<b>{nama_penguji_atau_kelas}</b>"
+    p_right_2 = Paragraph("Guru Penguji Tasmi'", style_normal)
+    p_right_name = Paragraph(str(nama_penguji_atau_kelas), style_bold)
 
-  p_left = Paragraph(
-      ttd_left.replace("\n", "<br/>"),
-      ParagraphStyle(
-          "ttdTL",
-          parent=styles["Normal"],
-          fontName="Helvetica",
-          fontSize=8,
-          alignment=1,
-      ),
-  )
-  p_right = Paragraph(
-      ttd_right.replace("\n", "<br/>"),
-      ParagraphStyle(
-          "ttdTR",
-          parent=styles["Normal"],
-          fontName="Helvetica",
-          fontSize=8,
-          alignment=1,
-      ),
-  )
+  p_left_1 = Paragraph("Mengetahui,", style_normal)
+  p_left_2 = Paragraph("Kepala Sekolah SMPIT Ibnul Qayyim", style_normal)
+  p_left_name = Paragraph(KEPALA_SEKOLAH, style_bold)
 
-  ttd_table = Table([[p_left, "", p_right]], colWidths=[220, 60, 220])
+  p_right_1 = Paragraph(f"Makassar, {tgl_str}", style_normal)
+
+  ttd_table = Table(
+      [
+          [p_left_1, "", p_right_1],
+          [p_left_2, "", p_right_2],
+          ["", "", ""],
+          ["", "", ""],
+          [p_left_name, "", p_right_name],
+      ],
+      colWidths=[220, 60, 220],
+  )
   ttd_table.setStyle(
-      TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")])
+      TableStyle([
+          ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+          ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+      ])
   )
   elements.append(ttd_table)
 
@@ -1069,28 +1040,13 @@ else:
       df_m_history = df_data[df_data["Nama Murid"] == m_tasmi]
 
       if not df_m_history.empty:
-        first_surah = df_m_history.iloc[0]["Surah"].strip()
-        last_surah = df_m_history.iloc[-1]["Surah"].strip()
-
-        try:
-          idx_start = SURAH_DEFAULT.index(first_surah)
-        except ValueError:
-          idx_start = 0
-
-        try:
-          idx_end = SURAH_DEFAULT.index(last_surah)
-        except ValueError:
-          idx_end = len(SURAH_DEFAULT) - 1
-
-        if idx_start > idx_end:
-          idx_start, idx_end = idx_end, idx_start
-
-        daftar_surah_tasmi = SURAH_DEFAULT[idx_start : idx_end + 1]
+        # HANYA TAMPILKAN SURAH YANG BENAR-BENAR SUDAH DISETORKAN SISWA
+        daftar_surah_tasmi = list(df_m_history["Surah"].unique())
 
         st.info(
             f"🔍 **Analisis Otomatis System:** Santri **{m_tasmi.split(' - ')[0]}**"
-            f" terdeteksi menyetorkan dari Surah **{first_surah}** hingga Surah"
-            f" **{last_surah}** ({len(daftar_surah_tasmi)} Surah)."
+            f" terdeteksi telah menyetorkan **{len(daftar_surah_tasmi)} Surah**"
+            f" ({', '.join(daftar_surah_tasmi)})."
         )
       else:
         daftar_surah_tasmi = []
@@ -1113,7 +1069,7 @@ else:
         with st.form("form_ujian_tasmi_input"):
           for idx, surah_name in enumerate(daftar_surah_tasmi):
             st.markdown(f"**{idx+1}. {surah_name}**")
-            
+
             c_s1, c_s2, c_s3 = st.columns([1, 1, 2])
 
             err_b = c_s1.number_input(
@@ -1163,7 +1119,7 @@ else:
           )
 
           if btn_simpan_tasmi:
-            rentang_str = f"{daftar_surah_tasmi[0]} s/d {daftar_surah_tasmi[-1]}"
+            rentang_str = f"{daftar_surah_tasmi[0]} s/d {daftar_surah_tasmi[-1]}" if len(daftar_surah_tasmi) > 1 else daftar_surah_tasmi[0]
             new_tasmi_entry = {
                 "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
                 "Periode": periode_tasmi,
