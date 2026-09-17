@@ -25,6 +25,9 @@ TASMI_DATA_FILE = "tahfidz_tasmi_data.csv"
 SESSIONS_FILE = "active_sessions.json"
 KEPALA_SEKOLAH = "Arief Rahman Syarif, S.Kom., Gr., S.Pd."
 
+# SANDI BARU KHUSUS PANEL SENSITIF ADMIN
+ADMIN_PANEL_PASSKEY = "11333356"
+
 ADMIN_ACCOUNTS = [
     "adnanputra@iqis.sch.id",
     "muh294@admin.smp.belajar.id",
@@ -168,48 +171,102 @@ st.set_page_config(
 st.markdown(
     f"""
 <style>
+    @keyframes techFadeIn {{
+        0% {{
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            filter: blur(8px);
+        }}
+        100% {{
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }}
+    }}
+
+    @keyframes pulseGlow {{
+        0% {{ box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }}
+        50% {{ box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), 0 0 10px rgba(52, 211, 153, 0.4); }}
+        100% {{ box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }}
+    }}
+
     .stApp {{
         background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)), 
                     url("{img_logo_src}") no-repeat center center fixed;
         background-size: cover; color: #F8FAFC;
     }}
+
+    .stMainBlockContainer {{
+        animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }}
+
     label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
         color: #F8FAFC !important; font-weight: 600 !important; font-size: 14px !important;
     }}
+
     button[data-baseweb="tab"] p {{
         color: #CBD5E1 !important; font-weight: 600 !important; font-size: 14px !important;
+        transition: all 0.3s ease;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
         color: #34D399 !important; font-weight: 800 !important;
+        text-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
     }}
+
     .main-header {{
         background: linear-gradient(rgba(5, 150, 105, 0.8), rgba(16, 185, 129, 0.85)),
                     url("{header_bg_src}") no-repeat center center;
         background-size: cover; padding: 25px 20px; border-radius: 16px; color: white; margin-bottom: 20px;
-        box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3); text-align: center; backdrop-filter: blur(4px);
-        border: 1px solid rgba(52, 211, 153, 0.3);
+        text-align: center; backdrop-filter: blur(6px);
+        border: 1px solid rgba(52, 211, 153, 0.4);
+        animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
         font-size: 26px !important; font-weight: 800 !important; margin: 10px 0 0 0 !important; color: #FFFFFF !important;
+        letter-spacing: 0.5px;
     }}
     .main-header p {{
         font-size: 13.5px; margin-top: 4px; opacity: 0.95;
     }}
-    .card-box {{
-        background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 14px;
-        padding: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); backdrop-filter: blur(6px);
+
+    .card-box, div[data-testid="stForm"] {{
+        background-color: rgba(30, 41, 59, 0.85) !important; 
+        border: 1px solid rgba(52, 211, 153, 0.3) !important; 
+        border-radius: 14px !important;
+        padding: 20px !important; margin-bottom: 15px !important; 
+        backdrop-filter: blur(8px) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+        animation: techFadeIn 0.8s ease-out;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
-    .metric-value {{ font-size: 28px; font-weight: 800; color: #10B981; }}
+    .card-box:hover, div[data-testid="stForm"]:hover {{
+        border-color: rgba(52, 211, 153, 0.8) !important;
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25) !important;
+        transform: translateY(-2px);
+    }}
+
+    .metric-value {{ font-size: 28px; font-weight: 800; color: #10B981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }}
     .metric-label {{ font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
+
     .stButton > button {{
         background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important; color: white !important;
-        font-weight: 700 !important; border-radius: 10px !important; border: none !important; padding: 8px 16px !important;
-        box-shadow: 0 4px 12px 0 rgba(16, 185, 129, 0.3) !important; transition: all 0.2s ease !important;
+        font-weight: 700 !important; border-radius: 10px !important; border: none !important; padding: 10px 16px !important;
+        box-shadow: 0 4px 15px 0 rgba(16, 185, 129, 0.4) !important; 
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         width: 100%;
+        position: relative;
+        overflow: hidden;
     }}
-    .stButton > button:hover {{ transform: translateY(-2px); }}
-    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; }}
-    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; }}
+    .stButton > button:hover {{ 
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.6) !important;
+    }}
+    .stButton > button:active {{
+        transform: translateY(1px) scale(0.99);
+    }}
+
+    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid rgba(52, 211, 153, 0.4); }}
+    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid rgba(252, 165, 165, 0.4); }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -299,11 +356,11 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
             "No": idx,
             "NIS": s_nis,
             "Nama Lengkap": s_nama,
-            "Status Target": "Selesai" if len(df_s) >= 10 else "Progres",
+            "Status Target": "Selesai" if len(df_s) >= 300 else "Progres",
         }
 
         scores = []
-        for col_idx in range(1, 46):
+        for col_idx in range(1, 301):
             if col_idx - 1 < len(df_s):
                 s_row = df_s.iloc[col_idx - 1]
                 juz_val = s_row.get("Juz", "-")
@@ -459,7 +516,7 @@ def render_header(title, subtitle):
     st.markdown(
         f"""
         <div class="main-header">
-            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: white; padding: 3px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: white; padding: 3px; box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);">
             <h1>{title}</h1>
             <p>{subtitle}</p>
         </div>
@@ -467,7 +524,7 @@ def render_header(title, subtitle):
         unsafe_allow_html=True,
     )
 
-# Session State Login
+# Session State Initialization
 if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
     st.session_state["user_email"] = ""
@@ -668,51 +725,60 @@ else:
                 t_kelas = st.selectbox("Kelas Ujian", list(DATABASE_MURID.keys()), key="tas_k")
                 t_murid = st.selectbox("Nama Murid Ujian", DATABASE_MURID[t_kelas], key="tas_m")
                 t_penguji = st.selectbox("Penguji Tasmi'", DAFTAR_MUHAFFIDZ, key="tas_p")
+
             with col_tas2:
-                t_surah_list = st.multiselect("🪷 Rentang Surah Ujian", options=DAFTAR_114_SURAH, default=["78. An-Naba'", "114. An-Nas"])
-                t_err_besar = st.number_input("Salah Besar (-2/err)", min_value=0, value=0)
-                t_err_kecil = st.number_input("Salah Kecil (-1/err)", min_value=0, value=0)
-                t_catatan = st.text_area("Catatan Penguji", "Lancar, makhraj dan tajwid perlu dijaga.")
+                t_surah = st.text_input("Rentang Surah/Juz", "Juz 30 (Al-Naba' - An-Nas)")
+                err_besar = st.number_input("Kesalahan Besar (Salah/Lupa)", min_value=0, value=0)
+                err_kecil = st.number_input("Kesalahan Kecil (Tajwid/Makhraj)", min_value=0, value=0)
+                t_catatan = st.text_area("Catatan Penguji", placeholder="Catatan evaluasi kelancaran dan makhraj...")
 
-            btn_tasmi = st.form_submit_button("🛡️ SIMPAN HASIL TASMI'")
-            if btn_tasmi:
-                minus_total = (t_err_besar * 2) + (t_err_kecil * 1)
-                nilai_akhir_tasmi = max(0, 100 - minus_total)
-                surah_range_str = ", ".join(t_surah_list) if t_surah_list else "Belum Ditemukan"
+            nilai_tasmi = max(0.0, min(100.0, round(100.0 - (err_besar * 2.0) - (err_kecil * 0.5), 2)))
+            
+            st.markdown(
+                f"""
+                <div class="card-box">
+                    <div class="metric-label">Nilai Akhir Ujian Tasmi'</div>
+                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#94A3B8;">/ 100</span></div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-                new_tasmi = {
+            submit_tasmi = st.form_submit_button("🎯 SIMPAN RECORD TASMI'")
+
+            if submit_tasmi:
+                new_tasmi_record = {
                     "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
                     "Periode": t_periode,
                     "Kelas": t_kelas,
                     "Nama Murid": t_murid,
                     "Penguji": t_penguji,
-                    "Rentang Surah": surah_range_str,
-                    "Err Besar": t_err_besar,
-                    "Err Kecil": t_err_kecil,
-                    "Nilai Akhir": nilai_akhir_tasmi,
+                    "Rentang Surah": t_surah,
+                    "Err Besar": err_besar,
+                    "Err Kecil": err_kecil,
+                    "Nilai Akhir": nilai_tasmi,
                     "Catatan": t_catatan,
                 }
-                df_tasmi_up = pd.concat([df_tasmi, pd.DataFrame([new_tasmi])], ignore_index=True)
-                save_tasmi_data(df_tasmi_up)
-                st.toast("Data Ujian Tasmi' Berhasil Disimpan!", icon="🎯")
+                df_tasmi_updated = pd.concat([df_tasmi, pd.DataFrame([new_tasmi_record])], ignore_index=True)
+                save_tasmi_data(df_tasmi_updated)
+                st.snow()
+                st.toast(f"Data ujian Tasmi' {t_murid.split(' - ')[0]} berhasil disimpan.", icon="🎯")
 
     # --- TAB 6: DATABASE TASMI' ---
     with tabs[5]:
-        st.subheader("📂 Record Matriks Ujian Tasmi'")
-        st.caption("Matriks horizontal ringkas ujian Tasmi' per kelas.")
+        st.subheader("📂 Matriks Database Ujian Tasmi'")
+        st.caption("Rekapitulasi nilai dan kesalahan ujian Tasmi' murid")
 
-        kelas_tasmi_matrix_sel = st.selectbox("🔍 Filter Kelas", list(DATABASE_MURID.keys()), key="tasmi_matrix_kelas_select")
-        df_tasmi_curr = load_tasmi_data()
-        df_tasmi_matrix = build_tasmi_matrix(df_tasmi_curr, kelas_tasmi_matrix_sel)
-        st.dataframe(df_tasmi_matrix, use_container_width=True, height=400)
+        tasmi_k_matrix = st.selectbox("🔍 Pilih Kelas Matriks Tasmi'", list(DATABASE_MURID.keys()), key="tasmi_matrix_kelas_select")
+        df_tasmi_matrix_result = build_tasmi_matrix(df_tasmi, tasmi_k_matrix)
+        st.dataframe(df_tasmi_matrix_result, use_container_width=True, height=400)
 
-  # --- TAB 7: ADMIN BOARD (HANYA MUNCUL JIKA USER = ADMIN) ---
+    # --- TAB 7: ADMIN BOARD (MENGGUNAKAN PASSKEY 11333356) ---
     if st.session_state["is_admin"]:
         with tabs[6]:
             st.title("🛡️ Control Panel & System Governance")
             st.caption("Pusat kendali sesi pengguna dan manajemen pemeliharaan basis data.")
 
-            # SECTION 1: MONITORING SESI PENGGUNA
             st.subheader("🟢 Monitoring Sesi Aktif")
             sessions_data = load_sessions()
             
@@ -720,21 +786,19 @@ else:
                 df_sessions = pd.DataFrame.from_dict(sessions_data, orient="index").reset_index()
                 df_sessions.columns = ["Email Guru", "Status", "Aktivitas Terakhir", "Waktu Login"]
 
-                # Ringkasan KPI Sesi
-                total_aktif = len(df_sessions[df_sessions["Status"] == "Online"]) if "Status" in df_sessions.columns else len(df_sessions)
+                total_aktif = len(df_sessions[df_sessions["Status"] == "Online 🟢"]) if "Status" in df_sessions.columns else len(df_sessions)
                 m1, m2 = st.columns(2)
                 m1.metric("Total Sesi Terdaftar", len(df_sessions))
                 m2.metric("Sesi Aktif / Online", total_aktif)
 
-                # Tabel Interaktif dengan Streamlit Column Config
                 st.dataframe(
                     df_sessions,
                     use_container_width=True,
                     column_config={
-                        "Email Guru": st.column_config.TextColumn("Email Pengguna", help="Alamat email akun terdaftar"),
+                        "Email Guru": st.column_config.TextColumn("Email Pengguna"),
                         "Status": st.column_config.TextColumn("Status Sesi"),
-                        "Waktu Login": st.column_config.DatetimeColumn("Waktu Login", format="DD/MM/YYYY - HH:mm"),
-                        "Aktivitas Terakhir": st.column_config.DatetimeColumn("Aktivitas Terakhir", format="DD/MM/YYYY - HH:mm"),
+                        "Waktu Login": st.column_config.TextColumn("Waktu Login"),
+                        "Aktivitas Terakhir": st.column_config.TextColumn("Aktivitas Terakhir"),
                     },
                     hide_index=True
                 )
@@ -743,19 +807,18 @@ else:
 
             st.divider()
 
-            # SECTION 2: PEMELIHARAAN & RESTRIKSI DATABASE
             st.subheader("⚠️ Manajemen Pemeliharaan Data")
             
             if not st.session_state["admin_board_unlocked"]:
                 with st.container(border=True):
-                    st.warning("Akses fitur hapus data dibatasi. Masukkan kata sandi admin untuk membuka otorisasi.")
+                    st.warning("Akses fitur hapus data dibatasi. Masukkan kata sandi admin khusus untuk membuka otorisasi.")
                     
                     with st.form("form_unlock_admin"):
                         admin_pass_input = st.text_input("Sandi Keamanan Admin", type="password", key="admin_unlock_pass")
                         btn_unlock = st.form_submit_button("🔓 Buka Otorisasi Fitur Sensitive", type="primary")
 
                         if btn_unlock:
-                            if admin_pass_input == CREDENTIALS.get(st.session_state["user_email"]):
+                            if admin_pass_input == ADMIN_PANEL_PASSKEY:
                                 st.session_state["admin_board_unlocked"] = True
                                 st.success("Otorisasi berhasil. Akses kontrol terbuka.")
                                 st.rerun()
@@ -766,7 +829,6 @@ else:
                 
                 col_adm1, col_adm2 = st.columns(2)
 
-                # Dapur Restriksi: Hapus Setoran Harian
                 with col_adm1:
                     with st.container(border=True):
                         st.markdown("##### 🗑️ Hapus Setoran Harian")
@@ -784,7 +846,6 @@ else:
                         else:
                             st.info("Tidak ada data setoran harian.")
 
-                # Dapur Restriksi: Hapus Record Tasmi'
                 with col_adm2:
                     with st.container(border=True):
                         st.markdown("##### 🗑️ Hapus Record Tasmi'")
