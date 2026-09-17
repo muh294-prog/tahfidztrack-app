@@ -262,6 +262,7 @@ def load_data():
             "Guru Input",
             "Kelas",
             "Nama Murid",
+            "Juz",
             "Jenis Setoran",
             "Surah",
             "Ayat Awal",
@@ -276,6 +277,8 @@ def load_data():
   df = pd.read_csv(DATA_FILE)
   if "Nama Santri" in df.columns:
     df.rename(columns={"Nama Santri": "Nama Murid"}, inplace=True)
+  if "Juz" not in df.columns:
+    df["Juz"] = "-"
   return df
 
 
@@ -306,6 +309,71 @@ def load_tasmi_data():
 
 def save_tasmi_data(df):
   df.to_csv(TASMI_DATA_FILE, index=False)
+
+
+def build_spreadsheet_matrix(df_raw, nama_kelas):
+  santri_list = DATABASE_MURID.get(nama_kelas, [])
+  records = []
+
+  for idx, s_full in enumerate(santri_list, 1):
+    parts = s_full.split(" - ")
+    s_nama = parts[0]
+    s_nis = parts[1] if len(parts) > 1 else "-"
+
+    df_s = df_raw[
+        (df_raw["Kelas"] == nama_kelas) & (df_raw["Nama Murid"] == s_full)
+    ]
+
+    row_data = {
+        "No": idx,
+        "NIS": s_nis,
+        "Nama Lengkap": s_nama,
+        "Status Target": "Selesai" if len(df_s) >= 10 else "Progres",
+    }
+
+    scores = []
+    for col_idx in range(1, 46):
+      if col_idx - 1 < len(df_s):
+        s_row = df_s.iloc[col_idx - 1]
+        juz_val = s_row.get("Juz", "-")
+        surah_val = s_row.get("Surah", "-")
+        nilai_val = s_row.get("Nilai", 0.0)
+
+        row_data[f"Juz_{col_idx}"] = (
+            "-" if pd.isna(juz_val) or str(juz_val) == "" else str(juz_val)
+        )
+        row_data[f"Surah_{col_idx}"] = str(surah_val)
+        row_data[f"Nilai_{col_idx}"] = float(nilai_val)
+        scores.append(float(nilai_val))
+      else:
+        row_data[f"Juz_{col_idx}"] = "-"
+        row_data[f"Surah_{col_idx}"] = "-"
+        row_data[f"Nilai_{col_idx}"] = "-"
+
+    row_data["Rata-Rata Nilai"] = (
+        round(sum(scores) / len(scores), 2) if scores else 0.0
+    )
+    records.append(row_data)
+
+  df_matrix = pd.DataFrame(records)
+
+  # MEMBUAT MULTI-INDEX HEADER SEPERTI SPREADSHEET
+  tuples = [
+      ("", "No"),
+      ("", "NIS"),
+      ("", "Nama Lengkap"),
+      ("", "Status Target"),
+  ]
+
+  for i in range(1, 46):
+    tuples.append((f"Setoran {i}", "Juz"))
+    tuples.append((f"Setoran {i}", "Nama Surah"))
+    tuples.append((f"Setoran {i}", "Nilai"))
+
+  tuples.append(("", "Rata-Rata Nilai"))
+
+  df_matrix.columns = pd.MultiIndex.from_tuples(tuples)
+  return df_matrix
 
 
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
@@ -401,11 +469,17 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
 
   p_left_1 = Paragraph("Mengetahui,", styles["Normal"])
   p_left_2 = Paragraph("Kepala Sekolah SMPIT Ibnul Qayyim", styles["Normal"])
-  p_left_name = Paragraph(KEPALA_SEKOLAH, styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"])
+  p_left_name = Paragraph(
+      KEPALA_SEKOLAH,
+      styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"],
+  )
 
   p_right_1 = Paragraph(f"Makassar, {tgl_str}", styles["Normal"])
   p_right_2 = Paragraph("Koordinator Tahfidz Kelas", styles["Normal"])
-  p_right_name = Paragraph(koordinator, styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"])
+  p_right_name = Paragraph(
+      koordinator,
+      styles["Helvetica-Bold"] if "Helvetica-Bold" in styles else styles["Normal"],
+  )
 
   ttd_table = Table(
       [
@@ -534,7 +608,7 @@ def generate_pdf_tasmi_penguji(df_penguji, nama_penguji_atau_kelas, is_kelas=Fal
   elements.append(Spacer(1, 25))
 
   tgl_str = datetime.date.today().strftime("%d %B %Y")
-  
+
   if is_kelas:
     penguji_nama = (
         df_penguji["Penguji"].iloc[0] if not df_penguji.empty else "Guru Penguji"
@@ -593,6 +667,7 @@ def modal_edit_setoran(orig_idx, row_data):
       f"**Update Entri Santri: {str(row_data['Nama Murid']).split(' - ')[0]}**"
   )
   with st.form(key=f"modal_form_{orig_idx}"):
+    e_juz = st.text_input("Juz", value=str(row_data.get("Juz", "-")))
     e_jenis = st.selectbox(
         "Kategori Setoran",
         ["Sabaq", "Murajaah", "Manzil"],
@@ -625,6 +700,7 @@ def modal_edit_setoran(orig_idx, row_data):
       df_temp = load_data()
       calc_nilai = max(0.0, min(100.0, round(100.0 - (e_salah * 2.0), 2)))
 
+      df_temp.loc[orig_idx, "Juz"] = e_juz
       df_temp.loc[orig_idx, "Jenis Setoran"] = e_jenis
       df_temp.loc[orig_idx, "Surah"] = e_surah
       df_temp.loc[orig_idx, "Ayat Awal"] = e_a_awal
@@ -646,9 +722,9 @@ def render_interactive_table(
     return
 
   cols_weight = (
-      [1.2, 2.2, 1.2, 2.2, 1.2, 0.8, 0.8]
+      [1.0, 1.8, 1.0, 2.2, 0.8, 0.8, 0.8]
       if show_student_col
-      else [1.2, 1.5, 2.5, 1.2, 0.8, 0.8]
+      else [1.0, 1.2, 2.5, 0.8, 0.8, 0.8]
   )
 
   for idx, row in df_subset.iterrows():
@@ -669,8 +745,9 @@ def render_interactive_table(
     c_i += 1
 
     with c_list[c_i]:
+      juz_txt = f"Juz {row['Juz']} - " if row.get("Juz") else ""
       st.write(
-          f"🪷 **{row['Surah']}** ({row['Ayat Awal']}-{row['Ayat Akhir']}) —"
+          f"🪷 **{juz_txt}{row['Surah']}** ({row['Ayat Awal']}-{row['Ayat Akhir']}) —"
           f" {row['Halaman']} Hlm"
       )
     c_i += 1
@@ -768,7 +845,7 @@ else:
 
   nav_tab1, nav_tab2, nav_tab3, nav_tab4, nav_tab5, nav_tab6 = st.tabs([
       "✦ Presensi Setoran",
-      "◈ Analytics & Rekap",
+      "◈ Analytics & Rekap Matrix",
       "🪶 Tracking Portal",
       "📜 Certificate & PDF",
       "🎯 Ujian Tasmi'",
@@ -795,6 +872,7 @@ else:
         )
 
       with c2:
+        juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
         surah_sel = st.text_input("🪷 Nama Surah Al-Qur'an", "Al-Baqarah")
         col_a1, col_a2 = st.columns(2)
         with col_a1:
@@ -849,6 +927,7 @@ else:
           "Guru Input": penguji_setoran,
           "Kelas": kelas_sel,
           "Nama Murid": murid_sel,
+          "Juz": juz_sel,
           "Jenis Setoran": jenis_sel,
           "Surah": surah_sel,
           "Ayat Awal": ayat_awal,
@@ -872,10 +951,12 @@ else:
           " dicatat ke dalam database."
       )
 
-  # --- TAB 2: REKAPAN & STATISTIK ---
+  # --- TAB 2: REKAPAN & SPREADSHEET MATRIX 45 KOLOM ---
   with nav_tab2:
-    st.subheader("◈ Ringkasan Metrik & Statistik Tahfidz")
-    st.caption("Overview capaian kolektif seluruh santri dan riwayat transaksi")
+    st.subheader("◈ Matriks Spreadsheet Tahfidz (45 Blok Setoran & Rata-Rata)")
+    st.caption(
+        "Tampilan database horizontal berbasis matriks (Juz - Nama Surah - Nilai) hingga 45 kolom ke samping dengan Kalkulasi Rata-Rata Nilai Otomatis di ujung kanan."
+    )
 
     k1, k2, k3 = st.columns(3)
     with k1:
@@ -911,7 +992,26 @@ else:
           unsafe_allow_html=True,
       )
 
-    st.subheader("📑 Matriks Riwayat Setoran Keseluruhan")
+    st.write("---")
+    c_m_k = st.selectbox(
+        "🏛️ Pilih Kelas untuk Tampilan Matriks Spreadsheet",
+        list(DATABASE_MURID.keys()),
+        key="matrix_kelas_sel",
+    )
+
+    df_matrix = build_spreadsheet_matrix(df_data, c_m_k)
+
+    st.markdown(f"### 📊 Database Tahfidz Format Spreadsheet — {c_m_k}")
+    st.caption("👈 Geser ke kanan untuk melihat hingga 45 kolom setoran dan Kolom Rata-Rata Nilai 👉")
+    
+    st.dataframe(
+        df_matrix,
+        use_container_width=True,
+        height=500,
+    )
+
+    st.write("---")
+    st.subheader("📑 Matriks Transaksi Setoran Harian (Riwayat Sederhana)")
     render_interactive_table(
         df_data, prefix_key="analytics_tb", show_student_col=True
     )
@@ -1040,7 +1140,6 @@ else:
       df_m_history = df_data[df_data["Nama Murid"] == m_tasmi]
 
       if not df_m_history.empty:
-        # HANYA TAMPILKAN SURAH YANG BENAR-BENAR SUDAH DISETORKAN SISWA
         daftar_surah_tasmi = list(df_m_history["Surah"].unique())
 
         st.info(
@@ -1227,8 +1326,8 @@ else:
                     "Nama Murid",
                     "Penguji",
                     "Rentang Surah",
-                    "Err Besar",
-                    "Err Kecil",
+                    "Kesalahan Besar",
+                    "Kesalahan Kecil",
                     "Nilai Akhir",
                     "Catatan",
                 ]],
