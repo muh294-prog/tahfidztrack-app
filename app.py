@@ -1,6 +1,7 @@
 import base64
 import datetime
 import io
+import json
 import os
 import pandas as pd
 import streamlit as st
@@ -21,7 +22,39 @@ LOGO_FILENAME = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
 HEADER_BG_FILENAME = "WhatsApp Image 2026-09-16 at 1.57.59 PM.jpeg"
 DATA_FILE = "tahfidz_track_data.csv"
 TASMI_DATA_FILE = "tahfidz_tasmi_data.csv"
+SESSIONS_FILE = "active_sessions.json"
 KEPALA_SEKOLAH = "Arief Rahman Syarif, S.Kom., Gr., S.Pd."
+
+ADMIN_ACCOUNTS = [
+    "adnanputra@iqis.sch.id",
+    "muh294@admin.smp.belajar.id",
+]
+
+DAFTAR_114_SURAH = [
+    "1. Al-Fatihah", "2. Al-Baqarah", "3. Ali 'Imran", "4. An-Nisa'", "5. Al-Ma'idah",
+    "6. Al-An'am", "7. Al-A'raf", "8. Al-Anfal", "9. At-Taubah", "10. Yunus",
+    "11. Hud", "12. Yusuf", "13. Ar-Ra'd", "14. Ibrahim", "15. Al-Hijr",
+    "16. An-Nahl", "17. Al-Isra'", "18. Al-Kahf", "19. Maryam", "20. Taha",
+    "21. Al-Anbiya'", "22. Al-Hajj", "23. Al-Mu'minun", "24. An-Nur", "25. Al-Furqan",
+    "26. Asy-Syu'ara'", "27. An-Naml", "28. Al-Qasas", "29. Al-'Ankabut", "30. Ar-Rum",
+    "31. Luqman", "32. As-Sajdah", "33. Al-Ahzab", "34. Saba'", "35. Fatir",
+    "36. Yasin", "37. As-Saffat", "38. Sad", "39. Az-Zumar", "40. Ghafir",
+    "41. Fussilat", "42. Asy-Syura", "43. Az-Zukhruf", "44. Ad-Dukhan", "45. Al-Jasiyah",
+    "46. Al-Ahqaf", "47. Muhammad", "48. Al-Fath", "49. Al-Hujurat", "50. Qaf",
+    "51. Az-Zariyat", "52. At-Tur", "53. An-Najm", "54. Al-Qamar", "55. Ar-Rahman",
+    "56. Al-Waqi'ah", "57. Al-Hadid", "58. Al-Mujadilah", "59. Al-Hasyr", "60. Al-Mumtahanah",
+    "61. As-Saff", "62. Al-Jumu'ah", "63. Al-Munafiqun", "64. At-Taghabun", "65. At-Talaq",
+    "66. At-Tahrim", "67. Al-Mulk", "68. Al-Qalam", "69. Al-Haqqah", "70. Al-Ma'arij",
+    "71. Nuh", "72. Al-Jinn", "73. Al-Muzzammil", "74. Al-Muddassir", "75. Al-Qiyamah",
+    "76. Al-Insan", "77. Al-Mursalat", "78. An-Naba'", "79. An-Nazi'at", "80. 'Abasa",
+    "81. At-Takwir", "82. Al-Infitar", "83. Al-Mutaffifin", "84. Al-Inshiqaq", "85. Al-Buruj",
+    "86. At-Tariq", "87. Al-A'la", "88. Al-Ghasyiyah", "89. Al-Fajr", "90. Al-Balad",
+    "91. Asy-Syams", "92. Al-Lail", "93. Ad-Duha", "94. Asy-Syarh", "95. At-Tin",
+    "96. Al-'Alaq", "97. Al-Qadr", "98. Al-Bayyinah", "99. Az-Zalzalah", "100. Al-'Adiyat",
+    "101. Al-Qari'ah", "102. At-Takasur", "103. Al-'Asr", "104. Al-Humazah", "105. Al-Fil",
+    "106. Quraisy", "107. Al-Ma'un", "108. Al-Kausar", "109. Al-Kafirun", "110. An-Nasr",
+    "111. Al-Lahab", "112. Al-Ikhlas", "113. Al-Falaq", "114. An-Nas"
+]
 
 TASMI_COLUMNS = [
     "Tanggal",
@@ -47,8 +80,9 @@ DAFTAR_MUHAFFIDZ = [
 ]
 
 CREDENTIALS = {
-    "mohfaizgufran@iqis.sch.id": "Tahfizsmp8!",
     "adnanputra@iqis.sch.id": "Tahfizsmp8!",
+    "muh294@admin.smp.belajar.id": "Tahfizsmp8!",
+    "mohfaizgufran@iqis.sch.id": "Tahfizsmp8!",
     "rafly@iqis.sch.id": "Tahfizsmp8!",
     "bagusammar@iqis.sch.id": "Tahfizsmp8!",
     "huzaifah@iqis.sch.id": "Tahfizsmp8!",
@@ -171,27 +205,17 @@ DATABASE_MURID = {
     ],
 }
 
-
 def get_image_base64(image_path):
     if os.path.exists(image_path):
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode("utf-8")
     return ""
 
-
 img_logo_base64 = get_image_base64(LOGO_FILENAME)
-img_logo_src = (
-    f"data:image/jpeg;base64,{img_logo_base64}"
-    if img_logo_base64
-    else LOGO_FILENAME
-)
+img_logo_src = f"data:image/jpeg;base64,{img_logo_base64}" if img_logo_base64 else LOGO_FILENAME
 
 header_bg_base64 = get_image_base64(HEADER_BG_FILENAME)
-header_bg_src = (
-    f"data:image/jpeg;base64,{header_bg_base64}"
-    if header_bg_base64
-    else HEADER_BG_FILENAME
-)
+header_bg_src = f"data:image/jpeg;base64,{header_bg_base64}" if header_bg_base64 else HEADER_BG_FILENAME
 
 st.set_page_config(
     page_title="TahfidzTrack — SMPIT Ibnul Qayyim",
@@ -259,28 +283,52 @@ st.markdown(
     }}
     .stButton > button:hover {{ transform: translateY(-2px); box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5) !important; }}
     .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }}
+    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }}
 </style>
 """,
     unsafe_allow_html=True,
 )
 
+def update_user_session(email, status="online"):
+    sessions = {}
+    if os.path.exists(SESSIONS_FILE):
+        try:
+            with open(SESSIONS_FILE, "r") as f:
+                sessions = json.load(f)
+        except Exception:
+            sessions = {}
+    
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if status == "online":
+        sessions[email] = {
+            "status": "Online 🟢",
+            "last_active": now_str,
+            "login_time": sessions.get(email, {}).get("login_time", now_str)
+        }
+    else:
+        if email in sessions:
+            sessions[email]["status"] = "Offline 🔴"
+            sessions[email]["last_active"] = now_str
+            
+    with open(SESSIONS_FILE, "w") as f:
+        json.dump(sessions, f, indent=4)
+
+def load_sessions():
+    if os.path.exists(SESSIONS_FILE):
+        try:
+            with open(SESSIONS_FILE, "r") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
 
 def load_data():
     if not os.path.exists(DATA_FILE):
         df_init = pd.DataFrame(
             columns=[
-                "Tanggal",
-                "Guru Input",
-                "Kelas",
-                "Nama Murid",
-                "Juz",
-                "Jenis Setoran",
-                "Surah",
-                "Ayat Awal",
-                "Ayat Akhir",
-                "Halaman",
-                "Salah",
-                "Nilai",
+                "Tanggal", "Guru Input", "Kelas", "Nama Murid",
+                "Juz", "Jenis Setoran", "Surah", "Ayat Awal",
+                "Ayat Akhir", "Halaman", "Salah", "Nilai",
             ]
         )
         df_init.to_csv(DATA_FILE, index=False)
@@ -292,29 +340,23 @@ def load_data():
         df["Juz"] = "-"
     return df
 
-
 def save_data(df):
     df.to_csv(DATA_FILE, index=False)
-
 
 def load_tasmi_data():
     if not os.path.exists(TASMI_DATA_FILE):
         df_init = pd.DataFrame(columns=TASMI_COLUMNS)
         df_init.to_csv(TASMI_DATA_FILE, index=False)
         return df_init
-    
     df = pd.read_csv(TASMI_DATA_FILE)
-    # Pastikan seluruh kolom yang dibutuhkan ada untuk mencegah KeyError
     for col in TASMI_COLUMNS:
         if col not in df.columns:
             df[col] = ""
     return df[TASMI_COLUMNS]
 
-
 def save_tasmi_data(df):
     df = df.reindex(columns=TASMI_COLUMNS)
     df.to_csv(TASMI_DATA_FILE, index=False)
-
 
 def build_spreadsheet_matrix(df_raw, nama_kelas):
     santri_list = DATABASE_MURID.get(nama_kelas, [])
@@ -344,9 +386,7 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
                 surah_val = s_row.get("Surah", "-")
                 nilai_val = s_row.get("Nilai", 0.0)
 
-                row_data[f"Juz_{col_idx}"] = (
-                    "-" if pd.isna(juz_val) or str(juz_val) == "" else str(juz_val)
-                )
+                row_data[f"Juz_{col_idx}"] = "-" if pd.isna(juz_val) or str(juz_val) == "" else str(juz_val)
                 row_data[f"Surah_{col_idx}"] = str(surah_val)
                 row_data[f"Nilai_{col_idx}"] = float(nilai_val)
                 scores.append(float(nilai_val))
@@ -355,9 +395,7 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
                 row_data[f"Surah_{col_idx}"] = "-"
                 row_data[f"Nilai_{col_idx}"] = "-"
 
-        row_data["Rata-Rata Nilai"] = (
-            round(sum(scores) / len(scores), 2) if scores else 0.0
-        )
+        row_data["Rata-Rata Nilai"] = round(sum(scores) / len(scores), 2) if scores else 0.0
         records.append(row_data)
 
     df_matrix = pd.DataFrame(records)
@@ -378,6 +416,67 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
     df_matrix.columns = pd.MultiIndex.from_tuples(tuples)
     return df_matrix
 
+def build_tasmi_matrix(df_tasmi_raw, nama_kelas):
+    santri_list = DATABASE_MURID.get(nama_kelas, [])
+    records = []
+
+    for idx, s_full in enumerate(santri_list, 1):
+        parts = s_full.split(" - ")
+        s_nama = parts[0]
+        s_nis = parts[1] if len(parts) > 1 else "-"
+
+        df_s = df_tasmi_raw[
+            (df_tasmi_raw["Kelas"] == nama_kelas) & (df_tasmi_raw["Nama Murid"] == s_full)
+        ]
+
+        row_data = {
+            "No": idx,
+            "NIS": s_nis,
+            "Nama Lengkap": s_nama,
+            "Status Target": "Selesai" if not df_s.empty else "Belum Tasmi'",
+        }
+
+        scores = []
+        for col_idx in range(1, 11):
+            if col_idx - 1 < len(df_s):
+                s_row = df_s.iloc[col_idx - 1]
+                surah_val = s_row.get("Rentang Surah", "-")
+                err_b = s_row.get("Err Besar", 0)
+                err_k = s_row.get("Err Kecil", 0)
+                nilai_val = s_row.get("Nilai Akhir", 0.0)
+
+                row_data[f"Surah_{col_idx}"] = str(surah_val)
+                row_data[f"ErrB_{col_idx}"] = int(err_b)
+                row_data[f"ErrK_{col_idx}"] = int(err_k)
+                row_data[f"Nilai_{col_idx}"] = float(nilai_val)
+                scores.append(float(nilai_val))
+            else:
+                row_data[f"Surah_{col_idx}"] = "-"
+                row_data[f"ErrB_{col_idx}"] = "-"
+                row_data[f"ErrK_{col_idx}"] = "-"
+                row_data[f"Nilai_{col_idx}"] = "-"
+
+        row_data["Rata-Rata Nilai Tasmi'"] = round(sum(scores) / len(scores), 2) if scores else 0.0
+        records.append(row_data)
+
+    df_matrix = pd.DataFrame(records)
+
+    tuples = [
+        ("", "No"),
+        ("", "NIS"),
+        ("", "Nama Lengkap"),
+        ("", "Status Target"),
+    ]
+
+    for i in range(1, 11):
+        tuples.append((f"Tasmi' {i}", "Rentang Surah"))
+        tuples.append((f"Tasmi' {i}", "Salah Besar"))
+        tuples.append((f"Tasmi' {i}", "Salah Kecil"))
+        tuples.append((f"Tasmi' {i}", "Nilai"))
+
+    tuples.append(("", "Rata-Rata Nilai Tasmi'"))
+    df_matrix.columns = pd.MultiIndex.from_tuples(tuples)
+    return df_matrix
 
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     buffer = io.BytesIO()
@@ -388,27 +487,15 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     styles = getSampleStyleSheet()
 
     title_style = ParagraphStyle(
-        "TitleStyle",
-        parent=styles["Heading1"],
-        fontName="Helvetica-Bold",
-        fontSize=13,
-        textColor=colors.HexColor("#10B981"),
-        alignment=1,
-        spaceAfter=4,
+        "TitleStyle", parent=styles["Heading1"], fontName="Helvetica-Bold", fontSize=13,
+        textColor=colors.HexColor("#10B981"), alignment=1, spaceAfter=4
     )
     subtitle_style = ParagraphStyle(
-        "SubTitleStyle",
-        parent=styles["Normal"],
-        fontName="Helvetica-Bold",
-        fontSize=10,
-        textColor=colors.HexColor("#0F172A"),
-        alignment=1,
-        spaceAfter=15,
+        "SubTitleStyle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10,
+        textColor=colors.HexColor("#0F172A"), alignment=1, spaceAfter=15
     )
     bold_text_style = ParagraphStyle(
-        "BoldTextStyle",
-        parent=styles["Normal"],
-        fontName="Helvetica-Bold",
+        "BoldTextStyle", parent=styles["Normal"], fontName="Helvetica-Bold"
     )
 
     if os.path.exists(LOGO_FILENAME):
@@ -428,13 +515,9 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     table_data = [["No", "Tanggal", "Nama Murid", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]]
     for idx, row in df_filtered.reset_index(drop=True).iterrows():
         table_data.append([
-            str(idx + 1),
-            str(row["Tanggal"]),
-            str(row["Nama Murid"]).split(" - ")[0][:18],
-            str(row["Jenis Setoran"]),
-            f"{row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})",
-            f"{row['Halaman']}",
-            f"{row['Nilai']}",
+            str(idx + 1), str(row["Tanggal"]), str(row["Nama Murid"]).split(" - ")[0][:18],
+            str(row["Jenis Setoran"]), f"{row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})",
+            f"{row['Halaman']}", f"{row['Nilai']}",
         ])
 
     t = Table(table_data, colWidths=[25, 65, 140, 55, 140, 35, 45])
@@ -496,7 +579,6 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     buffer.seek(0)
     return buffer
 
-
 def render_header(title, subtitle):
     st.markdown(
         f"""
@@ -509,11 +591,13 @@ def render_header(title, subtitle):
         unsafe_allow_html=True,
     )
 
-
 # Session State Login
 if "logged_in" not in st.session_state:
     st.session_state["logged_in"] = False
     st.session_state["user_email"] = ""
+    st.session_state["is_admin"] = False
+if "admin_board_unlocked" not in st.session_state:
+    st.session_state["admin_board_unlocked"] = False
 
 if not st.session_state["logged_in"]:
     render_header(
@@ -527,7 +611,7 @@ if not st.session_state["logged_in"]:
             st.subheader("🔑 Autentikasi Pengampu")
             email = st.text_input(
                 "Alamat Email Akademik",
-                placeholder="contoh: mohfaizgufran@iqis.sch.id",
+                placeholder="contoh: adnanputra@iqis.sch.id",
             )
             password = st.text_input(
                 "Sandi Keamanan", type="password", placeholder="••••••••"
@@ -537,18 +621,18 @@ if not st.session_state["logged_in"]:
             if submit:
                 email_clean = email.strip().lower()
                 pass_clean = password.strip()
-                if (
-                    email_clean in CREDENTIALS
-                    and CREDENTIALS[email_clean] == pass_clean
-                ):
+                if email_clean in CREDENTIALS and CREDENTIALS[email_clean] == pass_clean:
                     st.session_state["logged_in"] = True
                     st.session_state["user_email"] = email_clean
+                    st.session_state["is_admin"] = email_clean in ADMIN_ACCOUNTS
+                    update_user_session(email_clean, "online")
                     st.success("Otentikasi berhasil! Mengarahkan ke sistem...")
                     st.rerun()
                 else:
                     st.error("Kredensial tidak terverifikasi.")
 
 else:
+    update_user_session(st.session_state["user_email"], "online")
     render_header(
         "TahfidzTrack — SMPIT Ibnul Qayyim",
         "Sistem Management & Monitoring Hafalan Qur'an Murid",
@@ -556,62 +640,62 @@ else:
 
     c_user, c_logout = st.columns([4, 1])
     with c_user:
+        badge_cls = "badge-admin" if st.session_state["is_admin"] else "badge-success"
+        role_label = " [ADMIN]" if st.session_state["is_admin"] else ""
         st.markdown(
-            f"🏛️ **Pembimbing Aktif:** <span class='badge-success'>{st.session_state['user_email']}</span>",
+            f"⚡ **User Logged In:** <span class='{badge_cls}'>{st.session_state['user_email']}{role_label}</span>",
             unsafe_allow_html=True,
         )
     with c_logout:
         if st.button("🚪 Log Out"):
+            update_user_session(st.session_state["user_email"], "offline")
             st.session_state["logged_in"] = False
+            st.session_state["user_email"] = ""
+            st.session_state["is_admin"] = False
+            st.session_state["admin_board_unlocked"] = False
             st.rerun()
 
     st.write("")
     df_data = load_data()
     df_tasmi = load_tasmi_data()
 
-    nav_tab1, nav_tab2, nav_tab3, nav_tab4, nav_tab5, nav_tab6 = st.tabs([
+    tab_list = [
         "✦ Presensi Setoran",
         "◈ Analytics & Rekap Matrix",
         "🪶 Tracking Portal",
         "📜 Certificate & PDF",
         "🎯 Ujian Tasmi'",
         "📂 Database Tasmi'",
-    ])
+    ]
+    if st.session_state["is_admin"]:
+        tab_list.append("🛡️ Admin Board")
+
+    tabs = st.tabs(tab_list)
 
     # --- TAB 1: INPUT SETORAN ---
-    with nav_tab1:
+    with tabs[0]:
         st.subheader("✨ Form Input Setoran Harian")
         st.caption("Pencatatan progres hafalan harian murid secara real-time")
 
         with st.container():
             c1, c2 = st.columns(2)
             with c1:
-                kelas_sel = st.selectbox(
-                    "🏛️ Rombongan Belajar", list(DATABASE_MURID.keys())
-                )
+                kelas_sel = st.selectbox("🏛️ Rombongan Belajar", list(DATABASE_MURID.keys()))
                 murid_sel = st.selectbox("👤 Profil Murid", DATABASE_MURID[kelas_sel])
-                penguji_setoran = st.selectbox(
-                    "👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ
-                )
-                jenis_sel = st.selectbox(
-                    "📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"]
-                )
+                penguji_setoran = st.selectbox("👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ)
+                jenis_sel = st.selectbox("📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"])
 
             with c2:
                 juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
-                surah_sel = st.text_input("🪷 Nama Surah Al-Qur'an", "Al-Baqarah")
+                surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
                 col_a1, col_a2 = st.columns(2)
                 with col_a1:
                     ayat_awal = st.number_input("🧮 Ayat Awal", min_value=1, value=1)
                 with col_a2:
                     ayat_akhir = st.number_input("🧮 Ayat Akhir", min_value=1, value=10)
 
-                halaman = st.number_input(
-                    "📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5
-                )
-                salah = st.number_input(
-                    "⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0
-                )
+                halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
+                salah = st.number_input("⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0)
 
         nilai_calc = max(0.0, min(100.0, round(100.0 - (salah * 2.0), 2)))
 
@@ -662,25 +746,16 @@ else:
                 "Salah": salah,
                 "Nilai": nilai_calc,
             }
-            df_updated = pd.concat(
-                [df_data, pd.DataFrame([new_record])], ignore_index=True
-            )
+            df_updated = pd.concat([df_data, pd.DataFrame([new_record])], ignore_index=True)
             save_data(df_updated)
             st.snow()
-            st.toast(
-                f"✨ Barakallahu Fiik! Data setoran {murid_sel.split(' - ')[0]} telah tersimpan.",
-                icon="🕌",
-            )
-            st.success(
-                f"Alhamdulillah! Data setoran {murid_sel.split(' - ')[0]} berhasil dicatat ke dalam database."
-            )
+            st.toast(f"✨ Barakallahu Fiik! Data setoran {murid_sel.split(' - ')[0]} telah tersimpan.", icon="🕌")
+            st.success(f"Alhamdulillah! Data setoran {murid_sel.split(' - ')[0]} berhasil dicatat ke dalam database.")
 
-    # --- TAB 2: REKAPAN & SPREADSHEET MATRIX 45 KOLOM ---
-    with nav_tab2:
+    # --- TAB 2: REKAPAN & SPREADSHEET MATRIX ---
+    with tabs[1]:
         st.subheader("◈ Matriks Spreadsheet Tahfidz (45 Blok Setoran & Rata-Rata)")
-        st.caption(
-            "Tampilan database horizontal berbasis matriks (Juz - Nama Surah - Nilai) hingga 45 kolom ke samping dengan Kalkulasi Rata-Rata Nilai Otomatis di ujung kanan."
-        )
+        st.caption("Tampilan database horizontal berbasis matriks (Juz - Nama Surah - Nilai) hingga 45 kolom.")
 
         k1, k2, k3 = st.columns(3)
         with k1:
@@ -723,15 +798,10 @@ else:
         )
 
         df_matrix_result = build_spreadsheet_matrix(df_data, kelas_matrix_sel)
-
-        st.dataframe(
-            df_matrix_result,
-            use_container_width=True,
-            height=450,
-        )
+        st.dataframe(df_matrix_result, use_container_width=True, height=450)
 
     # --- TAB 3: TRACKING PORTAL ---
-    with nav_tab3:
+    with tabs[2]:
         st.subheader("🪶 Tracking Portal Murid")
         st.caption("Pantau progres riwayat setoran per individu murid")
 
@@ -749,7 +819,7 @@ else:
             st.dataframe(df_single, use_container_width=True)
 
     # --- TAB 4: CERTIFICATE & PDF ---
-    with nav_tab4:
+    with tabs[3]:
         st.subheader("📜 Generator Laporan PDF Bulanan")
         st.caption("Unduh berkas cetak rekapitulasi setoran kelas versi PDF")
 
@@ -774,7 +844,7 @@ else:
                 )
 
     # --- TAB 5: UJIAN TASMI' ---
-    with nav_tab5:
+    with tabs[4]:
         st.subheader("🎯 Form Input Hasil Ujian Tasmi'")
         st.caption("Penilaian ujian kelancaran hafalan terstruktur")
 
@@ -786,16 +856,22 @@ else:
                 t_murid = st.selectbox("Nama Murid Ujian", DATABASE_MURID[t_kelas], key="tas_m")
                 t_penguji = st.selectbox("Penguji Tasmi'", DAFTAR_MUHAFFIDZ, key="tas_p")
             with col_tas2:
-                t_surah_range = st.text_input("Rentang Surah/Juz", "Juz 30 (Al-Naba - An-Nas)")
+                t_surah_list = st.multiselect(
+                    "🪷 Rentang Surah/Juz Ujian (Pilih Surah)",
+                    options=DAFTAR_114_SURAH,
+                    default=["78. An-Naba'", "114. An-Nas"],
+                    help="Bisa memilih satu atau beberapa surah sekaligus yang diujikan."
+                )
                 t_err_besar = st.number_input("Jumlah Salah Besar (-2/err)", min_value=0, value=0)
                 t_err_kecil = st.number_input("Jumlah Salah Kecil (-1/err)", min_value=0, value=0)
-                t_catatan = st.text_area("Catatan Penguji", "Lancar, mahraj dan tajwid perlu dijaga.")
+                t_catatan = st.text_area("Catatan Penguji", "Lancar, makhraj dan tajwid perlu dijaga.")
 
             btn_tasmi = st.form_submit_button("🛡️ SIMPAN HASIL TASMI'")
 
             if btn_tasmi:
                 minus_total = (t_err_besar * 2) + (t_err_kecil * 1)
                 nilai_akhir_tasmi = max(0, 100 - minus_total)
+                surah_range_str = ", ".join(t_surah_list) if t_surah_list else "Belum Ditemukan"
 
                 new_tasmi = {
                     "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
@@ -803,7 +879,7 @@ else:
                     "Kelas": t_kelas,
                     "Nama Murid": t_murid,
                     "Penguji": t_penguji,
-                    "Rentang Surah": t_surah_range,
+                    "Rentang Surah": surah_range_str,
                     "Err Besar": t_err_besar,
                     "Err Kecil": t_err_kecil,
                     "Nilai Akhir": nilai_akhir_tasmi,
@@ -815,14 +891,113 @@ else:
                 st.toast("Data Ujian Tasmi' Berhasil Disimpan!", icon="🎯")
                 st.success(f"Hasil Tasmi' {t_murid.split(' - ')[0]} tersimpan dengan nilai: {nilai_akhir_tasmi}")
 
-    # --- TAB 6: DATABASE TASMI' (PENANGANAN KEPERLUAN PDF / FILTER AMAN) ---
-    with nav_tab6:
-        st.subheader("📂 Record Database Ujian Tasmi'")
-        df_tasmi_curr = load_tasmi_data()
+    # --- TAB 6: DATABASE TASMI' ---
+    with tabs[5]:
+        st.subheader("📂 Record Matriks Ujian Tasmi'")
+        st.caption("Tampilan database terstruktur berbasis matriks horizontal per kelas.")
 
-        if df_tasmi_curr.empty:
-            st.info("Belum ada data ujian Tasmi' yang tercatat.")
-        else:
-            # Seleksi aman untuk mencegah KeyError saat memilah kolom
-            available_cols = [c for c in TASMI_COLUMNS if c in df_tasmi_curr.columns]
-            st.dataframe(df_tasmi_curr[available_cols], use_container_width=True)
+        kelas_tasmi_matrix_sel = st.selectbox(
+            "🔍 Filter Kelas Matriks Tasmi'",
+            list(DATABASE_MURID.keys()),
+            key="tasmi_matrix_kelas_select",
+        )
+
+        df_tasmi_curr = load_tasmi_data()
+        df_tasmi_matrix = build_tasmi_matrix(df_tasmi_curr, kelas_tasmi_matrix_sel)
+        st.dataframe(df_tasmi_matrix, use_container_width=True, height=450)
+
+    # --- TAB 7: ADMIN BOARD (Proteksi PIN Kata Sandi) ---
+    if st.session_state["is_admin"]:
+        with tabs[6]:
+            if not st.session_state["admin_board_unlocked"]:
+                st.subheader("🔒 Area Terkunci Admin Board")
+                st.info("Masukkan PIN/Sandi verifikasi khusus untuk mengakses panel pemantauan pengguna.")
+
+                col_p1, col_p2 = st.columns([2, 1])
+                with col_p1:
+                    pin_input = st.text_input(
+                        "Password Akses Admin Board",
+                        type="password",
+                        placeholder="Masukkan sandi akses...",
+                        key="input_pin_admin"
+                    )
+                with col_p2:
+                    st.write("")
+                    st.write("")
+                    if st.button("🔓 Buka Akses"):
+                        if pin_input == "1233335":
+                            st.session_state["admin_board_unlocked"] = True
+                            st.success("Akses diterima!")
+                            st.rerun()
+                        else:
+                            st.error("Sandi akses salah!")
+            else:
+                c_head, c_lock = st.columns([4, 1])
+                with c_head:
+                    st.subheader("🛡️ Panel Kontrol & Pemantauan Pengguna (Khusus Admin)")
+                    st.caption("Monitoring real-time aktivitas login dan operasional guru di aplikasi TahfidzTrack.")
+                with c_lock:
+                    if st.button("🔒 Kunci Kembali"):
+                        st.session_state["admin_board_unlocked"] = False
+                        st.rerun()
+
+                sessions = load_sessions()
+                all_teachers = list(CREDENTIALS.keys())
+                
+                online_count = sum(1 for s in sessions.values() if s.get("status") == "Online 🟢")
+                
+                adm1, adm2, adm3 = st.columns(3)
+                with adm1:
+                    st.markdown(
+                        f"""
+                        <div class="card-box">
+                            <div class="metric-label">Total Akun Pengampu</div>
+                            <div class="metric-value">{len(all_teachers)}</div>
+                        </div>
+                    """,
+                        unsafe_allow_html=True,
+                    )
+                with adm2:
+                    st.markdown(
+                        f"""
+                        <div class="card-box">
+                            <div class="metric-label">Pengampu Sedang Online</div>
+                            <div class="metric-value" style="color:#34D399;">{online_count}</div>
+                        </div>
+                    """,
+                        unsafe_allow_html=True,
+                    )
+                with adm3:
+                    st.markdown(
+                        f"""
+                        <div class="card-box">
+                            <div class="metric-label">Role Akses Anda</div>
+                            <div class="metric-value" style="color:#FCA5A5; font-size:22px; padding-top:8px;">Super Admin</div>
+                        </div>
+                    """,
+                        unsafe_allow_html=True,
+                    )
+
+                st.write("### 👥 Status Aktivitas Guru / Pengampu Tahfidz")
+
+                admin_data = []
+                for email_acc in all_teachers:
+                    sess = sessions.get(email_acc, {})
+                    status_user = sess.get("status", "Offline 🔴")
+                    last_active = sess.get("last_active", "-")
+                    login_time = sess.get("login_time", "-")
+                    role_str = "Administrator" if email_acc in ADMIN_ACCOUNTS else "Muhaffidz / Guru"
+
+                    admin_data.append({
+                        "Email Guru": email_acc,
+                        "Role": role_str,
+                        "Status Live": status_user,
+                        "Waktu Login": login_time,
+                        "Aktivitas Terakhir": last_active,
+                    })
+
+                df_admin = pd.DataFrame(admin_data)
+                st.dataframe(df_admin, use_container_width=True)
+
+                if st.button("🔄 Refresh Status Online", use_container_width=False):
+                    st.rerun()
