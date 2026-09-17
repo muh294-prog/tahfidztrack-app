@@ -16,11 +16,12 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-# Nama File Gambar Logo
-IMAGE_FILENAME = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
+# Nama File Gambar
+LOGO_FILENAME = "WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg"
+HEADER_BG_FILENAME = "WhatsApp Image 2026-09-16 at 1.57.59 PM.jpeg"
 
 
-# Function Konversi Gambar ke Base64 (Untuk Web)
+# Function Konversi Gambar ke Base64
 def get_image_base64(image_path):
   if os.path.exists(image_path):
     with open(image_path, "rb") as img_file:
@@ -28,25 +29,34 @@ def get_image_base64(image_path):
   return ""
 
 
-img_base64 = get_image_base64(IMAGE_FILENAME)
-img_src = (
-    f"data:image/jpeg;base64,{img_base64}" if img_base64 else IMAGE_FILENAME
+img_logo_base64 = get_image_base64(LOGO_FILENAME)
+img_logo_src = (
+    f"data:image/jpeg;base64,{img_logo_base64}"
+    if img_logo_base64
+    else LOGO_FILENAME
+)
+
+header_bg_base64 = get_image_base64(HEADER_BG_FILENAME)
+header_bg_src = (
+    f"data:image/jpeg;base64,{header_bg_base64}"
+    if header_bg_base64
+    else HEADER_BG_FILENAME
 )
 
 # Konfigurasi Halaman Web
 st.set_page_config(
     page_title="TahfidzTrack — SMPIT Ibnul Qayyim",
-    page_icon=IMAGE_FILENAME if os.path.exists(IMAGE_FILENAME) else "🕌",
+    page_icon=LOGO_FILENAME if os.path.exists(LOGO_FILENAME) else "🕌",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-# CSS Custom Styling (REVISI #20: Modern Styling & Iconography Support)
+# CSS Custom Styling (REVISI #22: Header Background Image Customization)
 st.markdown(
-    """
+    f"""
 <style>
     /* SVG Ornamen Daun & Bunga Hijau di Pojok Kiri Atas */
-    .stApp::before {
+    .stApp::before {{
         content: "";
         position: fixed;
         top: 0;
@@ -58,10 +68,10 @@ st.markdown(
         background-size: contain;
         z-index: 1000;
         pointer-events: none;
-    }
+    }}
 
     /* SVG Ornamen Daun & Bunga Hijau di Pojok Kanan Atas */
-    .stApp::after {
+    .stApp::after {{
         content: "";
         position: fixed;
         top: 0;
@@ -73,68 +83,72 @@ st.markdown(
         background-size: contain;
         z-index: 1000;
         pointer-events: none;
-    }
+    }}
 
-    /* Styling Background Utama */
-    .stApp {
+    /* Background Utama */
+    .stApp {{
         background: linear-gradient(rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.90)), 
-                    url("WhatsApp Image 2026-09-12 at 10.04.17 AM.jpeg") no-repeat center center fixed;
+                    url("{img_logo_src}") no-repeat center center fixed;
         background-size: cover;
         color: #F8FAFC;
-    }
+    }}
 
-    /* Warna Label Form Agar Terbaca Sangat Jelas */
-    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {
+    /* Label Form Text Clear View */
+    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
         color: #F8FAFC !important;
         font-weight: 600 !important;
         font-size: 14px !important;
         letter-spacing: 0.3px;
-    }
+    }}
 
-    /* Warna Teks Menu Tab Navigasi Utama */
-    button[data-baseweb="tab"] p {
+    /* Warna Teks Menu Tab Navigasi */
+    button[data-baseweb="tab"] p {{
         color: #CBD5E1 !important;
         font-weight: 600 !important;
         font-size: 15px !important;
         letter-spacing: 0.5px;
-    }
+    }}
 
     /* Tab Aktif Highlight Hijau Emerald */
-    button[data-baseweb="tab"][aria-selected="true"] p {
+    button[data-baseweb="tab"][aria-selected="true"] p {{
         color: #34D399 !important;
         font-weight: 800 !important;
-    }
+    }}
     
-    /* Header Container Botanical Gradient */
-    .main-header {
-        background: linear-gradient(135deg, rgba(5, 150, 105, 0.95) 0%, rgba(16, 185, 129, 0.9) 100%);
-        padding: 24px;
+    /* REVISI #22: Header Container dengan Gambar Background Custom */
+    .main-header {{
+        background: linear-gradient(rgba(5, 150, 105, 0.75), rgba(16, 185, 129, 0.85)),
+                    url("{header_bg_src}") no-repeat center center;
+        background-size: cover;
+        padding: 35px 20px;
         border-radius: 20px;
         color: white;
         margin-bottom: 22px;
         box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35);
         text-align: center;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(52, 211, 153, 0.3);
-    }
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(52, 211, 153, 0.4);
+    }}
     
-    .main-header h1 {
-        font-size: 26px !important;
+    .main-header h1 {{
+        font-size: 28px !important;
         font-weight: 800 !important;
-        margin: 10px 0 0 0 !important;
+        margin: 12px 0 0 0 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.8px;
-    }
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }}
     
-    .main-header p {
-        font-size: 13.5px;
-        margin-top: 4px;
+    .main-header p {{
+        font-size: 14px;
+        margin-top: 6px;
         opacity: 0.95;
         letter-spacing: 0.4px;
-    }
+        text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }}
 
-    /* Metric/Card Box */
-    .card-box {
+    /* Card Box */
+    .card-box {{
         background-color: rgba(30, 41, 59, 0.85);
         border: 1px solid rgba(51, 65, 85, 0.8);
         border-radius: 16px;
@@ -142,43 +156,42 @@ st.markdown(
         margin-bottom: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(6px);
-    }
+    }}
     
-    .metric-value {
+    .metric-value {{
         font-size: 32px;
         font-weight: 800;
         color: #10B981;
-    }
+    }}
     
-    .metric-label {
+    .metric-label {{
         font-size: 12.5px;
         color: #94A3B8;
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: 700;
-    }
+    }}
 
-    /* Primary Buttons */
-    .stButton > button {
+    /* Button Primary */
+    .stButton > button {{
         background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
         color: white !important;
         font-weight: 700 !important;
         border-radius: 12px !important;
         border: none !important;
-        padding: 12px 22px !important;
+        padding: 10px 18px !important;
         box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39) !important;
         transition: all 0.3s ease !important;
         width: 100%;
         letter-spacing: 0.5px;
-    }
+    }}
     
-    .stButton > button:hover {
+    .stButton > button:hover {{
         transform: translateY(-2px);
         box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5) !important;
-    }
+    }}
 
-    /* Custom Badges */
-    .badge-success {
+    .badge-success {{
         background-color: #064E3B;
         color: #34D399;
         padding: 4px 14px;
@@ -186,16 +199,16 @@ st.markdown(
         font-weight: 700;
         font-size: 12px;
         letter-spacing: 0.5px;
-    }
+    }}
 </style>
 """,
     unsafe_allow_html=True,
 )
 
-# File Penyimpanan Data
+# File Storage
 DATA_FILE = "tahfidz_track_data.csv"
 
-# Akun Guru untuk Akses
+# Credentials
 CREDENTIALS = {
     "mohfaizgufran@iqis.sch.id": "Tahfizsmp8!",
     "adnanputra@iqis.sch.id": "Tahfizsmp8!",
@@ -204,7 +217,7 @@ CREDENTIALS = {
     "huzaifah@iqis.sch.id": "Tahfizsmp8!",
 }
 
-# Database Murid Per Kelas
+# Database Santri Per Kelas
 DATABASE_MURID = {
     "KELAS VIIIA": [
         "Achmad Sakha Recca Al Fath - 2510288",
@@ -319,8 +332,8 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
       spaceAfter=15,
   )
 
-  if os.path.exists(IMAGE_FILENAME):
-    img = RLImage(IMAGE_FILENAME, width=60, height=60)
+  if os.path.exists(LOGO_FILENAME):
+    img = RLImage(LOGO_FILENAME, width=60, height=60)
     img.hAlign = "CENTER"
     elements.append(img)
     elements.append(Spacer(1, 8))
@@ -393,12 +406,12 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
   return buffer
 
 
-# Render Header Utama
+# Render Header Utama dengan Background Image
 def render_header(title, subtitle):
   st.markdown(
       f"""
       <div class="main-header">
-          <img src="{img_src}" width="75" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+          <img src="{img_logo_src}" width="75" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
           <h1>{title}</h1>
           <p>{subtitle}</p>
       </div>
@@ -407,10 +420,12 @@ def render_header(title, subtitle):
   )
 
 
-# Modal Edit Dialog
+# REVISI #21: Modal Edit Dialog universal
 @st.dialog("🛠️ Modifikasi Record Setoran")
 def modal_edit_setoran(orig_idx, row_data):
-  st.write(f"**Update Entri Tanggal {row_data['Tanggal']}**")
+  st.write(
+      f"**Update Entri Santri: {str(row_data['Nama Murid']).split(' - ')[0]}**"
+  )
   with st.form(key=f"modal_form_{orig_idx}"):
     e_jenis = st.selectbox(
         "Kategori Setoran",
@@ -455,6 +470,70 @@ def modal_edit_setoran(orig_idx, row_data):
       save_data(df_temp)
       st.success("Perubahan record berhasil diperbarui!")
       st.rerun()
+
+
+# REVISI #21: Helper Component untuk Menampilkan Tabel Interaktif dengan Tombol Edit & Hapus
+def render_interactive_table(
+    df_subset, prefix_key="tb", show_student_col=True
+):
+  if df_subset.empty:
+    st.info("Tidak ada record data setoran.")
+    return
+
+  # Render Header Tabel
+  cols_weight = (
+      [1.2, 2.2, 1.2, 2.2, 1.2, 0.8, 0.8]
+      if show_student_col
+      else [1.2, 1.5, 2.5, 1.2, 0.8, 0.8]
+  )
+
+  # Container Loop Data
+  for idx, row in df_subset.iterrows():
+    c_list = st.columns(cols_weight)
+    c_i = 0
+
+    with c_list[c_i]:
+      st.write(f"🗓️ **{row['Tanggal']}**")
+    c_i += 1
+
+    if show_student_col:
+      with c_list[c_i]:
+        st.write(f"👤 **{str(row['Nama Murid']).split(' - ')[0]}**")
+      c_i += 1
+
+    with c_list[c_i]:
+      st.write(f"🏷️ {row['Jenis Setoran']}")
+    c_i += 1
+
+    with c_list[c_i]:
+      st.write(
+          f"🪷 **{row['Surah']}** ({row['Ayat Awal']}-{row['Ayat Akhir']}) —"
+          f" {row['Halaman']} Hlm"
+      )
+    c_i += 1
+
+    with c_list[c_i]:
+      st.write(f"💎 **{row['Nilai']}**")
+    c_i += 1
+
+    # REVISI #21: Tombol Edit & Hapus Data
+    with c_list[c_i]:
+      if st.button("🛠️ Edit", key=f"{prefix_key}_edit_{idx}"):
+        modal_edit_setoran(idx, row)
+    c_i += 1
+
+    with c_list[c_i]:
+      if st.button("🗑️ Hapus", key=f"{prefix_key}_del_{idx}"):
+        df_all = load_data()
+        df_all = df_all.drop(idx).reset_index(drop=True)
+        save_data(df_all)
+        st.toast("Record setoran telah dihapus", icon="🗑️")
+        st.rerun()
+
+    st.markdown(
+        "<hr style='margin: 4px 0 10px 0; border-color: rgba(255,255,255,0.1);'>",
+        unsafe_allow_html=True,
+    )
 
 
 # Session State Login
@@ -523,7 +602,7 @@ else:
 
   df_data = load_data()
 
-  # NAVIGASI UTAMA (REVISI #20: Icon Kreatif & Elegan)
+  # NAVIGASI UTAMA
   nav_tab1, nav_tab2, nav_tab3, nav_tab4 = st.tabs([
       "✦ Presensi Setoran",
       "◈ Analytics & Rekap",
@@ -663,8 +742,11 @@ else:
           unsafe_allow_html=True,
       )
 
-    st.subheader("📑 Matriks Riwayat Setoran")
-    st.dataframe(df_data, use_container_width=True)
+    st.subheader("📑 Matriks Riwayat Setoran Keseluruhan")
+    # REVISI #21: Menampilkan aksi Edit & Hapus di tabel analytics
+    render_interactive_table(
+        df_data, prefix_key="analytics_tb", show_student_col=True
+    )
 
   # TAB 3: DASHBOARD MURID
   with nav_tab3:
@@ -700,39 +782,10 @@ else:
 
       st.write("---")
       st.subheader("📜 Log Setoran Santri")
-
-      for orig_idx, row in df_filtered.iterrows():
-        col_tgl, col_jenis, col_detail, col_nilai, col_btn_edit, col_btn_del = (
-            st.columns([1.5, 1.5, 3, 1, 0.8, 0.8])
-        )
-
-        with col_tgl:
-          st.write(f"🗓️ **{row['Tanggal']}**")
-        with col_jenis:
-          st.write(f"🏷️ **{row['Jenis Setoran']}**")
-        with col_detail:
-          st.write(
-              f"🪷 Surah **{row['Surah']}** ({row['Ayat Awal']}-{row['Ayat Akhir']})"
-              f" — {row['Halaman']} Hlm"
-          )
-        with col_nilai:
-          st.write(f"💎 **{row['Nilai']}**")
-
-        with col_btn_edit:
-          if st.button("🛠️", key=f"edit_btn_{orig_idx}"):
-            modal_edit_setoran(orig_idx, row)
-
-        with col_btn_del:
-          if st.button("🗑️", key=f"del_btn_{orig_idx}"):
-            df_data = df_data.drop(orig_idx).reset_index(drop=True)
-            save_data(df_data)
-            st.success("Setoran berhasil dihapus!")
-            st.rerun()
-
-        st.markdown(
-            "<hr style='margin: 4px 0 12px 0; border-color: #334155;'>",
-            unsafe_allow_html=True,
-        )
+      # REVISI #21: Render aksi Edit & Hapus per santri
+      render_interactive_table(
+          df_filtered, prefix_key="student_tb", show_student_col=False
+      )
 
     else:
       st.info("Belum ada data rekaman setoran untuk santri ini.")
@@ -762,7 +815,10 @@ else:
           df_pdf_8a = df_8a[df_8a["Bulan_Tahun"] == b_pdf_8a]
 
           st.write(f"**Pratinjau Data KELAS VIIIA ({len(df_pdf_8a)} entri):**")
-          st.dataframe(df_pdf_8a, use_container_width=True)
+          # REVISI #21: Tambahkan tombol aksi Edit/Hapus langsung di pratinjau tabel PDF
+          render_interactive_table(
+              df_pdf_8a, prefix_key="pdf8a_tb", show_student_col=True
+          )
 
           pdf_bytes_8a = generate_pdf(df_pdf_8a, b_pdf_8a, "KELAS VIIIA")
 
@@ -791,7 +847,10 @@ else:
           df_pdf_8c = df_8c[df_8c["Bulan_Tahun"] == b_pdf_8c]
 
           st.write(f"**Pratinjau Data KELAS VIIIC ({len(df_pdf_8c)} entri):**")
-          st.dataframe(df_pdf_8c, use_container_width=True)
+          # REVISI #21: Tambahkan tombol aksi Edit/Hapus langsung di pratinjau tabel PDF
+          render_interactive_table(
+              df_pdf_8c, prefix_key="pdf8c_tb", show_student_col=True
+          )
 
           pdf_bytes_8c = generate_pdf(df_pdf_8c, b_pdf_8c, "KELAS VIIIC")
 
