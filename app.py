@@ -57,16 +57,8 @@ DAFTAR_114_SURAH = [
 ]
 
 TASMI_COLUMNS = [
-    "Tanggal",
-    "Periode",
-    "Kelas",
-    "Nama Murid",
-    "Penguji",
-    "Rentang Surah",
-    "Err Besar",
-    "Err Kecil",
-    "Nilai Akhir",
-    "Catatan",
+    "Tanggal", "Periode", "Kelas", "Nama Murid", "Penguji",
+    "Rentang Surah", "Err Besar", "Err Kecil", "Nilai Akhir", "Catatan"
 ]
 
 DAFTAR_MUHAFFIDZ = [
@@ -90,118 +82,67 @@ CREDENTIALS = {
 
 DATABASE_MURID = {
     "KELAS VII A": [
-        "Adelard Muhammad Athar - 2610380000",
-        "Adzkhan Zidan Alkhalifi - 73710905",
-        "Al Ghazali Hidayat - 144498445",
-        "Anhar Al Ghazali - 2610383000",
-        "Aufar Abdillah Pratama - 3147254000",
-        "Azzam Zahran Hasyim - 138357008",
-        "Fadrian Ananta Rizkullah - 3132885678",
-        "Fathan Azka Erlangga - 3141007874",
-        "Muh Abidzar Ramadhan - 3140775000",
-        "Muh Afif Ismail - 2610389000",
-        "Muh Fadlan Khalifah Aqil Haeruddin - 2610390000",
-        "Muh. Arrahfi Abimayudhitya - 3139924000",
-        "Muh. Ayyash Triansyah - 3144640000",
-        "Muhammad Abdurahman Putra Subara - 3144238000",
-        "Muhammad Afdhal Al Ghiffari Rahmat - 2012070000",
-        "Muhammad Athallah Azka - 2610396000",
-        "Muhammad Bilal Qushay - 3137064000",
-        "Muhammad Farid Atallah - 2610397000",
-        "Muhammad Fauzan Akbar - 145953134",
-        "Muhammad Raihan Ar Razin - 146047347",
+        "Adelard Muhammad Athar - 2610380000", "Adzkhan Zidan Alkhalifi - 73710905",
+        "Al Ghazali Hidayat - 144498445", "Anhar Al Ghazali - 2610383000",
+        "Aufar Abdillah Pratama - 3147254000", "Azzam Zahran Hasyim - 138357008",
+        "Fadrian Ananta Rizkullah - 3132885678", "Fathan Azka Erlangga - 3141007874",
+        "Muh Abidzar Ramadhan - 3140775000", "Muh Afif Ismail - 2610389000",
+        "Muh Fadlan Khalifah Aqil Haeruddin - 2610390000", "Muh. Arrahfi Abimayudhitya - 3139924000",
+        "Muh. Ayyash Triansyah - 3144640000", "Muhammad Abdurahman Putra Subara - 3144238000",
+        "Muhammad Afdhal Al Ghiffari Rahmat - 2012070000", "Muhammad Athallah Azka - 2610396000",
+        "Muhammad Bilal Qushay - 3137064000", "Muhammad Farid Atallah - 2610397000",
+        "Muhammad Fauzan Akbar - 145953134", "Muhammad Raihan Ar Razin - 146047347",
         "Naufal Afkar Narja - 3148227000",
     ],
     "KELAS VII C": [
-        "Abdillah Yusuf Putra Asri - 1032000237",
-        "Adelard Rabbani - 149243685",
-        "Adhyastha Fauzan Putra Andrianto - 3138085000",
-        "Adskhan Fahmi Fawwaz - 3157157000",
-        "Ahmad Rakan Fariz Rani - 3147420000",
-        "Alfatih Muhammad Khawarizmi - 3144939656",
-        "Ammar - 3122477000",
-        "Andi Adeeb Abrar Agussalim - 3131498000",
-        "Daffa Isya Al Dhabith - 737111000000",
-        "Dzahaby Khalish Akram - 144102228",
-        "Ghali Shahijun Khalq - 2610429000",
-        "Haziq Afif Daiyan - 2000249730",
-        "Muh Aflah Dzakirin Nasrullah - 3136476000",
-        "Muh Ilham Isyak - 145305229",
-        "Muhammad Akhdan Alfarizqi - 143626367",
-        "Muhammad Imran Tsaqieb Rahmat - 2012070002",
-        "Muhammad Raziq Hanania - 73711123",
-        "Rafli Azzam Syahril - 2610436000",
-        "Uwais Kaisan - 3132325000",
-        "Zayyan Syafiq Shan - 133200784",
+        "Abdillah Yusuf Putra Asri - 1032000237", "Adelard Rabbani - 149243685",
+        "Adhyastha Fauzan Putra Andrianto - 3138085000", "Adskhan Fahmi Fawwaz - 3157157000",
+        "Ahmad Rakan Fariz Rani - 3147420000", "Alfatih Muhammad Khawarizmi - 3144939656",
+        "Ammar - 3122477000", "Andi Adeeb Abrar Agussalim - 3131498000",
+        "Daffa Isya Al Dhabith - 737111000000", "Dzahaby Khalish Akram - 144102228",
+        "Ghali Shahijun Khalq - 2610429000", "Haziq Afif Daiyan - 2000249730",
+        "Muh Aflah Dzakirin Nasrullah - 3136476000", "Muh Ilham Isyak - 145305229",
+        "Muhammad Akhdan Alfarizqi - 143626367", "Muhammad Imran Tsaqieb Rahmat - 2012070002",
+        "Muhammad Raziq Hanania - 73711123", "Rafli Azzam Syahril - 2610436000",
+        "Uwais Kaisan - 3132325000", "Zayyan Syafiq Shan - 133200784",
     ],
     "KELAS VIIIA": [
-        "Achmad Sakha Recca Al Fath - 2510288",
-        "Ahmad Yasin Mubarak - 2510289",
-        "Akhdan Dzakwan Ahmad - 2510290",
-        "Al Ahnaf Gani Poetra - 2510291",
-        "Andi Muh. Dzaka Dzarwah Alam - 2510292",
-        "Andi Muh. Athallah Azka - 2510293",
-        "Bintang Tahta Al Hidayah. T - 2510294",
-        "Danish Darmawan Arsyad - 2510295",
-        "Dwi Dzaky Al Ghozaly - 2510296",
-        "Fadel Mubarak Ihsan - 2510297",
-        "Iqbal Ghaisan Iskandar - 2510298",
-        "Leon David Alexma Rava - 2510299",
-        "Luqman Hakim Rumodar - 2510300",
-        "M. Zayn Adzaky Nawir - 2510301",
-        "Muh Al Fabian Syah - 2510302",
-        "Muhammad Reyvan Risani Rahmatullah - 2510303",
-        "Muh. Aimar Zahwan - 2510304",
-        "Muh. Alif Arif - 2510305",
-        "Muh. Rayyan Ramadhan - 2510306",
-        "Muhammad Ridho Syahrir - 2510307",
+        "Achmad Sakha Recca Al Fath - 2510288", "Ahmad Yasin Mubarak - 2510289",
+        "Akhdan Dzakwan Ahmad - 2510290", "Al Ahnaf Gani Poetra - 2510291",
+        "Andi Muh. Dzaka Dzarwah Alam - 2510292", "Andi Muh. Athallah Azka - 2510293",
+        "Bintang Tahta Al Hidayah. T - 2510294", "Danish Darmawan Arsyad - 2510295",
+        "Dwi Dzaky Al Ghozaly - 2510296", "Fadel Mubarak Ihsan - 2510297",
+        "Iqbal Ghaisan Iskandar - 2510298", "Leon David Alexma Rava - 2510299",
+        "Luqman Hakim Rumodar - 2510300", "M. Zayn Adzaky Nawir - 2510301",
+        "Muh Al Fabian Syah - 2510302", "Muhammad Reyvan Risani Rahmatullah - 2510303",
+        "Muh. Aimar Zahwan - 2510304", "Muh. Alif Arif - 2510305",
+        "Muh. Rayyan Ramadhan - 2510306", "Muhammad Ridho Syahrir - 2510307",
         "Muhammad Uswah - 2510308",
     ],
     "KELAS VIIIC": [
-        "Abdul Khaliq - 2510335",
-        "Andi Al Walid Mappatonang - 2510336",
-        "Andrea milan elshaarawi - 2510337",
-        "Bilfaqih Alteza Hasid - 2510338",
-        "Dzaky Putra Triatama - 2510339",
-        "Fadhil Abdillah Hasan - 2510340",
-        "Faiz Ibrahim - 2510341",
-        "Faizi Almaz Al-Baariqh - 2510342",
-        "I Datuk Mirza Hibatullah Zahri - 2510343",
-        "M. Dhafin Harits J - 2510344",
-        "Muh Rasya AlFatah S - 2510345",
-        "Muh. Fathin Affandi - 2510346",
-        "Muhammad Yasir Az Zuhri - 2510347",
-        "Muhammad Al Furqan - 2510348",
-        "Muhammad Ali Kurniawan - 2510349",
-        "Muhammad Danish Achmad - 2510350",
-        "Muhammad Fathan Rahman - 2510351",
-        "Muhammad Fikhi Anugrah - 2510352",
-        "Muhammad Shafwan - 2510353",
-        "Muhammad Yassar Asman - 2510354",
-        "Muhammad Zaid Y - zaq1",
-        "Zayyan Akasyah - 2510356",
+        "Abdul Khaliq - 2510335", "Andi Al Walid Mappatonang - 2510336",
+        "Andrea milan elshaarawi - 2510337", "Bilfaqih Alteza Hasid - 2510338",
+        "Dzaky Putra Triatama - 2510339", "Fadhil Abdillah Hasan - 2510340",
+        "Faiz Ibrahim - 2510341", "Faizi Almaz Al-Baariqh - 2510342",
+        "I Datuk Mirza Hibatullah Zahri - 2510343", "M. Dhafin Harits J - 2510344",
+        "Muh Rasya AlFatah S - 2510345", "Muh. Fathin Affandi - 2510346",
+        "Muhammad Yasir Az Zuhri - 2510347", "Muhammad Al Furqan - 2510348",
+        "Muhammad Ali Kurniawan - 2510349", "Muhammad Danish Achmad - 2510350",
+        "Muhammad Fathan Rahman - 2510351", "Muhammad Fikhi Anugrah - 2510352",
+        "Muhammad Shafwan - 2510353", "Muhammad Yassar Asman - 2510354",
+        "Muhammad Zaid Y - zaq1", "Zayyan Akasyah - 2510356",
     ],
     "KELAS IX A": [
-        "Abdullah Azzam Asfar - 3123481089",
-        "Ariq Merdeka Ramadhan - 3115732852",
-        "Bintang Anugrah - 0116080905",
-        "Fahreza Hanif Wijaya - 2410238",
-        "Ibrahim - 2410239",
-        "Muh. Aisyar Isbal - 2410240",
-        "Muh. Darul Tri Akbar - 2410241",
-        "Muh. Rakha Rizqullah - 2410243",
-        "Muh. Zaki Zulhilmi - 2410244",
-        "Muhammad Alif Afreiza Herwan - 2410245",
-        "Muhammad Arsya Al Husain - 2410246",
-        "Muhammad Cakra Pratama Ompo Massa - 2410247",
-        "Muhammad Furqan - 2410248",
-        "Muhammad Ghazian Asfa - 2410249",
-        "Muhammad Maulana Ishak - 2410250",
-        "Muhammad Nizarrazzaq Marwan - 2410251",
-        "Rahmat Faizi - 2410252",
-        "Wahyu Triyantono. S - 2410253",
-        "Dzakwan Fauzan Kalesaran - 2410287",
-        "Azka Faried Athallah Sulkifli - 002610458",
+        "Abdullah Azzam Asfar - 3123481089", "Ariq Merdeka Ramadhan - 3115732852",
+        "Bintang Anugrah - 0116080905", "Fahreza Hanif Wijaya - 2410238",
+        "Ibrahim - 2410239", "Muh. Aisyar Isbal - 2410240",
+        "Muh. Darul Tri Akbar - 2410241", "Muh. Rakha Rizqullah - 2410243",
+        "Muh. Zaki Zulhilmi - 2410244", "Muhammad Alif Afreiza Herwan - 2410245",
+        "Muhammad Arsya Al Husain - 2410246", "Muhammad Cakra Pratama Ompo Massa - 2410247",
+        "Muhammad Furqan - 2410248", "Muhammad Ghazian Asfa - 2410249",
+        "Muhammad Maulana Ishak - 2410250", "Muhammad Nizarrazzaq Marwan - 2410251",
+        "Rahmat Faizi - 2410252", "Wahyu Triyantono. S - 2410253",
+        "Dzakwan Fauzan Kalesaran - 2410287", "Azka Faried Athallah Sulkifli - 002610458",
     ],
 }
 
@@ -227,63 +168,48 @@ st.set_page_config(
 st.markdown(
     f"""
 <style>
-    .stApp::before {{
-        content: "";
-        position: fixed;
-        top: 0; left: 0; width: 250px; height: 250px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%20%2310B981' opacity='0.25' d='M0,0 Q30,10 50,40 Q20,50 0,0 Z'/%3E%3Cpath fill='%20%23059669' opacity='0.3' d='M0,0 Q10,40 40,60 Q50,20 0,0 Z'/%3E%3Cpath fill='%20%2334D399' opacity='0.2' d='M10,0 Q40,20 60,10 Q30,40 10,0 Z'/%3E%3Ccircle cx='35' cy='35' r='4' fill='%20%236EE7B7' opacity='0.4'/%3E%3Ccircle cx='48' cy='22' r='3' fill='%20%23A7F3D0' opacity='0.5'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; background-size: contain; z-index: 1000; pointer-events: none;
-    }}
-    .stApp::after {{
-        content: "";
-        position: fixed;
-        top: 0; right: 0; width: 250px; height: 250px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%20%2310B981' opacity='0.25' d='M100,0 Q70,10 50,40 Q80,50 100,0 Z'/%3E%3Cpath fill='%20%23059669' opacity='0.3' d='M100,0 Q90,40 60,60 Q50,20 100,0 Z'/%3E%3Cpath fill='%20%2334D399' opacity='0.2' d='M90,0 Q60,20 40,10 Q70,40 90,0 Z'/%3E%3Ccircle cx='65' cy='35' r='4' fill='%20%236EE7B7' opacity='0.4'/%3E%3Ccircle cx='52' cy='22' r='3' fill='%20%23A7F3D0' opacity='0.5'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; background-size: contain; z-index: 1000; pointer-events: none;
-    }}
     .stApp {{
-        background: linear-gradient(rgba(15, 23, 42, 0.90), rgba(15, 23, 42, 0.90)), 
+        background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)), 
                     url("{img_logo_src}") no-repeat center center fixed;
         background-size: cover; color: #F8FAFC;
     }}
     label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
-        color: #F8FAFC !important; font-weight: 600 !important; font-size: 14px !important; letter-spacing: 0.3px;
+        color: #F8FAFC !important; font-weight: 600 !important; font-size: 14px !important;
     }}
     button[data-baseweb="tab"] p {{
-        color: #CBD5E1 !important; font-weight: 600 !important; font-size: 15px !important; letter-spacing: 0.5px;
+        color: #CBD5E1 !important; font-weight: 600 !important; font-size: 14px !important;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
         color: #34D399 !important; font-weight: 800 !important;
     }}
     .main-header {{
-        background: linear-gradient(rgba(5, 150, 105, 0.75), rgba(16, 185, 129, 0.85)),
+        background: linear-gradient(rgba(5, 150, 105, 0.8), rgba(16, 185, 129, 0.85)),
                     url("{header_bg_src}") no-repeat center center;
-        background-size: cover; padding: 35px 20px; border-radius: 20px; color: white; margin-bottom: 22px;
-        box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35); text-align: center; backdrop-filter: blur(4px);
-        border: 1px solid rgba(52, 211, 153, 0.4);
+        background-size: cover; padding: 25px 20px; border-radius: 16px; color: white; margin-bottom: 20px;
+        box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3); text-align: center; backdrop-filter: blur(4px);
+        border: 1px solid rgba(52, 211, 153, 0.3);
     }}
     .main-header h1 {{
-        font-size: 28px !important; font-weight: 800 !important; margin: 12px 0 0 0 !important; color: #FFFFFF !important;
-        letter-spacing: 0.8px; text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        font-size: 26px !important; font-weight: 800 !important; margin: 10px 0 0 0 !important; color: #FFFFFF !important;
     }}
     .main-header p {{
-        font-size: 14px; margin-top: 6px; opacity: 0.95; letter-spacing: 0.4px; text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        font-size: 13.5px; margin-top: 4px; opacity: 0.95;
     }}
     .card-box {{
-        background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 16px;
-        padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); backdrop-filter: blur(6px);
+        background-color: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 14px;
+        padding: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); backdrop-filter: blur(6px);
     }}
-    .metric-value {{ font-size: 32px; font-weight: 800; color: #10B981; }}
-    .metric-label {{ font-size: 12.5px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }}
+    .metric-value {{ font-size: 28px; font-weight: 800; color: #10B981; }}
+    .metric-label {{ font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
     .stButton > button {{
         background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important; color: white !important;
-        font-weight: 700 !important; border-radius: 12px !important; border: none !important; padding: 10px 18px !important;
-        box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39) !important; transition: all 0.3s ease !important;
-        width: 100%; letter-spacing: 0.5px;
+        font-weight: 700 !important; border-radius: 10px !important; border: none !important; padding: 8px 16px !important;
+        box-shadow: 0 4px 12px 0 rgba(16, 185, 129, 0.3) !important; transition: all 0.2s ease !important;
+        width: 100%;
     }}
-    .stButton > button:hover {{ transform: translateY(-2px); box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5) !important; }}
-    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }}
-    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }}
+    .stButton > button:hover {{ transform: translateY(-2px); }}
+    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; }}
+    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -367,9 +293,7 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
         s_nama = parts[0]
         s_nis = parts[1] if len(parts) > 1 else "-"
 
-        df_s = df_raw[
-            (df_raw["Kelas"] == nama_kelas) & (df_raw["Nama Murid"] == s_full)
-        ]
+        df_s = df_raw[(df_raw["Kelas"] == nama_kelas) & (df_raw["Nama Murid"] == s_full)]
 
         row_data = {
             "No": idx,
@@ -386,35 +310,19 @@ def build_spreadsheet_matrix(df_raw, nama_kelas):
                 surah_val = s_row.get("Surah", "-")
                 nilai_val = s_row.get("Nilai", 0.0)
 
-                row_data[f"Juz_{col_idx}"] = "-" if pd.isna(juz_val) or str(juz_val) == "" else str(juz_val)
-                row_data[f"Surah_{col_idx}"] = str(surah_val)
-                row_data[f"Nilai_{col_idx}"] = float(nilai_val)
+                row_data[f"Setoran {col_idx} (Juz)"] = "-" if pd.isna(juz_val) or str(juz_val) == "" else str(juz_val)
+                row_data[f"Setoran {col_idx} (Surah)"] = str(surah_val)
+                row_data[f"Setoran {col_idx} (Nilai)"] = float(nilai_val)
                 scores.append(float(nilai_val))
             else:
-                row_data[f"Juz_{col_idx}"] = "-"
-                row_data[f"Surah_{col_idx}"] = "-"
-                row_data[f"Nilai_{col_idx}"] = "-"
+                row_data[f"Setoran {col_idx} (Juz)"] = "-"
+                row_data[f"Setoran {col_idx} (Surah)"] = "-"
+                row_data[f"Setoran {col_idx} (Nilai)"] = "-"
 
         row_data["Rata-Rata Nilai"] = round(sum(scores) / len(scores), 2) if scores else 0.0
         records.append(row_data)
 
-    df_matrix = pd.DataFrame(records)
-
-    tuples = [
-        ("", "No"),
-        ("", "NIS"),
-        ("", "Nama Lengkap"),
-        ("", "Status Target"),
-    ]
-
-    for i in range(1, 46):
-        tuples.append((f"Setoran {i}", "Juz"))
-        tuples.append((f"Setoran {i}", "Nama Surah"))
-        tuples.append((f"Setoran {i}", "Nilai"))
-
-    tuples.append(("", "Rata-Rata Nilai"))
-    df_matrix.columns = pd.MultiIndex.from_tuples(tuples)
-    return df_matrix
+    return pd.DataFrame(records)
 
 def build_tasmi_matrix(df_tasmi_raw, nama_kelas):
     santri_list = DATABASE_MURID.get(nama_kelas, [])
@@ -425,9 +333,7 @@ def build_tasmi_matrix(df_tasmi_raw, nama_kelas):
         s_nama = parts[0]
         s_nis = parts[1] if len(parts) > 1 else "-"
 
-        df_s = df_tasmi_raw[
-            (df_tasmi_raw["Kelas"] == nama_kelas) & (df_tasmi_raw["Nama Murid"] == s_full)
-        ]
+        df_s = df_tasmi_raw[(df_tasmi_raw["Kelas"] == nama_kelas) & (df_tasmi_raw["Nama Murid"] == s_full)]
 
         row_data = {
             "No": idx,
@@ -445,44 +351,25 @@ def build_tasmi_matrix(df_tasmi_raw, nama_kelas):
                 err_k = s_row.get("Err Kecil", 0)
                 nilai_val = s_row.get("Nilai Akhir", 0.0)
 
-                row_data[f"Surah_{col_idx}"] = str(surah_val)
-                row_data[f"ErrB_{col_idx}"] = int(err_b)
-                row_data[f"ErrK_{col_idx}"] = int(err_k)
-                row_data[f"Nilai_{col_idx}"] = float(nilai_val)
+                row_data[f"Tasmi' {col_idx} - Surah"] = str(surah_val)
+                row_data[f"Tasmi' {col_idx} - Err Besar"] = int(err_b)
+                row_data[f"Tasmi' {col_idx} - Err Kecil"] = int(err_k)
+                row_data[f"Tasmi' {col_idx} - Nilai"] = float(nilai_val)
                 scores.append(float(nilai_val))
             else:
-                row_data[f"Surah_{col_idx}"] = "-"
-                row_data[f"ErrB_{col_idx}"] = "-"
-                row_data[f"ErrK_{col_idx}"] = "-"
-                row_data[f"Nilai_{col_idx}"] = "-"
+                row_data[f"Tasmi' {col_idx} - Surah"] = "-"
+                row_data[f"Tasmi' {col_idx} - Err Besar"] = "-"
+                row_data[f"Tasmi' {col_idx} - Err Kecil"] = "-"
+                row_data[f"Tasmi' {col_idx} - Nilai"] = "-"
 
-        row_data["Rata-Rata Nilai Tasmi'"] = round(sum(scores) / len(scores), 2) if scores else 0.0
+        row_data["Rata-Rata Tasmi'"] = round(sum(scores) / len(scores), 2) if scores else 0.0
         records.append(row_data)
 
-    df_matrix = pd.DataFrame(records)
-
-    tuples = [
-        ("", "No"),
-        ("", "NIS"),
-        ("", "Nama Lengkap"),
-        ("", "Status Target"),
-    ]
-
-    for i in range(1, 11):
-        tuples.append((f"Tasmi' {i}", "Rentang Surah"))
-        tuples.append((f"Tasmi' {i}", "Salah Besar"))
-        tuples.append((f"Tasmi' {i}", "Salah Kecil"))
-        tuples.append((f"Tasmi' {i}", "Nilai"))
-
-    tuples.append(("", "Rata-Rata Nilai Tasmi'"))
-    df_matrix.columns = pd.MultiIndex.from_tuples(tuples)
-    return df_matrix
+    return pd.DataFrame(records)
 
 def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
     buffer = io.BytesIO()
-    doc = SimpleDocTemplate(
-        buffer, pagesize=A4, rightMargin=20, leftMargin=20, topMargin=20, bottomMargin=20
-    )
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=20, leftMargin=20, topMargin=20, bottomMargin=20)
     elements = []
     styles = getSampleStyleSheet()
 
@@ -494,23 +381,16 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
         "SubTitleStyle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10,
         textColor=colors.HexColor("#0F172A"), alignment=1, spaceAfter=15
     )
-    bold_text_style = ParagraphStyle(
-        "BoldTextStyle", parent=styles["Normal"], fontName="Helvetica-Bold"
-    )
+    bold_text_style = ParagraphStyle("BoldTextStyle", parent=styles["Normal"], fontName="Helvetica-Bold")
 
     if os.path.exists(LOGO_FILENAME):
-        img = RLImage(LOGO_FILENAME, width=55, height=55)
+        img = RLImage(LOGO_FILENAME, width=50, height=50)
         img.hAlign = "CENTER"
         elements.append(img)
         elements.append(Spacer(1, 6))
 
     elements.append(Paragraph("LAPORAN REKAPITULASI BULANAN TAHFIDZ QURAN", title_style))
-    elements.append(
-        Paragraph(
-            f"SMPIT IBNUL QAYYIM MAKASSAR — {nama_kelas} | Periode: {bulan_tahun}",
-            subtitle_style,
-        )
-    )
+    elements.append(Paragraph(f"SMPIT IBNUL QAYYIM MAKASSAR — {nama_kelas} | Periode: {bulan_tahun}", subtitle_style))
 
     table_data = [["No", "Tanggal", "Nama Murid", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]]
     for idx, row in df_filtered.reset_index(drop=True).iterrows():
@@ -521,20 +401,18 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
         ])
 
     t = Table(table_data, colWidths=[25, 65, 140, 55, 140, 35, 45])
-    t.setStyle(
-        TableStyle([
-            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
-            ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
-            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-            ("FONTSIZE", (0, 0), (-1, 0), 8),
-            ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
-            ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
-            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
-            ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
-            ("FONTSIZE", (0, 1), (-1, -1), 7.5),
-        ])
-    )
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, 0), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
+        ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+        ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+        ("FONTSIZE", (0, 1), (-1, -1), 7.5),
+    ]))
     elements.append(t)
     elements.append(Spacer(1, 20))
 
@@ -567,12 +445,10 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
         ],
         colWidths=[220, 60, 220],
     )
-    ttd_table.setStyle(
-        TableStyle([
-            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ])
-    )
+    ttd_table.setStyle(TableStyle([
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ]))
     elements.append(ttd_table)
 
     doc.build(elements)
@@ -583,7 +459,7 @@ def render_header(title, subtitle):
     st.markdown(
         f"""
         <div class="main-header">
-            <img src="{img_logo_src}" width="75" style="border-radius: 50%; background: white; padding: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: white; padding: 3px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
             <h1>{title}</h1>
             <p>{subtitle}</p>
         </div>
@@ -600,22 +476,14 @@ if "admin_board_unlocked" not in st.session_state:
     st.session_state["admin_board_unlocked"] = False
 
 if not st.session_state["logged_in"]:
-    render_header(
-        "TahfidzTrack — SMPIT Ibnul Qayyim",
-        "Sistem Management & Monitoring Hafalan Qur'an Murid",
-    )
+    render_header("TahfidzTrack — SMPIT Ibnul Qayyim", "Sistem Management & Monitoring Hafalan Qur'an Murid")
 
     col_left, col_center, col_right = st.columns([1, 2, 1])
     with col_center:
         with st.form("login_form"):
             st.subheader("🔑 Autentikasi Pengampu")
-            email = st.text_input(
-                "Alamat Email Akademik",
-                placeholder="contoh: adnanputra@iqis.sch.id",
-            )
-            password = st.text_input(
-                "Sandi Keamanan", type="password", placeholder="••••••••"
-            )
+            email = st.text_input("Alamat Email Akademik", placeholder="contoh: adnanputra@iqis.sch.id")
+            password = st.text_input("Sandi Keamanan", type="password", placeholder="••••••••")
             submit = st.form_submit_button("Akses Portal ➔")
 
             if submit:
@@ -626,28 +494,25 @@ if not st.session_state["logged_in"]:
                     st.session_state["user_email"] = email_clean
                     st.session_state["is_admin"] = email_clean in ADMIN_ACCOUNTS
                     update_user_session(email_clean, "online")
-                    st.success("Otentikasi berhasil! Mengarahkan ke sistem...")
+                    st.success("Otentikasi berhasil!")
                     st.rerun()
                 else:
                     st.error("Kredensial tidak terverifikasi.")
 
 else:
     update_user_session(st.session_state["user_email"], "online")
-    render_header(
-        "TahfidzTrack — SMPIT Ibnul Qayyim",
-        "Sistem Management & Monitoring Hafalan Qur'an Murid",
-    )
+    render_header("TahfidzTrack — SMPIT Ibnul Qayyim", "Sistem Management & Monitoring Hafalan Qur'an Murid")
 
     c_user, c_logout = st.columns([4, 1])
     with c_user:
         badge_cls = "badge-admin" if st.session_state["is_admin"] else "badge-success"
         role_label = " [ADMIN]" if st.session_state["is_admin"] else ""
         st.markdown(
-            f"⚡ **User Logged In:** <span class='{badge_cls}'>{st.session_state['user_email']}{role_label}</span>",
+            f"⚡ **User Active:** <span class='{badge_cls}'>{st.session_state['user_email']}{role_label}</span>",
             unsafe_allow_html=True,
         )
     with c_logout:
-        if st.button("🚪 Log Out"):
+        if st.button("🚪 Keluar"):
             update_user_session(st.session_state["user_email"], "offline")
             st.session_state["logged_in"] = False
             st.session_state["user_email"] = ""
@@ -677,25 +542,24 @@ else:
         st.subheader("✨ Form Input Setoran Harian")
         st.caption("Pencatatan progres hafalan harian murid secara real-time")
 
-        with st.container():
-            c1, c2 = st.columns(2)
-            with c1:
-                kelas_sel = st.selectbox("🏛️ Rombongan Belajar", list(DATABASE_MURID.keys()))
-                murid_sel = st.selectbox("👤 Profil Murid", DATABASE_MURID[kelas_sel])
-                penguji_setoran = st.selectbox("👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ)
-                jenis_sel = st.selectbox("📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"])
+        c1, c2 = st.columns(2)
+        with c1:
+            kelas_sel = st.selectbox("🏛️ Rombongan Belajar", list(DATABASE_MURID.keys()))
+            murid_sel = st.selectbox("👤 Profil Murid", DATABASE_MURID[kelas_sel])
+            penguji_setoran = st.selectbox("👨‍🏫 Guru Muhaffidz / Penguji", DAFTAR_MUHAFFIDZ)
+            jenis_sel = st.selectbox("📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"])
 
-            with c2:
-                juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
-                surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
-                col_a1, col_a2 = st.columns(2)
-                with col_a1:
-                    ayat_awal = st.number_input("🧮 Ayat Awal", min_value=1, value=1)
-                with col_a2:
-                    ayat_akhir = st.number_input("🧮 Ayat Akhir", min_value=1, value=10)
+        with c2:
+            juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
+            surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
+            col_a1, col_a2 = st.columns(2)
+            with col_a1:
+                ayat_awal = st.number_input("🧮 Ayat Awal", min_value=1, value=1)
+            with col_a2:
+                ayat_akhir = st.number_input("🧮 Ayat Akhir", min_value=1, value=10)
 
-                halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
-                salah = st.number_input("⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0)
+            halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
+            salah = st.number_input("⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0)
 
         nilai_calc = max(0.0, min(100.0, round(100.0 - (salah * 2.0), 2)))
 
@@ -706,32 +570,24 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Indeks Kelancaran Hafalan</div>
-                    <div class="metric-value">{nilai_calc} <span style="font-size:18px; color:#94A3B8;">/ 100</span></div>
+                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#94A3B8;">/ 100</span></div>
                 </div>
             """,
                 unsafe_allow_html=True,
             )
         with m2:
-            if nilai_calc >= 90:
-                kualitas = "Mumtaz (Sangat Baik)"
-            elif nilai_calc >= 75:
-                kualitas = "Jayyid Jiddan (Baik)"
-            elif nilai_calc >= 60:
-                kualitas = "Jayyid (Cukup)"
-            else:
-                kualitas = "Rasib (Perlu Murajaah)"
-
+            kualitas = "Mumtaz (Sangat Baik)" if nilai_calc >= 90 else ("Jayyid Jiddan (Baik)" if nilai_calc >= 75 else ("Jayyid (Cukup)" if nilai_calc >= 60 else "Rasib (Perlu Murajaah)"))
             st.markdown(
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Predikat Evaluasi</div>
-                    <div class="metric-value" style="font-size: 22px; color: #34D399; padding-top:8px;">{kualitas}</div>
+                    <div class="metric-value" style="font-size: 20px; color: #34D399; padding-top:6px;">{kualitas}</div>
                 </div>
             """,
                 unsafe_allow_html=True,
             )
 
-        if st.button("🛡️ SIMPAN RECORD SETORAN", use_container_width=True):
+        if st.button("🛡️ SIMPAN RECORD SETORAN"):
             new_record = {
                 "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
                 "Guru Input": penguji_setoran,
@@ -749,62 +605,30 @@ else:
             df_updated = pd.concat([df_data, pd.DataFrame([new_record])], ignore_index=True)
             save_data(df_updated)
             st.snow()
-            st.toast(f"✨ Barakallahu Fiik! Data setoran {murid_sel.split(' - ')[0]} telah tersimpan.", icon="🕌")
-            st.success(f"Alhamdulillah! Data setoran {murid_sel.split(' - ')[0]} berhasil dicatat ke dalam database.")
+            st.toast(f"Data setoran {murid_sel.split(' - ')[0]} berhasil disimpan.", icon="🕌")
 
     # --- TAB 2: REKAPAN & SPREADSHEET MATRIX ---
     with tabs[1]:
-        st.subheader("◈ Matriks Spreadsheet Tahfidz (45 Blok Setoran & Rata-Rata)")
-        st.caption("Tampilan database horizontal berbasis matriks (Juz - Nama Surah - Nilai) hingga 45 kolom.")
+        st.subheader("◈ Matriks Spreadsheet Tahfidz")
+        st.caption("Matriks horizontal riwayat setoran siswa")
 
         k1, k2, k3 = st.columns(3)
         with k1:
-            st.markdown(
-                f"""
-                <div class="card-box">
-                    <div class="metric-label">Aktivitas Setoran Terdata</div>
-                    <div class="metric-value">{len(df_data)}</div>
-                </div>
-            """,
-                unsafe_allow_html=True,
-            )
+            st.markdown(f'<div class="card-box"><div class="metric-label">Total Setoran</div><div class="metric-value">{len(df_data)}</div></div>', unsafe_allow_html=True)
         with k2:
             total_hlm = round(df_data["Halaman"].sum(), 2) if not df_data.empty else 0
-            st.markdown(
-                f"""
-                <div class="card-box">
-                    <div class="metric-label">Total Volume Halaman</div>
-                    <div class="metric-value">{total_hlm} <span style="font-size:16px; color:#94A3B8;">Hlm</span></div>
-                </div>
-            """,
-                unsafe_allow_html=True,
-            )
+            st.markdown(f'<div class="card-box"><div class="metric-label">Total Halaman</div><div class="metric-value">{total_hlm}</div></div>', unsafe_allow_html=True)
         with k3:
             rata_nilai = round(df_data["Nilai"].mean(), 2) if not df_data.empty else 0.0
-            st.markdown(
-                f"""
-                <div class="card-box">
-                    <div class="metric-label">Rata-Rata Nilai Kelancaran</div>
-                    <div class="metric-value">{rata_nilai}</div>
-                </div>
-            """,
-                unsafe_allow_html=True,
-            )
+            st.markdown(f'<div class="card-box"><div class="metric-label">Rata-Rata Nilai</div><div class="metric-value">{rata_nilai}</div></div>', unsafe_allow_html=True)
 
-        kelas_matrix_sel = st.selectbox(
-            "🔍 Filter Kelas Matriks Spreadsheet",
-            list(DATABASE_MURID.keys()),
-            key="matrix_kelas_select",
-        )
-
+        kelas_matrix_sel = st.selectbox("🔍 Pilih Kelas Matriks", list(DATABASE_MURID.keys()), key="matrix_kelas_select")
         df_matrix_result = build_spreadsheet_matrix(df_data, kelas_matrix_sel)
-        st.dataframe(df_matrix_result, use_container_width=True, height=450)
+        st.dataframe(df_matrix_result, use_container_width=True, height=400)
 
     # --- TAB 3: TRACKING PORTAL ---
     with tabs[2]:
         st.subheader("🪶 Tracking Portal Murid")
-        st.caption("Pantau progres riwayat setoran per individu murid")
-
         col_t1, col_t2 = st.columns(2)
         with col_t1:
             k_track = st.selectbox("Pilih Kelas", list(DATABASE_MURID.keys()), key="track_k")
@@ -812,42 +636,31 @@ else:
             m_track = st.selectbox("Pilih Murid", DATABASE_MURID[k_track], key="track_m")
 
         df_single = df_data[(df_data["Kelas"] == k_track) & (df_data["Nama Murid"] == m_track)]
-
         if df_single.empty:
-            st.info("Belum ada riwayat setoran untuk murid ini.")
+            st.info("Belum ada riwayat setoran.")
         else:
             st.dataframe(df_single, use_container_width=True)
 
     # --- TAB 4: CERTIFICATE & PDF ---
     with tabs[3]:
-        st.subheader("📜 Generator Laporan PDF Bulanan")
-        st.caption("Unduh berkas cetak rekapitulasi setoran kelas versi PDF")
-
+        st.subheader("📜 Generator Laporan PDF")
         c_pdf1, c_pdf2 = st.columns(2)
         with c_pdf1:
-            pdf_kelas = st.selectbox("Kelas Target PDF", list(DATABASE_MURID.keys()), key="pdf_k")
+            pdf_kelas = st.selectbox("Kelas Target", list(DATABASE_MURID.keys()), key="pdf_k")
         with c_pdf2:
             pdf_periode = st.text_input("Periode Laporan", "September 2026")
 
         df_pdf_data = df_data[df_data["Kelas"] == pdf_kelas]
-
-        if st.button("📄 Generate Berkas PDF Laporan"):
+        if st.button("📄 Generate Berkas PDF"):
             if df_pdf_data.empty:
-                st.warning("Data setoran kosong pada kelas ini.")
+                st.warning("Data setoran kosong.")
             else:
                 pdf_bytes = generate_pdf(df_pdf_data, pdf_periode, pdf_kelas)
-                st.download_button(
-                    label="⬇️ Unduh Berkas PDF Laporan",
-                    data=pdf_bytes,
-                    file_name=f"Laporan_Tahfidz_{pdf_kelas}_{pdf_periode}.pdf",
-                    mime="application/pdf",
-                )
+                st.download_button("⬇️ Unduh PDF", data=pdf_bytes, file_name=f"Laporan_{pdf_kelas}_{pdf_periode}.pdf", mime="application/pdf")
 
     # --- TAB 5: UJIAN TASMI' ---
     with tabs[4]:
-        st.subheader("🎯 Form Input Hasil Ujian Tasmi'")
-        st.caption("Penilaian ujian kelancaran hafalan terstruktur")
-
+        st.subheader("🎯 Form Input Ujian Tasmi'")
         with st.form("form_tasmi"):
             col_tas1, col_tas2 = st.columns(2)
             with col_tas1:
@@ -856,18 +669,12 @@ else:
                 t_murid = st.selectbox("Nama Murid Ujian", DATABASE_MURID[t_kelas], key="tas_m")
                 t_penguji = st.selectbox("Penguji Tasmi'", DAFTAR_MUHAFFIDZ, key="tas_p")
             with col_tas2:
-                t_surah_list = st.multiselect(
-                    "🪷 Rentang Surah/Juz Ujian (Pilih Surah)",
-                    options=DAFTAR_114_SURAH,
-                    default=["78. An-Naba'", "114. An-Nas"],
-                    help="Bisa memilih satu atau beberapa surah sekaligus yang diujikan."
-                )
-                t_err_besar = st.number_input("Jumlah Salah Besar (-2/err)", min_value=0, value=0)
-                t_err_kecil = st.number_input("Jumlah Salah Kecil (-1/err)", min_value=0, value=0)
+                t_surah_list = st.multiselect("🪷 Rentang Surah Ujian", options=DAFTAR_114_SURAH, default=["78. An-Naba'", "114. An-Nas"])
+                t_err_besar = st.number_input("Salah Besar (-2/err)", min_value=0, value=0)
+                t_err_kecil = st.number_input("Salah Kecil (-1/err)", min_value=0, value=0)
                 t_catatan = st.text_area("Catatan Penguji", "Lancar, makhraj dan tajwid perlu dijaga.")
 
             btn_tasmi = st.form_submit_button("🛡️ SIMPAN HASIL TASMI'")
-
             if btn_tasmi:
                 minus_total = (t_err_besar * 2) + (t_err_kecil * 1)
                 nilai_akhir_tasmi = max(0, 100 - minus_total)
@@ -885,119 +692,123 @@ else:
                     "Nilai Akhir": nilai_akhir_tasmi,
                     "Catatan": t_catatan,
                 }
-
                 df_tasmi_up = pd.concat([df_tasmi, pd.DataFrame([new_tasmi])], ignore_index=True)
                 save_tasmi_data(df_tasmi_up)
                 st.toast("Data Ujian Tasmi' Berhasil Disimpan!", icon="🎯")
-                st.success(f"Hasil Tasmi' {t_murid.split(' - ')[0]} tersimpan dengan nilai: {nilai_akhir_tasmi}")
 
     # --- TAB 6: DATABASE TASMI' ---
     with tabs[5]:
         st.subheader("📂 Record Matriks Ujian Tasmi'")
-        st.caption("Tampilan database terstruktur berbasis matriks horizontal per kelas.")
+        st.caption("Matriks horizontal ringkas ujian Tasmi' per kelas.")
 
-        kelas_tasmi_matrix_sel = st.selectbox(
-            "🔍 Filter Kelas Matriks Tasmi'",
-            list(DATABASE_MURID.keys()),
-            key="tasmi_matrix_kelas_select",
-        )
-
+        kelas_tasmi_matrix_sel = st.selectbox("🔍 Filter Kelas", list(DATABASE_MURID.keys()), key="tasmi_matrix_kelas_select")
         df_tasmi_curr = load_tasmi_data()
         df_tasmi_matrix = build_tasmi_matrix(df_tasmi_curr, kelas_tasmi_matrix_sel)
-        st.dataframe(df_tasmi_matrix, use_container_width=True, height=450)
+        st.dataframe(df_tasmi_matrix, use_container_width=True, height=400)
 
-    # --- TAB 7: ADMIN BOARD (Proteksi PIN Kata Sandi) ---
+    # --- TAB 7: ADMIN BOARD (Proteksi Password & Rekap Tasmi') ---
     if st.session_state["is_admin"]:
         with tabs[6]:
             if not st.session_state["admin_board_unlocked"]:
                 st.subheader("🔒 Area Terkunci Admin Board")
-                st.info("Masukkan PIN/Sandi verifikasi khusus untuk mengakses panel pemantauan pengguna.")
-
                 col_p1, col_p2 = st.columns([2, 1])
                 with col_p1:
-                    pin_input = st.text_input(
-                        "Password Akses Admin Board",
-                        type="password",
-                        placeholder="Masukkan sandi akses...",
-                        key="input_pin_admin"
-                    )
+                    pin_input = st.text_input("Password Akses Admin Board", type="password", key="input_pin_admin")
                 with col_p2:
                     st.write("")
                     st.write("")
                     if st.button("🔓 Buka Akses"):
                         if pin_input == "1233335":
                             st.session_state["admin_board_unlocked"] = True
-                            st.success("Akses diterima!")
                             st.rerun()
                         else:
                             st.error("Sandi akses salah!")
             else:
                 c_head, c_lock = st.columns([4, 1])
                 with c_head:
-                    st.subheader("🛡️ Panel Kontrol & Pemantauan Pengguna (Khusus Admin)")
-                    st.caption("Monitoring real-time aktivitas login dan operasional guru di aplikasi TahfidzTrack.")
+                    st.subheader("🛡️ Admin Executive Board")
+                    st.caption("Monitoring real-time aktivitas pengampu & rekapitulasi nilai Tasmi' siswa.")
                 with c_lock:
-                    if st.button("🔒 Kunci Kembali"):
+                    if st.button("🔒 Kunci"):
                         st.session_state["admin_board_unlocked"] = False
                         st.rerun()
 
+                # SECTION 1: USER ACTIVITY MONITORING
                 sessions = load_sessions()
                 all_teachers = list(CREDENTIALS.keys())
-                
                 online_count = sum(1 for s in sessions.values() if s.get("status") == "Online 🟢")
-                
+
                 adm1, adm2, adm3 = st.columns(3)
                 with adm1:
-                    st.markdown(
-                        f"""
-                        <div class="card-box">
-                            <div class="metric-label">Total Akun Pengampu</div>
-                            <div class="metric-value">{len(all_teachers)}</div>
-                        </div>
-                    """,
-                        unsafe_allow_html=True,
-                    )
+                    st.markdown(f'<div class="card-box"><div class="metric-label">Total Guru Pengampu</div><div class="metric-value">{len(all_teachers)}</div></div>', unsafe_allow_html=True)
                 with adm2:
-                    st.markdown(
-                        f"""
-                        <div class="card-box">
-                            <div class="metric-label">Pengampu Sedang Online</div>
-                            <div class="metric-value" style="color:#34D399;">{online_count}</div>
-                        </div>
-                    """,
-                        unsafe_allow_html=True,
-                    )
+                    st.markdown(f'<div class="card-box"><div class="metric-label">Pengampu Online</div><div class="metric-value" style="color:#34D399;">{online_count}</div></div>', unsafe_allow_html=True)
                 with adm3:
-                    st.markdown(
-                        f"""
-                        <div class="card-box">
-                            <div class="metric-label">Role Akses Anda</div>
-                            <div class="metric-value" style="color:#FCA5A5; font-size:22px; padding-top:8px;">Super Admin</div>
-                        </div>
-                    """,
-                        unsafe_allow_html=True,
-                    )
+                    st.markdown(f'<div class="card-box"><div class="metric-label">Akses Role</div><div class="metric-value" style="color:#FCA5A5; font-size:20px; padding-top:6px;">Super Admin</div></div>', unsafe_allow_html=True)
 
-                st.write("### 👥 Status Aktivitas Guru / Pengampu Tahfidz")
-
+                st.write("### 👥 Status Aktivitas Guru")
                 admin_data = []
                 for email_acc in all_teachers:
                     sess = sessions.get(email_acc, {})
-                    status_user = sess.get("status", "Offline 🔴")
-                    last_active = sess.get("last_active", "-")
-                    login_time = sess.get("login_time", "-")
-                    role_str = "Administrator" if email_acc in ADMIN_ACCOUNTS else "Muhaffidz / Guru"
-
                     admin_data.append({
                         "Email Guru": email_acc,
-                        "Role": role_str,
-                        "Status Live": status_user,
-                        "Waktu Login": login_time,
-                        "Aktivitas Terakhir": last_active,
+                        "Role": "Administrator" if email_acc in ADMIN_ACCOUNTS else "Muhaffidz / Guru",
+                        "Status Live": sess.get("status", "Offline 🔴"),
+                        "Waktu Login": sess.get("login_time", "-"),
+                        "Aktivitas Terakhir": sess.get("last_active", "-"),
                     })
+                st.dataframe(pd.DataFrame(admin_data), use_container_width=True)
 
-                df_admin = pd.DataFrame(admin_data)
-                st.dataframe(df_admin, use_container_width=True)
+                st.markdown("---")
 
-                if st.button("🔄 Refresh Status Online", use_container_width=False):
-                    st.rerun()
+                # SECTION 2: REKAPITULASI NILAI TASMI' SISWA & RATA-RATA
+                st.write("### 📊 Rekapitulasi Nilai Tasmi' Siswa")
+                
+                df_tasmi_admin = load_tasmi_data()
+                
+                if df_tasmi_admin.empty:
+                    st.info("Belum ada data ujian Tasmi' yang tercatat di database.")
+                else:
+                    # Filter Per Kelas di Admin Board
+                    filter_k_admin = st.selectbox("🔍 Filter Kelas Laporan Tasmi'", ["SEMUA KELAS"] + list(DATABASE_MURID.keys()), key="admin_tasmi_k_filter")
+                    
+                    if filter_k_admin != "SEMUA KELAS":
+                        df_tasmi_view = df_tasmi_admin[df_tasmi_admin["Kelas"] == filter_k_admin]
+                    else:
+                        df_tasmi_view = df_tasmi_admin.copy()
+
+                    # Konversi tipe data nilai ke float
+                    df_tasmi_view["Nilai Akhir"] = pd.to_numeric(df_tasmi_view["Nilai Akhir"], errors="coerce").fillna(0)
+
+                    # Metrik Ringkasan Nilai Tasmi'
+                    avg_tasmi_all = round(df_tasmi_view["Nilai Akhir"].mean(), 2) if not df_tasmi_view.empty else 0.0
+                    highest_tasmi = df_tasmi_view["Nilai Akhir"].max() if not df_tasmi_view.empty else 0.0
+                    lowest_tasmi = df_tasmi_view["Nilai Akhir"].min() if not df_tasmi_view.empty else 0.0
+
+                    col_r1, col_r2, col_r3 = st.columns(3)
+                    with col_r1:
+                        st.markdown(f'<div class="card-box"><div class="metric-label">Rata-Rata Nilai Tasmi\'</div><div class="metric-value">{avg_tasmi_all}</div></div>', unsafe_allow_html=True)
+                    with col_r2:
+                        st.markdown(f'<div class="card-box"><div class="metric-label">Nilai Tertinggi</div><div class="metric-value" style="color:#34D399;">{highest_tasmi}</div></div>', unsafe_allow_html=True)
+                    with col_r3:
+                        st.markdown(f'<div class="card-box"><div class="metric-label">Nilai Terendah</div><div class="metric-value" style="color:#FCA5A5;">{lowest_tasmi}</div></div>', unsafe_allow_html=True)
+
+                    # Tabel Rangkuman Per Siswa (Agregasi Rata-Rata per Siswa)
+                    st.write("#### 📝 Ringkasan Per Siswa (Rata-Rata Rapor Tasmi')")
+                    
+                    summary_student = df_tasmi_view.groupby(["Kelas", "Nama Murid"]).agg(
+                        Jumlah_Ujian=("Nilai Akhir", "count"),
+                        Rata_Rata_Nilai=("Nilai Akhir", lambda x: round(x.mean(), 2)),
+                        Nilai_Terakhir=("Nilai Akhir", "last"),
+                        Surah_Terakhir=("Rentang Surah", "last")
+                    ).reset_index()
+
+                    # Bersihkan tampilan nama murid
+                    summary_student["Nama Murid"] = summary_student["Nama Murid"].apply(lambda x: x.split(" - ")[0])
+                    summary_student.columns = ["Kelas", "Nama Murid", "Total Ujian", "Rata-Rata Nilai", "Nilai Terakhir", "Ujian Surah Terakhir"]
+
+                    st.dataframe(summary_student, use_container_width=True)
+
+                    # Tabel Log Riwayat Seluruh Ujian Tasmi'
+                    with st.expander("📜 Lihat Detail Log Seluruh Ujian Tasmi'"):
+                        st.dataframe(df_tasmi_view, use_container_width=True)
