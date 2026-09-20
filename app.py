@@ -198,88 +198,108 @@ st.markdown(
     }}
 
     @keyframes pulseGlow {{
-        0% {{ box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }}
-        50% {{ box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), 0 0 10px rgba(52, 211, 153, 0.4); }}
-        100% {{ box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }}
+        0% {{ box-shadow: 0 0 15px rgba(124, 138, 91, 0.2); }}
+        50% {{ box-shadow: 0 0 30px rgba(124, 138, 91, 0.5), 0 0 10px rgba(255, 216, 191, 0.4); }}
+        100% {{ box-shadow: 0 0 15px rgba(124, 138, 91, 0.2); }}
     }}
 
     .stApp {{
-        background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)), 
-                    url("{img_logo_src}") no-repeat center center fixed;
-        background-size: cover; color: #F8FAFC;
+        background-color: #FFF4E9 !important;
+        color: #3D4A2F !important;
     }}
 
     .stMainBlockContainer {{
         animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }}
 
-    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
-        color: #F8FAFC !important; font-weight: 600 !important; font-size: 14px !important;
+    /* Typography & Text Override */
+    p, span, div, h1, h2, h3, h4, h5, h6 {{
+        color: #3D4A2F;
     }}
 
+    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
+        color: #3D4A2F !important; font-weight: 700 !important; font-size: 14px !important;
+    }}
+
+    /* Tab Styling */
     button[data-baseweb="tab"] p {{
-        color: #CBD5E1 !important; font-weight: 600 !important; font-size: 14px !important;
+        color: #7C8A5B !important; font-weight: 600 !important; font-size: 14px !important;
         transition: all 0.3s ease;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #34D399 !important; font-weight: 800 !important;
-        text-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+        color: #3D4A2F !important; font-weight: 800 !important;
+        text-shadow: 0 0 4px rgba(255, 216, 191, 0.8);
+    }}
+    div[data-baseweb="tab-highlight"] {{
+        background-color: #7C8A5B !important;
     }}
 
+    /* Header Main Section */
     .main-header {{
-        background: linear-gradient(rgba(5, 150, 105, 0.8), rgba(16, 185, 129, 0.85)),
+        background: linear-gradient(135deg, rgba(61, 74, 47, 0.95), rgba(124, 138, 91, 0.9)),
                     url("{header_bg_src}") no-repeat center center;
-        background-size: cover; padding: 25px 20px; border-radius: 16px; color: white; margin-bottom: 20px;
+        background-size: cover; padding: 25px 20px; border-radius: 16px; color: #FFF4E9; margin-bottom: 20px;
         text-align: center; backdrop-filter: blur(6px);
-        border: 1px solid rgba(52, 211, 153, 0.4);
+        border: 2px solid #7C8A5B;
         animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
-        font-size: 26px !important; font-weight: 800 !important; margin: 10px 0 0 0 !important; color: #FFFFFF !important;
+        font-size: 26px !important; font-weight: 800 !important; margin: 10px 0 0 0 !important; color: #FFF4E9 !important;
         letter-spacing: 0.5px;
     }}
     .main-header p {{
-        font-size: 13.5px; margin-top: 4px; opacity: 0.95;
+        font-size: 13.5px; margin-top: 4px; color: #FFD8BF !important; font-weight: 500;
     }}
 
+    /* Card Box & Forms */
     .card-box, div[data-testid="stForm"] {{
-        background-color: rgba(30, 41, 59, 0.85) !important; 
-        border: 1px solid rgba(52, 211, 153, 0.3) !important; 
+        background-color: #FFFFFF !important; 
+        border: 1.5px solid #7C8A5B !important; 
         border-radius: 14px !important;
         padding: 20px !important; margin-bottom: 15px !important; 
-        backdrop-filter: blur(8px) !important;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+        box-shadow: 0 4px 20px rgba(61, 74, 47, 0.08) !important;
         animation: techFadeIn 0.8s ease-out;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
     .card-box:hover, div[data-testid="stForm"]:hover {{
-        border-color: rgba(52, 211, 153, 0.8) !important;
-        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25) !important;
+        border-color: #3D4A2F !important;
+        box-shadow: 0 8px 25px rgba(61, 74, 47, 0.15) !important;
         transform: translateY(-2px);
     }}
 
-    .metric-value {{ font-size: 28px; font-weight: 800; color: #10B981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }}
-    .metric-label {{ font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
+    .metric-value {{ font-size: 28px; font-weight: 800; color: #3D4A2F; text-shadow: 0 0 5px rgba(124, 138, 91, 0.2); }}
+    .metric-label {{ font-size: 12px; color: #6A4C3B; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
 
+    /* Inputs Override */
+    div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
+        background-color: #FFF4E9 !important;
+        border-color: #7C8A5B !important;
+        color: #3D4A2F !important;
+    }}
+
+    /* Primary Buttons */
     .stButton > button {{
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important; color: white !important;
+        background: linear-gradient(135deg, #7C8A5B 0%, #3D4A2F 100%) !important; color: #FFF4E9 !important;
         font-weight: 700 !important; border-radius: 10px !important; border: none !important; padding: 10px 16px !important;
-        box-shadow: 0 4px 15px 0 rgba(16, 185, 129, 0.4) !important; 
+        box-shadow: 0 4px 12px rgba(61, 74, 47, 0.2) !important; 
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         width: 100%;
         position: relative;
         overflow: hidden;
     }}
     .stButton > button:hover {{ 
+        background: linear-gradient(135deg, #6A4C3B 0%, #3D4A2F 100%) !important;
+        color: #FFD8BF !important;
         transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.6) !important;
+        box-shadow: 0 6px 18px rgba(106, 76, 59, 0.3) !important;
     }}
     .stButton > button:active {{
         transform: translateY(1px) scale(0.99);
     }}
 
-    .badge-success {{ background-color: #064E3B; color: #34D399; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid rgba(52, 211, 153, 0.4); }}
-    .badge-admin {{ background-color: #7F1D1D; color: #FCA5A5; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid rgba(252, 165, 165, 0.4); }}
+    /* Custom Badges */
+    .badge-success {{ background-color: #7C8A5B; color: #FFF4E9; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
+    .badge-admin {{ background-color: #6A4C3B; color: #FFD8BF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -445,11 +465,11 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
 
     title_style = ParagraphStyle(
         "TitleStyle", parent=styles["Heading1"], fontName="Helvetica-Bold", fontSize=13,
-        textColor=colors.HexColor("#10B981"), alignment=1, spaceAfter=4
+        textColor=colors.HexColor("#3D4A2F"), alignment=1, spaceAfter=4
     )
     subtitle_style = ParagraphStyle(
         "SubTitleStyle", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10,
-        textColor=colors.HexColor("#0F172A"), alignment=1, spaceAfter=15
+        textColor=colors.HexColor("#6A4C3B"), alignment=1, spaceAfter=15
     )
     bold_text_style = ParagraphStyle("BoldTextStyle", parent=styles["Normal"], fontName="Helvetica-Bold")
 
@@ -472,14 +492,14 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
 
     t = Table(table_data, colWidths=[25, 65, 140, 55, 140, 35, 45])
     t.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#059669")),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#3D4A2F")),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.HexColor("#FFF4E9")),
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
         ("FONTSIZE", (0, 0), (-1, 0), 8),
         ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
-        ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#F8FAFC")),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E1")),
+        ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#FFF4E9")),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#7C8A5B")),
         ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
         ("FONTSIZE", (0, 1), (-1, -1), 7.5),
     ]))
@@ -529,7 +549,7 @@ def render_header(title, subtitle):
     st.markdown(
         f"""
         <div class="main-header">
-            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: white; padding: 3px; box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);">
+            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: #FFF4E9; padding: 3px; box-shadow: 0 4px 15px rgba(124, 138, 91, 0.4);">
             <h1>{title}</h1>
             <p>{subtitle}</p>
         </div>
@@ -640,7 +660,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Indeks Kelancaran Hafalan</div>
-                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#94A3B8;">/ 100</span></div>
+                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#6A4C3B;">/ 100</span></div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -651,7 +671,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Predikat Evaluasi</div>
-                    <div class="metric-value" style="font-size: 20px; color: #34D399; padding-top:6px;">{kualitas}</div>
+                    <div class="metric-value" style="font-size: 20px; color: #7C8A5B; padding-top:6px;">{kualitas}</div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -751,7 +771,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Nilai Akhir Ujian Tasmi'</div>
-                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#94A3B8;">/ 100</span></div>
+                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#6A4C3B;">/ 100</span></div>
                 </div>
                 """,
                 unsafe_allow_html=True,
