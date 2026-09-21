@@ -25,7 +25,6 @@ TASMI_DATA_FILE = "tahfidz_tasmi_data.csv"
 SESSIONS_FILE = "active_sessions.json"
 KEPALA_SEKOLAH = "Arief Rahman Syarif, S.Kom., Gr., S.Pd."
 
-# SANDI BARU KHUSUS PANEL SENSITIF ADMIN
 ADMIN_PANEL_PASSKEY = "11333356"
 
 ADMIN_ACCOUNTS = [
@@ -113,30 +112,18 @@ DATABASE_MURID = {
         "Uwais Kaisan - 3132325000", "Zayyan Syafiq Shan - 133200784",
     ],
     "KELAS VIIIA": [
-        "Achmad Sakha Recca Al Fath - 2510288",
-        "Ahmad Yasin Mubarak - 2510289",
-        "Akhdan Dzakwan Ahmad - 2510290",
-        "Al Ahnaf Gani Poetra - 2510291",
-        "Andi Muh. Dzaka Dzarwah Alam - 2510292",
-        "Andi Muh. Athallah Azka - 2510293",
-        "Bintang Tahta Al Hidayah. T - 2510294",
-        "Danish Darmawan Arsyad - 2510295",
-        "Dwi Dzaky Al Ghozaly - 2510296",
-        "Fadel Mubarak Ihsan - 2510297",
-        "Iqbal Ghaisan Iskandar - 2510298",
-        "Leon David Alexma Rava - 2510299",
-        "Luqman Hakim Rumodar - 2510300",
-        "M. Zayn Adzaky Nawir - 2510301",
-        "Muh Al Fabian Syah - 2510302",
-        "Muhammad Reyvan Risani Rahmatullah - 2510303",
-        "Muh. Aimar Zahwan - 2510304",
-        "Muh. Alif Arif - 2510305",
-        "Muh. Rayyan Ramadhan - 2510306",
-        "Muhammad Ridho Syahrir - 2510307",
-        "Muhammad Uswah - 2510308",
-        "Zidan Arkana - 2510309",
-        "Sultan Asshiddiq - 2510379",
-        "Muhammad Fauzan Arief Raaka - 2610457",
+        "Achmad Sakha Recca Al Fath - 2510288", "Ahmad Yasin Mubarak - 2510289",
+        "Akhdan Dzakwan Ahmad - 2510290", "Al Ahnaf Gani Poetra - 2510291",
+        "Andi Muh. Dzaka Dzarwah Alam - 2510292", "Andi Muh. Athallah Azka - 2510293",
+        "Bintang Tahta Al Hidayah. T - 2510294", "Danish Darmawan Arsyad - 2510295",
+        "Dwi Dzaky Al Ghozaly - 2510296", "Fadel Mubarak Ihsan - 2510297",
+        "Iqbal Ghaisan Iskandar - 2510298", "Leon David Alexma Rava - 2510299",
+        "Luqman Hakim Rumodar - 2510300", "M. Zayn Adzaky Nawir - 2510301",
+        "Muh Al Fabian Syah - 2510302", "Muhammad Reyvan Risani Rahmatullah - 2510303",
+        "Muh. Aimar Zahwan - 2510304", "Muh. Alif Arif - 2510305",
+        "Muh. Rayyan Ramadhan - 2510306", "Muhammad Ridho Syahrir - 2510307",
+        "Muhammad Uswah - 2510308", "Zidan Arkana - 2510309",
+        "Sultan Asshiddiq - 2510379", "Muhammad Fauzan Arief Raaka - 2610457",
     ],
     "KELAS VIIIC": [
         "Abdul Khaliq - 2510335", "Andi Al Walid Mappatonang - 2510336",
@@ -188,16 +175,8 @@ st.markdown(
     f"""
 <style>
     @keyframes techFadeIn {{
-        0% {{
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            filter: blur(8px);
-        }}
-        100% {{
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0px);
-        }}
+        0% {{ opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(8px); }}
+        100% {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }}
     }}
 
     @keyframes pulseGlow {{
@@ -206,7 +185,6 @@ st.markdown(
         100% {{ box-shadow: 0 0 15px rgba(142, 154, 134, 0.2); }}
     }}
 
-    /* Background Utama: Logo IQIS Transparan */
     .stApp {{
         background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.82)), 
                     url("{img_logo_src}") no-repeat center center fixed !important;
@@ -214,114 +192,65 @@ st.markdown(
         color: #1E293B !important;
     }}
 
-    .stMainBlockContainer {{
-        animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }}
+    .stMainBlockContainer {{ animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }}
 
-    /* Label Input */
     label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
         color: #3D4A2F !important; font-weight: 700 !important; font-size: 14px !important;
     }}
 
-    /* Tab Header */
     button[data-baseweb="tab"] p {{
-        color: #ECE7DC !important; font-weight: 600 !important; font-size: 14px !important;
-        transition: all 0.3s ease;
+        color: #ECE7DC !important; font-weight: 600 !important; font-size: 14px !important; transition: all 0.3s ease;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #8E9A86 !important; font-weight: 800 !important;
-        text-shadow: 0 0 8px rgba(142, 154, 134, 0.6);
+        color: #8E9A86 !important; font-weight: 800 !important; text-shadow: 0 0 8px rgba(142, 154, 134, 0.6);
     }}
-    div[data-baseweb="tab-highlight"] {{
-        background-color: #8E9A86 !important;
-    }}
+    div[data-baseweb="tab-highlight"] {{ background-color: #8E9A86 !important; }}
 
-    /* Main Header Box: Gambar Gedung Jelas & Kentara */
     .main-header {{
         background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(142, 154, 134, 0.35)),
                     url("{header_bg_src}") no-repeat center center !important;
-        background-size: cover !important; 
-        padding: 30px 20px; 
-        border-radius: 16px; 
-        color: #FFFFFF; 
-        margin-bottom: 20px;
-        text-align: center; 
-        border: 2px solid #8E9A86;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        background-size: cover !important; padding: 30px 20px; border-radius: 16px; color: #FFFFFF; margin-bottom: 20px;
+        text-align: center; border: 2px solid #8E9A86; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
-        font-size: 28px !important; 
-        font-weight: 800 !important; 
-        margin: 12px 0 0 0 !important; 
-        color: #FFFFFF !important;
-        letter-spacing: 0.5px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+        font-size: 28px !important; font-weight: 800 !important; margin: 12px 0 0 0 !important; color: #FFFFFF !important;
+        letter-spacing: 0.5px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
     }}
     .main-header p {{
-        font-size: 14px; 
-        margin-top: 6px; 
-        color: #ECE7DC !important; 
-        font-weight: 600;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
+        font-size: 14px; margin-top: 6px; color: #ECE7DC !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
-    /* Warna KOTAK / CARD / FORM: #ECE7DC */
     .card-box, div[data-testid="stForm"] {{
-        background-color: #ECE7DC !important; 
-        border: 1.5px solid #8E9A86 !important; 
-        border-radius: 14px !important;
-        padding: 20px !important; margin-bottom: 15px !important; 
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
-        animation: techFadeIn 0.8s ease-out;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: #ECE7DC !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
+        padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+        animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
     .card-box:hover, div[data-testid="stForm"]:hover {{
-        border-color: #3D4A2F !important;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important;
-        transform: translateY(-2px);
+        border-color: #3D4A2F !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important; transform: translateY(-2px);
     }}
 
-    .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{
-        color: #3D4A2F !important;
-    }}
+    .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{ color: #3D4A2F !important; }}
 
     .metric-value {{ font-size: 28px; font-weight: 800; color: #3D4A2F; text-shadow: 0 0 5px rgba(142, 154, 134, 0.3); }}
     .metric-label {{ font-size: 12px; color: #6A4C3B; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
 
-    /* Custom Input Fields */
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
-        background-color: #FFFFFF !important;
-        border: 1px solid #8E9A86 !important;
-        color: #1E293B !important;
-        border-radius: 8px !important;
+        background-color: #FFFFFF !important; border: 1px solid #8E9A86 !important; color: #1E293B !important; border-radius: 8px !important;
     }}
-    div[data-baseweb="input"] input {{
-        color: #1E293B !important;
-    }}
+    div[data-baseweb="input"] input {{ color: #1E293B !important; }}
 
-    /* Warna TOMBOL BUTTON: #8E9A86 */
     .stButton > button {{
-        background: #8E9A86 !important; 
-        color: #FFFFFF !important;
-        font-weight: 700 !important; border-radius: 10px !important; border: none !important; padding: 10px 16px !important;
-        box-shadow: 0 4px 12px rgba(142, 154, 134, 0.4) !important; 
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        width: 100%;
-        position: relative;
-        overflow: hidden;
+        background: #8E9A86 !important; color: #FFFFFF !important; font-weight: 700 !important; border-radius: 10px !important; border: none !important;
+        padding: 10px 16px !important; box-shadow: 0 4px 12px rgba(142, 154, 134, 0.4) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; width: 100%; position: relative; overflow: hidden;
     }}
-    .stButton > button:hover {{ 
-        background: #3D4A2F !important;
-        color: #ECE7DC !important;
-        transform: translateY(-2px) scale(1.01);
+    .stButton > button:hover {{
+        background: #3D4A2F !important; color: #ECE7DC !important; transform: translateY(-2px) scale(1.01);
         box-shadow: 0 6px 18px rgba(61, 74, 47, 0.5) !important;
     }}
-    .stButton > button:active {{
-        transform: translateY(1px) scale(0.99);
-    }}
+    .stButton > button:active {{ transform: translateY(1px) scale(0.99); }}
 
-    /* Badges */
     .badge-success {{ background-color: #8E9A86; color: #FFFFFF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
     .badge-admin {{ background-color: #6A4C3B; color: #FFD8BF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
 </style>
@@ -508,9 +437,13 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
 
     table_data = [["No", "Tanggal", "Nama Murid", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]]
     for idx, row in df_filtered.reset_index(drop=True).iterrows():
+        # AMAN DARI ERROR NATIVE DATA TYPES (PDF SAFE CONVERSION)
+        a_awal = str(row["Ayat Awal"]).split(".")[0] if pd.notna(row.get("Ayat Awal")) else "-"
+        a_akhir = str(row["Ayat Akhir"]).split(".")[0] if pd.notna(row.get("Ayat Akhir")) else "-"
+        
         table_data.append([
             str(idx + 1), str(row["Tanggal"]), str(row["Nama Murid"]).split(" - ")[0][:18],
-            str(row["Jenis Setoran"]), f"{row['Surah']} ({row['Ayat Awal']}-{row['Ayat Akhir']})",
+            str(row["Jenis Setoran"]), f"{row['Surah']} ({a_awal}-{a_akhir})",
             f"{row['Halaman']}", f"{row['Nilai']}",
         ])
 
@@ -667,7 +600,7 @@ else:
             juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
             surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
             
-            # CEK MAKSIMAL AYAT SURAH YANG DIPILIH
+            # CEK MAKSIMAL AYAT DENGAN PENANGANAN SAFE STATE
             max_ayat_surah = DATA_SURAH_AYAT.get(surah_sel, 286)
             st.caption(f"ℹ️ Surah **{surah_sel}** memiliki **{max_ayat_surah} Ayat**.")
 
@@ -677,14 +610,20 @@ else:
                     "🧮 Ayat Awal", 
                     min_value=1, 
                     max_value=max_ayat_surah, 
-                    value=1
+                    value=1,
+                    key=f"a_awal_{surah_sel}"
                 )
             with col_a2:
+                # PENANGANAN BATAS SAFE MIN/MAX AGAR TIDAK CRASH STREAMLIT
+                curr_min_akhir = min(int(ayat_awal), max_ayat_surah)
+                curr_val_akhir = min(curr_min_akhir + 9, max_ayat_surah)
+                
                 ayat_akhir = st.number_input(
                     "🧮 Ayat Akhir", 
-                    min_value=int(ayat_awal), 
+                    min_value=curr_min_akhir, 
                     max_value=max_ayat_surah, 
-                    value=min(int(ayat_awal) + 9, max_ayat_surah)
+                    value=curr_val_akhir,
+                    key=f"a_akhir_{surah_sel}"
                 )
 
             halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
@@ -725,8 +664,8 @@ else:
                 "Juz": juz_sel,
                 "Jenis Setoran": jenis_sel,
                 "Surah": surah_sel,
-                "Ayat Awal": ayat_awal,
-                "Ayat Akhir": ayat_akhir,
+                "Ayat Awal": int(ayat_awal),
+                "Ayat Akhir": int(ayat_akhir),
                 "Halaman": halaman,
                 "Salah": salah,
                 "Nilai": nilai_calc,
@@ -845,7 +784,7 @@ else:
         df_tasmi_matrix_result = build_tasmi_matrix(df_tasmi, tasmi_k_matrix)
         st.dataframe(df_tasmi_matrix_result, use_container_width=True, height=400)
 
-    # --- TAB 7: ADMIN BOARD (MENGGUNAKAN PASSKEY 11333356) ---
+    # --- TAB 7: ADMIN BOARD ---
     if st.session_state["is_admin"]:
         with tabs[6]:
             st.title("🛡️ Control Panel & System Governance")
