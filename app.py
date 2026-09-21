@@ -33,31 +33,34 @@ ADMIN_ACCOUNTS = [
     "muh294@admin.smp.belajar.id",
 ]
 
-DAFTAR_114_SURAH = [
-    "1. Al-Fatihah", "2. Al-Baqarah", "3. Ali 'Imran", "4. An-Nisa'", "5. Al-Ma'idah",
-    "6. Al-An'am", "7. Al-A'raf", "8. Al-Anfal", "9. At-Taubah", "10. Yunus",
-    "11. Hud", "12. Yusuf", "13. Ar-Ra'd", "14. Ibrahim", "15. Al-Hijr",
-    "16. An-Nahl", "17. Al-Isra'", "18. Al-Kahf", "19. Maryam", "20. Taha",
-    "21. Al-Anbiya'", "22. Al-Hajj", "23. Al-Mu'minun", "24. An-Nur", "25. Al-Furqan",
-    "26. Asy-Syu'ara'", "27. An-Naml", "28. Al-Qasas", "29. Al-'Ankabut", "30. Ar-Rum",
-    "31. Luqman", "32. As-Sajdah", "33. Al-Ahzab", "34. Saba'", "35. Fatir",
-    "36. Yasin", "37. As-Saffat", "38. Sad", "39. Az-Zumar", "40. Ghafir",
-    "41. Fussilat", "42. Asy-Syura", "43. Az-Zukhruf", "44. Ad-Dukhan", "45. Al-Jasiyah",
-    "46. Al-Ahqaf", "47. Muhammad", "48. Al-Fath", "49. Al-Hujurat", "50. Qaf",
-    "51. Az-Zariyat", "52. At-Tur", "53. An-Najm", "54. Al-Qamar", "55. Ar-Rahman",
-    "56. Al-Waqi'ah", "57. Al-Hadid", "58. Al-Mujadilah", "59. Al-Hasyr", "60. Al-Mumtahanah",
-    "61. As-Saff", "62. Al-Jumu'ah", "63. Al-Munafiqun", "64. At-Taghabun", "65. At-Talaq",
-    "66. At-Tahrim", "67. Al-Mulk", "68. Al-Qalam", "69. Al-Haqqah", "70. Al-Ma'arij",
-    "71. Nuh", "72. Al-Jinn", "73. Al-Muzzammil", "74. Al-Muddassir", "75. Al-Qiyamah",
-    "76. Al-Insan", "77. Al-Mursalat", "78. An-Naba'", "79. An-Nazi'at", "80. 'Abasa",
-    "81. At-Takwir", "82. Al-Infitar", "83. Al-Mutaffifin", "84. Al-Inshiqaq", "85. Al-Buruj",
-    "86. At-Tariq", "87. Al-A'la", "88. Al-Ghasyiyah", "89. Al-Fajr", "90. Al-Balad",
-    "91. Asy-Syams", "92. Al-Lail", "93. Ad-Duha", "94. Asy-Syarh", "95. At-Tin",
-    "96. Al-'Alaq", "97. Al-Qadr", "98. Al-Bayyinah", "99. Az-Zalzalah", "100. Al-'Adiyat",
-    "101. Al-Qari'ah", "102. At-Takasur", "103. Al-'Asr", "104. Al-Humazah", "105. Al-Fil",
-    "106. Quraisy", "107. Al-Ma'un", "108. Al-Kausar", "109. Al-Kafirun", "110. An-Nasr",
-    "111. Al-Lahab", "112. Al-Ikhlas", "113. Al-Falaq", "114. An-Nas"
-]
+# DATA BASE 114 SURAH DAN JUMLAH AYAT MASING-MASING
+DATA_SURAH_AYAT = {
+    "1. Al-Fatihah": 7, "2. Al-Baqarah": 286, "3. Ali 'Imran": 200, "4. An-Nisa'": 176, "5. Al-Ma'idah": 120,
+    "6. Al-An'am": 165, "7. Al-A'raf": 206, "8. Al-Anfal": 75, "9. At-Taubah": 129, "10. Yunus": 109,
+    "11. Hud": 123, "12. Yusuf": 111, "13. Ar-Ra'd": 43, "14. Ibrahim": 52, "15. Al-Hijr": 99,
+    "16. An-Nahl": 128, "17. Al-Isra'": 111, "18. Al-Kahf": 110, "19. Maryam": 98, "20. Taha": 135,
+    "21. Al-Anbiya'": 112, "22. Al-Hajj": 78, "23. Al-Mu'minun": 118, "24. An-Nur": 64, "25. Al-Furqan": 77,
+    "26. Asy-Syu'ara'": 227, "27. An-Naml": 93, "28. Al-Qasas": 88, "29. Al-'Ankabut": 69, "30. Ar-Rum": 60,
+    "31. Luqman": 34, "32. As-Sajdah": 30, "33. Al-Ahzab": 73, "34. Saba'": 54, "35. Fatir": 45,
+    "36. Yasin": 83, "37. As-Saffat": 182, "38. Sad": 88, "39. Az-Zumar": 75, "40. Ghafir": 85,
+    "41. Fussilat": 54, "42. Asy-Syura": 53, "43. Az-Zukhruf": 89, "44. Ad-Dukhan": 59, "45. Al-Jasiyah": 37,
+    "46. Al-Ahqaf": 35, "47. Muhammad": 38, "48. Al-Fath": 29, "49. Al-Hujurat": 18, "50. Qaf": 45,
+    "51. Az-Zariyat": 60, "52. At-Tur": 49, "53. An-Najm": 62, "54. Al-Qamar": 55, "55. Ar-Rahman": 78,
+    "56. Al-Waqi'ah": 96, "57. Al-Hadid": 29, "58. Al-Mujadilah": 22, "59. Al-Hasyr": 24, "60. Al-Mumtahanah": 13,
+    "61. As-Saff": 14, "62. Al-Jumu'ah": 11, "63. Al-Munafiqun": 11, "64. At-Taghabun": 18, "65. At-Talaq": 12,
+    "66. At-Tahrim": 12, "67. Al-Mulk": 30, "68. Al-Qalam": 52, "69. Al-Haqqah": 52, "70. Al-Ma'arij": 44,
+    "71. Nuh": 28, "72. Al-Jinn": 28, "73. Al-Muzzammil": 20, "74. Al-Muddassir": 56, "75. Al-Qiyamah": 40,
+    "76. Al-Insan": 31, "77. Al-Mursalat": 50, "78. An-Naba'": 40, "79. An-Nazi'at": 46, "80. 'Abasa": 42,
+    "81. At-Takwir": 29, "82. Al-Infitar": 19, "83. Al-Mutaffifin": 36, "84. Al-Inshiqaq": 25, "85. Al-Buruj": 22,
+    "86. At-Tariq": 17, "87. Al-A'la": 19, "88. Al-Ghasyiyah": 26, "89. Al-Fajr": 30, "90. Al-Balad": 20,
+    "91. Asy-Syams": 15, "92. Al-Lail": 21, "93. Ad-Duha": 11, "94. Asy-Syarh": 8, "95. At-Tin": 8,
+    "96. Al-'Alaq": 19, "97. Al-Qadr": 5, "98. Al-Bayyinah": 8, "99. Az-Zalzalah": 8, "100. Al-'Adiyat": 11,
+    "101. Al-Qari'ah": 11, "102. At-Takasur": 8, "103. Al-'Asr": 3, "104. Al-Humazah": 9, "105. Al-Fil": 5,
+    "106. Quraisy": 4, "107. Al-Ma'un": 7, "108. Al-Kausar": 3, "109. Al-Kafirun": 6, "110. An-Nasr": 3,
+    "111. Al-Lahab": 5, "112. Al-Ikhlas": 4, "113. Al-Falaq": 5, "114. An-Nas": 6
+}
+
+DAFTAR_114_SURAH = list(DATA_SURAH_AYAT.keys())
 
 TASMI_COLUMNS = [
     "Tanggal", "Periode", "Kelas", "Nama Murid", "Penguji",
@@ -203,7 +206,7 @@ st.markdown(
         100% {{ box-shadow: 0 0 15px rgba(142, 154, 134, 0.2); }}
     }}
 
-    /* Background Utama: Mempertahankan Logo IQIS */
+    /* Background Utama: Logo IQIS Transparan */
     .stApp {{
         background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.82)), 
                     url("{img_logo_src}") no-repeat center center fixed !important;
@@ -233,24 +236,37 @@ st.markdown(
         background-color: #8E9A86 !important;
     }}
 
-    /* Main Header Box */
+    /* Main Header Box: Gambar Gedung Jelas & Kentara */
     .main-header {{
-        background: linear-gradient(135deg, rgba(61, 74, 47, 0.9), rgba(142, 154, 134, 0.9)),
-                    url("{header_bg_src}") no-repeat center center;
-        background-size: cover; padding: 25px 20px; border-radius: 16px; color: #FFFFFF; margin-bottom: 20px;
-        text-align: center; backdrop-filter: blur(6px);
+        background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(142, 154, 134, 0.35)),
+                    url("{header_bg_src}") no-repeat center center !important;
+        background-size: cover !important; 
+        padding: 30px 20px; 
+        border-radius: 16px; 
+        color: #FFFFFF; 
+        margin-bottom: 20px;
+        text-align: center; 
         border: 2px solid #8E9A86;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
-        font-size: 26px !important; font-weight: 800 !important; margin: 10px 0 0 0 !important; color: #FFFFFF !important;
+        font-size: 28px !important; 
+        font-weight: 800 !important; 
+        margin: 12px 0 0 0 !important; 
+        color: #FFFFFF !important;
         letter-spacing: 0.5px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
     }}
     .main-header p {{
-        font-size: 13.5px; margin-top: 4px; color: #ECE7DC !important; font-weight: 500;
+        font-size: 14px; 
+        margin-top: 6px; 
+        color: #ECE7DC !important; 
+        font-weight: 600;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
-    /* Warna Khusus KOTAK / CARD / FORM: #ECE7DC */
+    /* Warna KOTAK / CARD / FORM: #ECE7DC */
     .card-box, div[data-testid="stForm"] {{
         background-color: #ECE7DC !important; 
         border: 1.5px solid #8E9A86 !important; 
@@ -273,7 +289,7 @@ st.markdown(
     .metric-value {{ font-size: 28px; font-weight: 800; color: #3D4A2F; text-shadow: 0 0 5px rgba(142, 154, 134, 0.3); }}
     .metric-label {{ font-size: 12px; color: #6A4C3B; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
 
-    /* Custom Input Fields agar Teks Jelas Terbaca */
+    /* Custom Input Fields */
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
         background-color: #FFFFFF !important;
         border: 1px solid #8E9A86 !important;
@@ -284,7 +300,7 @@ st.markdown(
         color: #1E293B !important;
     }}
 
-    /* Warna Khusus TOMBOL BUTTON: #8E9A86 */
+    /* Warna TOMBOL BUTTON: #8E9A86 */
     .stButton > button {{
         background: #8E9A86 !important; 
         color: #FFFFFF !important;
@@ -305,7 +321,7 @@ st.markdown(
         transform: translateY(1px) scale(0.99);
     }}
 
-    /* Custom Badges */
+    /* Badges */
     .badge-success {{ background-color: #8E9A86; color: #FFFFFF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
     .badge-admin {{ background-color: #6A4C3B; color: #FFD8BF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
 </style>
@@ -557,7 +573,7 @@ def render_header(title, subtitle):
     st.markdown(
         f"""
         <div class="main-header">
-            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: #ECE7DC; padding: 3px; box-shadow: 0 4px 15px rgba(142, 154, 134, 0.4);">
+            <img src="{img_logo_src}" width="65" style="border-radius: 50%; background: #ECE7DC; padding: 3px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);">
             <h1>{title}</h1>
             <p>{subtitle}</p>
         </div>
@@ -650,11 +666,26 @@ else:
         with c2:
             juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
             surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
+            
+            # CEK MAKSIMAL AYAT SURAH YANG DIPILIH
+            max_ayat_surah = DATA_SURAH_AYAT.get(surah_sel, 286)
+            st.caption(f"ℹ️ Surah **{surah_sel}** memiliki **{max_ayat_surah} Ayat**.")
+
             col_a1, col_a2 = st.columns(2)
             with col_a1:
-                ayat_awal = st.number_input("🧮 Ayat Awal", min_value=1, value=1)
+                ayat_awal = st.number_input(
+                    "🧮 Ayat Awal", 
+                    min_value=1, 
+                    max_value=max_ayat_surah, 
+                    value=1
+                )
             with col_a2:
-                ayat_akhir = st.number_input("🧮 Ayat Akhir", min_value=1, value=10)
+                ayat_akhir = st.number_input(
+                    "🧮 Ayat Akhir", 
+                    min_value=int(ayat_awal), 
+                    max_value=max_ayat_surah, 
+                    value=min(int(ayat_awal) + 9, max_ayat_surah)
+                )
 
             halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
             salah = st.number_input("⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0)
