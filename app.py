@@ -437,7 +437,6 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
 
     table_data = [["No", "Tanggal", "Nama Murid", "Jenis", "Surah (Ayat)", "Hlm", "Nilai"]]
     for idx, row in df_filtered.reset_index(drop=True).iterrows():
-        # AMAN DARI ERROR NATIVE DATA TYPES (PDF SAFE CONVERSION)
         a_awal = str(row["Ayat Awal"]).split(".")[0] if pd.notna(row.get("Ayat Awal")) else "-"
         a_akhir = str(row["Ayat Akhir"]).split(".")[0] if pd.notna(row.get("Ayat Akhir")) else "-"
         
@@ -600,31 +599,35 @@ else:
             juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
             surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
             
-            # CEK MAKSIMAL AYAT DENGAN PENANGANAN SAFE STATE
+            # HITUNG MAKSIMAL AYAT SESUAI SURAH
             max_ayat_surah = DATA_SURAH_AYAT.get(surah_sel, 286)
-            st.caption(f"ℹ️ Surah **{surah_sel}** memiliki **{max_ayat_surah} Ayat**.")
+            st.caption(f"ℹ️ Surah **{surah_sel}** memiliki **1 sampai {max_ayat_surah} Ayat**.")
+
+            # LIST DROPDOWN AYAT PERSISI HANYA SAMPAI JUMLAH AYAT SURAHNYA
+            list_opsi_ayat = list(range(1, max_ayat_surah + 1))
 
             col_a1, col_a2 = st.columns(2)
             with col_a1:
-                ayat_awal = st.number_input(
+                ayat_awal = st.selectbox(
                     "🧮 Ayat Awal", 
-                    min_value=1, 
-                    max_value=max_ayat_surah, 
-                    value=1,
+                    options=list_opsi_ayat,
+                    index=0,
                     key=f"a_awal_{surah_sel}"
                 )
             with col_a2:
-                # PENANGANAN BATAS SAFE MIN/MAX AGAR TIDAK CRASH STREAMLIT
-                curr_min_akhir = min(int(ayat_awal), max_ayat_surah)
-                curr_val_akhir = min(curr_min_akhir + 9, max_ayat_surah)
-                
-                ayat_akhir = st.number_input(
+                # DEFAULT AYAT AKHIR MENYESUAIKAN
+                default_idx_akhir = min(ayat_awal + 8, max_ayat_surah - 1)
+                ayat_akhir = st.selectbox(
                     "🧮 Ayat Akhir", 
-                    min_value=curr_min_akhir, 
-                    max_value=max_ayat_surah, 
-                    value=curr_val_akhir,
+                    options=list_opsi_ayat,
+                    index=default_idx_akhir,
                     key=f"a_akhir_{surah_sel}"
                 )
+
+            # VALIDASI JIKA PILIHAN AYAT TERBALIK
+            is_valid_ayat = (ayat_akhir >= ayat_awal)
+            if not is_valid_ayat:
+                st.error("⚠️ (data yang anda masukkan tidak sesuai) — Ayat Akhir tidak boleh lebih kecil dari Ayat Awal!")
 
             halaman = st.number_input("📄 Volume (Halaman)", min_value=0.1, value=1.0, step=0.5)
             salah = st.number_input("⚡ Catatan Kekurangan/Bantuan", min_value=0, value=0)
@@ -655,7 +658,8 @@ else:
                 unsafe_allow_html=True,
             )
 
-        if st.button("🛡️ SIMPAN RECORD SETORAN"):
+        # TOMBOL DISERTAI PROTECTION AGAR TDK BISA DIKLIK JIKA INPUT TIDAK SUAI
+        if st.button("🛡️ SIMPAN RECORD SETORAN", disabled=not is_valid_ayat):
             new_record = {
                 "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
                 "Guru Input": penguji_setoran,
