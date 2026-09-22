@@ -227,14 +227,14 @@ st.markdown(
         font-size: 14px; margin-top: 6px; color: #FFFFFF !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
-    /* KOTAK BESAR DENGAN WARNA #3F4B3A */
+    /* KOTAK BESAR DENGAN WARNA PEPEJAL (SOLID COLOR) #3F4B3A TANPA OPACITY */
     .card-box, div[data-testid="stForm"] {{
-        background-color: rgba(63, 75, 58, 0.85) !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
-        padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+        background-color: #3F4B3A !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
+        padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
     .card-box:hover, div[data-testid="stForm"]:hover {{
-        border-color: #FFFFFF !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important; transform: translateY(-2px);
+        border-color: #FFFFFF !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5) !important; transform: translateY(-2px);
     }}
 
     .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{ color: #FFFFFF !important; }}
