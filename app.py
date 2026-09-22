@@ -35,7 +35,7 @@ ADMIN_ACCOUNTS = [
 # DATA BASE 114 SURAH DAN JUMLAH AYAT MASING-MASING
 DATA_SURAH_AYAT = {
     "1. Al-Fatihah": 7, "2. Al-Baqarah": 286, "3. Ali 'Imran": 200, "4. An-Nisa'": 176, "5. Al-Ma'idah": 120,
-    "6. Al-An'am": 165, "7. Al-A'raf": 206, "8. Al-Anfal": 75, "9. At-Taubah": 129, "10. Yunus": 109,
+    "6. Al-An'am": 165, "7. Al-A'raf": 206, "8. At-Taubah": 129, "10. Yunus": 109,
     "11. Hud": 123, "12. Yusuf": 111, "13. Ar-Ra'd": 43, "14. Ibrahim": 52, "15. Al-Hijr": 99,
     "16. An-Nahl": 128, "17. Al-Isra'": 111, "18. Al-Kahf": 110, "19. Maryam": 98, "20. Taha": 135,
     "21. Al-Anbiya'": 112, "22. Al-Hajj": 78, "23. Al-Mu'minun": 118, "24. An-Nur": 64, "25. Al-Furqan": 77,
@@ -180,9 +180,9 @@ st.markdown(
     }}
 
     @keyframes pulseGlow {{
-        0% {{ box-shadow: 0 0 15px rgba(187, 199, 164, 0.2); }}
-        50% {{ box-shadow: 0 0 30px rgba(187, 199, 164, 0.5); }}
-        100% {{ box-shadow: 0 0 15px rgba(187, 199, 164, 0.2); }}
+        0% {{ box-shadow: 0 0 15px rgba(61, 74, 47, 0.4); }}
+        50% {{ box-shadow: 0 0 30px rgba(106, 76, 59, 0.6); }}
+        100% {{ box-shadow: 0 0 15px rgba(61, 74, 47, 0.4); }}
     }}
 
     .stApp {{
@@ -194,7 +194,6 @@ st.markdown(
 
     .stMainBlockContainer {{ animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }}
 
-    /* WARNA TEKS UMUM UTAMA */
     h1, h2, h3, h4, h5, h6, p, span, label, div,
     div[data-testid="stWidgetLabel"] p, 
     div[data-testid="stWidgetLabel"] span, 
@@ -213,10 +212,10 @@ st.markdown(
     div[data-baseweb="tab-highlight"] {{ background-color: #FFFFFF !important; }}
 
     .main-header {{
-        background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(187, 199, 164, 0.35)),
+        background: linear-gradient(135deg, rgba(61, 74, 47, 0.9), rgba(106, 76, 59, 0.9)),
                     url("{header_bg_src}") no-repeat center center !important;
         background-size: cover !important; padding: 30px 20px; border-radius: 16px; color: #FFFFFF; margin-bottom: 20px;
-        text-align: center; border: 2px solid #bbc7a4; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        text-align: center; border: 1px solid rgba(236, 231, 220, 0.3); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
@@ -227,48 +226,55 @@ st.markdown(
         font-size: 14px; margin-top: 6px; color: #FFFFFF !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
-    /* KOTAK KARTU DENGAN WARNA BARU #bbc7a4 DAN TEKS GELAP AGAR CONTRAS DAN JELAS */
     .card-box, div[data-testid="stForm"] {{
-        background-color: #bbc7a4 !important; border: 1.5px solid #a3b28b !important; border-radius: 14px !important;
-        padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+        background: rgba(30, 41, 59, 0.75) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 14px !important; padding: 20px !important; margin-bottom: 15px !important;
+        backdrop-filter: blur(10px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
-    .card-box:hover, div[data-testid="stForm"]:hover {{
-        border-color: #FFFFFF !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5) !important; transform: translateY(-2px);
-    }}
 
-    /* Penyesuaian warna teks di dalam card-box & form agar terlihat kontras dengan background #bbc7a4 */
-    .card-box h3, div[data-testid="stForm"] h3, 
-    .card-box p, div[data-testid="stForm"] p,
-    .card-box span, div[data-testid="stForm"] span,
-    .card-box label, div[data-testid="stForm"] label,
-    div[data-testid="stForm"] div[data-testid="stWidgetLabel"] p,
-    div[data-testid="stForm"] div[data-testid="stWidgetLabel"] span {{ 
-        color: #1E293B !important; 
+    /* KHUSUS KOTAK NILAI & PREDIKAT DENGAN WARNA #bbc7a4 */
+    .metric-box-custom {{
+        background-color: #bbc7a4 !important;
+        border: 1.5px solid #a3b28b !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+        margin-bottom: 15px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }}
+    .metric-box-custom .metric-label-custom {{
+        font-size: 12px !important;
+        color: #334155 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 800 !important;
+        text-shadow: none !important;
+    }}
+    .metric-box-custom .metric-value-custom {{
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        color: #1E293B !important;
         text-shadow: none !important;
     }}
 
-    .metric-value {{ font-size: 28px; font-weight: 800; color: #1E293B !important; text-shadow: none !important; }}
-    .metric-label {{ font-size: 12px; color: #334155 !important; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; text-shadow: none !important; }}
-
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
-        background-color: #1E293B !important; border: 1px solid #bbc7a4 !important; color: #FFFFFF !important; border-radius: 8px !important;
+        background-color: #1E293B !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; color: #FFFFFF !important; border-radius: 8px !important;
     }}
     div[data-baseweb="input"] input {{ color: #FFFFFF !important; }}
 
     .stButton > button {{
-        background: #bbc7a4 !important; color: #1E293B !important; font-weight: 800 !important; border-radius: 10px !important; border: none !important;
-        padding: 10px 16px !important; box-shadow: 0 4px 12px rgba(187, 199, 164, 0.4) !important;
+        background: linear-gradient(135deg, #3D4A2F, #6A4C3B) !important; color: #FFFFFF !important; font-weight: 700 !important; border-radius: 10px !important; border: none !important;
+        padding: 10px 16px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; width: 100%; position: relative; overflow: hidden;
     }}
     .stButton > button:hover {{
-        background: #a3b28b !important; color: #0F172A !important; transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 6px 18px rgba(163, 178, 139, 0.5) !important;
+        background: linear-gradient(135deg, #4A5B39, #7B5945) !important; color: #FFFFFF !important; transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.4) !important;
     }}
     .stButton > button:active {{ transform: translateY(1px) scale(0.99); }}
 
-    .badge-success {{ background-color: #bbc7a4; color: #1E293B !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
-    .badge-admin {{ background-color: #6A4C3B; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
+    .badge-success {{ background-color: #3D4A2F; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #bbc7a4; }}
+    .badge-admin {{ background-color: #6A4C3B; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #bbc7a4; }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -619,7 +625,6 @@ else:
             max_ayat_surah = DATA_SURAH_AYAT.get(surah_sel, 286)
             st.caption(f"ℹ️ Surah **{surah_sel}** memiliki **1 sampai {max_ayat_surah} Ayat**.")
 
-            # LIST DROPDOWN AYAT PERSISI HANYA SAMPAI JUMLAH AYAT SURAHNYA
             list_opsi_ayat = list(range(1, max_ayat_surah + 1))
 
             col_a1, col_a2 = st.columns(2)
@@ -631,7 +636,6 @@ else:
                     key=f"a_awal_{surah_sel}"
                 )
             with col_a2:
-                # DEFAULT AYAT AKHIR MENYESUAIKAN
                 default_idx_akhir = min(ayat_awal + 8, max_ayat_surah - 1)
                 ayat_akhir = st.selectbox(
                     "🧮 Ayat Akhir", 
@@ -640,7 +644,6 @@ else:
                     key=f"a_akhir_{surah_sel}"
                 )
 
-            # VALIDASI JIKA PILIHAN AYAT TERBALIK
             is_valid_ayat = (ayat_akhir >= ayat_awal)
             if not is_valid_ayat:
                 st.error("⚠️ (data yang anda masukkan tidak sesuai) — Ayat Akhir tidak boleh lebih kecil dari Ayat Awal!")
@@ -655,9 +658,9 @@ else:
         with m1:
             st.markdown(
                 f"""
-                <div class="card-box">
-                    <div class="metric-label">Indeks Kelancaran Hafalan</div>
-                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#1E293B;">/ 100</span></div>
+                <div class="metric-box-custom">
+                    <div class="metric-label-custom">INDEKS KELANCARAN HAFALAN</div>
+                    <div class="metric-value-custom">{nilai_calc} <span style="font-size:16px; color:#334155;">/ 100</span></div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -666,15 +669,14 @@ else:
             kualitas = "Mumtaz (Sangat Baik)" if nilai_calc >= 90 else ("Jayyid Jiddan (Baik)" if nilai_calc >= 75 else ("Jayyid (Cukup)" if nilai_calc >= 60 else "Rasib (Perlu Murajaah)"))
             st.markdown(
                 f"""
-                <div class="card-box">
-                    <div class="metric-label">Predikat Evaluasi</div>
-                    <div class="metric-value" style="font-size: 20px; color: #1E293B; padding-top:6px;">{kualitas}</div>
+                <div class="metric-box-custom">
+                    <div class="metric-label-custom">PREDIKAT EVALUASI</div>
+                    <div class="metric-value-custom" style="font-size: 20px; padding-top:6px;">{kualitas}</div>
                 </div>
             """,
                 unsafe_allow_html=True,
             )
 
-        # TOMBOL DISERTAI PROTECTION AGAR TDK BISA DIKLIK JIKA INPUT TIDAK SUAI
         if st.button("🛡️ SIMPAN RECORD SETORAN", disabled=not is_valid_ayat):
             new_record = {
                 "Tanggal": datetime.date.today().strftime("%Y-%m-%d"),
@@ -767,9 +769,9 @@ else:
             
             st.markdown(
                 f"""
-                <div class="card-box">
-                    <div class="metric-label">Nilai Akhir Ujian Tasmi'</div>
-                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#1E293B;">/ 100</span></div>
+                <div class="metric-box-custom">
+                    <div class="metric-label-custom">NILAI AKHIR UJIAN TASMI'</div>
+                    <div class="metric-value-custom">{nilai_tasmi} <span style="font-size:16px; color:#334155;">/ 100</span></div>
                 </div>
                 """,
                 unsafe_allow_html=True,
