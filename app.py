@@ -32,6 +32,33 @@ ADMIN_ACCOUNTS = [
     "muh294@admin.smp.belajar.id",
 ]
 
+# MAPPING SURAH KE JUZ UTAMA/AWAL
+SURAH_TO_JUZ = {
+    "1. Al-Fatihah": "1", "2. Al-Baqarah": "1-3", "3. Ali 'Imran": "3-4", "4. An-Nisa'": "4-6", "5. Al-Ma'idah": "6-7",
+    "6. Al-An'am": "7-8", "7. Al-A'raf": "8-9", "8. At-Taubah": "10-11", "10. Yunus": "11",
+    "11. Hud": "11-12", "12. Yusuf": "12-13", "13. Ar-Ra'd": "13", "14. Ibrahim": "13", "15. Al-Hijr": "14",
+    "16. An-Nahl": "14", "17. Al-Isra'": "15", "18. Al-Kahf": "15-16", "19. Maryam": "16", "20. Taha": "16",
+    "21. Al-Anbiya'": "17", "22. Al-Hajj": "17", "23. Al-Mu'minun": "18", "24. An-Nur": "18", "25. Al-Furqan": "18-19",
+    "26. Asy-Syu'ara'": "19", "27. An-Naml": "19-20", "28. Al-Qasas": "20", "29. Al-'Ankabut": "20-21", "30. Ar-Rum": "21",
+    "31. Luqman": "21", "32. As-Sajdah": "21", "33. Al-Ahzab": "21-22", "34. Saba'": "22", "35. Fatir": "22",
+    "36. Yasin": "22-23", "37. As-Saffat": "23", "38. Sad": "23", "39. Az-Zumar": "23-24", "40. Ghafir": "24",
+    "41. Fussilat": "24-25", "42. Asy-Syura": "25", "43. Az-Zukhruf": "25", "44. Ad-Dukhan": "25", "45. Al-Jasiyah": "25",
+    "46. Al-Ahqaf": "26", "47. Muhammad": "26", "48. Al-Fath": "26", "49. Al-Hujurat": "26", "50. Qaf": "26",
+    "51. Az-Zariyat": "26-27", "52. At-Tur": "27", "53. An-Najm": "27", "54. Al-Qamar": "27", "55. Ar-Rahman": "27",
+    "56. Al-Waqi'ah": "27", "57. Al-Hadid": "27", "58. Al-Mujadilah": "28", "59. Al-Hasyr": "28", "60. Al-Mumtahanah": "28",
+    "61. As-Saff": "28", "62. Al-Jumu'ah": "28", "63. Al-Munafiqun": "28", "64. At-Taghabun": "28", "65. At-Talaq": "28",
+    "66. At-Tahrim": "28", "67. Al-Mulk": "29", "68. Al-Qalam": "29", "69. Al-Haqqah": "29", "70. Al-Ma'arij": "29",
+    "71. Nuh": "29", "72. Al-Jinn": "29", "73. Al-Muzzammil": "29", "74. Al-Muddassir": "29", "75. Al-Qiyamah": "29",
+    "76. Al-Insan": "29", "77. Al-Mursalat": "29", "78. An-Naba'": "30", "79. An-Nazi'at": "30", "80. 'Abasa": "30",
+    "81. At-Takwir": "30", "82. Al-Infitar": "30", "83. Al-Mutaffifin": "30", "84. Al-Inshiqaq": "30", "85. Al-Buruj": "30",
+    "86. At-Tariq": "30", "87. Al-A'la": "30", "88. Al-Ghasyiyah": "30", "89. Al-Fajr": "30", "90. Al-Balad": "30",
+    "91. Asy-Syams": "30", "92. Al-Lail": "30", "93. Ad-Duha": "30", "94. Asy-Syarh": "30", "95. At-Tin": "30",
+    "96. Al-'Alaq": "30", "97. Al-Qadr": "30", "98. Al-Bayyinah": "30", "99. Az-Zalzalah": "30", "100. Al-'Adiyat": "30",
+    "101. Al-Qari'ah": "30", "102. At-Takasur": "30", "103. Al-'Asr": "30", "104. Al-Humazah": "30", "105. Al-Fil": "30",
+    "106. Quraisy": "30", "107. Al-Ma'un": "30", "108. Al-Kausar": "30", "109. Al-Kafirun": "30", "110. An-Nasr": "30",
+    "111. Al-Lahab": "30", "112. Al-Ikhlas": "30", "113. Al-Falaq": "30", "114. An-Nas": "30"
+}
+
 # DATA BASE 114 SURAH DAN JUMLAH AYAT MASING-MASING
 DATA_SURAH_AYAT = {
     "1. Al-Fatihah": 7, "2. Al-Baqarah": 286, "3. Ali 'Imran": 200, "4. An-Nisa'": 176, "5. Al-Ma'idah": 120,
@@ -233,7 +260,6 @@ st.markdown(
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
 
-    /* KHUSUS KOTAK NILAI & PREDIKAT DENGAN WARNA #bbc7a4 */
     .metric-box-custom {{
         background-color: #bbc7a4 !important;
         border: 1.5px solid #a3b28b !important;
@@ -618,8 +644,11 @@ else:
             jenis_sel = st.selectbox("📌 Kategori Setoran", ["Sabaq", "Murajaah", "Manzil"])
 
         with c2:
-            juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", "30")
             surah_sel = st.selectbox("🪷 Nama Surah Al-Qur'an", DAFTAR_114_SURAH, index=1)
+            
+            # OTOMATIS AMBIL JUZ DARI SURAH
+            default_juz = SURAH_TO_JUZ.get(surah_sel, "30")
+            juz_sel = st.text_input("📖 Juz (Contoh: 30, 29, dll)", value=default_juz)
             
             # HITUNG MAKSIMAL AYAT SESUAI SURAH
             max_ayat_surah = DATA_SURAH_AYAT.get(surah_sel, 286)
