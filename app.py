@@ -180,9 +180,9 @@ st.markdown(
     }}
 
     @keyframes pulseGlow {{
-        0% {{ box-shadow: 0 0 15px rgba(142, 154, 134, 0.2); }}
-        50% {{ box-shadow: 0 0 30px rgba(142, 154, 134, 0.5); }}
-        100% {{ box-shadow: 0 0 15px rgba(142, 154, 134, 0.2); }}
+        0% {{ box-shadow: 0 0 15px rgba(187, 199, 164, 0.2); }}
+        50% {{ box-shadow: 0 0 30px rgba(187, 199, 164, 0.5); }}
+        100% {{ box-shadow: 0 0 15px rgba(187, 199, 164, 0.2); }}
     }}
 
     .stApp {{
@@ -194,7 +194,7 @@ st.markdown(
 
     .stMainBlockContainer {{ animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }}
 
-    /* PAKSA SEMUA WARNA TEKS, JUDUL, LABEL & CAPTION MENJADI PUTIH TERANG (#FFFFFF) */
+    /* WARNA TEKS UMUM UTAMA */
     h1, h2, h3, h4, h5, h6, p, span, label, div,
     div[data-testid="stWidgetLabel"] p, 
     div[data-testid="stWidgetLabel"] span, 
@@ -213,10 +213,10 @@ st.markdown(
     div[data-baseweb="tab-highlight"] {{ background-color: #FFFFFF !important; }}
 
     .main-header {{
-        background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(142, 154, 134, 0.35)),
+        background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(187, 199, 164, 0.35)),
                     url("{header_bg_src}") no-repeat center center !important;
         background-size: cover !important; padding: 30px 20px; border-radius: 16px; color: #FFFFFF; margin-bottom: 20px;
-        text-align: center; border: 2px solid #8E9A86; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        text-align: center; border: 2px solid #bbc7a4; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         animation: techFadeIn 0.7s ease-out, pulseGlow 4s infinite ease-in-out;
     }}
     .main-header h1 {{
@@ -227,9 +227,9 @@ st.markdown(
         font-size: 14px; margin-top: 6px; color: #FFFFFF !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
-    /* KOTAK BESAR DENGAN WARNA PEPEJAL (SOLID COLOR) #3F4B3A TANPA OPACITY */
+    /* KOTAK KARTU DENGAN WARNA BARU #bbc7a4 DAN TEKS GELAP AGAR CONTRAS DAN JELAS */
     .card-box, div[data-testid="stForm"] {{
-        background-color: #3F4B3A !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
+        background-color: #bbc7a4 !important; border: 1.5px solid #a3b28b !important; border-radius: 14px !important;
         padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
@@ -237,28 +237,37 @@ st.markdown(
         border-color: #FFFFFF !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5) !important; transform: translateY(-2px);
     }}
 
-    .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{ color: #FFFFFF !important; }}
+    /* Penyesuaian warna teks di dalam card-box & form agar terlihat kontras dengan background #bbc7a4 */
+    .card-box h3, div[data-testid="stForm"] h3, 
+    .card-box p, div[data-testid="stForm"] p,
+    .card-box span, div[data-testid="stForm"] span,
+    .card-box label, div[data-testid="stForm"] label,
+    div[data-testid="stForm"] div[data-testid="stWidgetLabel"] p,
+    div[data-testid="stForm"] div[data-testid="stWidgetLabel"] span {{ 
+        color: #1E293B !important; 
+        text-shadow: none !important;
+    }}
 
-    .metric-value {{ font-size: 28px; font-weight: 800; color: #FFFFFF !important; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }}
-    .metric-label {{ font-size: 12px; color: #FFFFFF !important; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
+    .metric-value {{ font-size: 28px; font-weight: 800; color: #1E293B !important; text-shadow: none !important; }}
+    .metric-label {{ font-size: 12px; color: #334155 !important; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; text-shadow: none !important; }}
 
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
-        background-color: #1E293B !important; border: 1px solid #8E9A86 !important; color: #FFFFFF !important; border-radius: 8px !important;
+        background-color: #1E293B !important; border: 1px solid #bbc7a4 !important; color: #FFFFFF !important; border-radius: 8px !important;
     }}
     div[data-baseweb="input"] input {{ color: #FFFFFF !important; }}
 
     .stButton > button {{
-        background: #8E9A86 !important; color: #FFFFFF !important; font-weight: 700 !important; border-radius: 10px !important; border: none !important;
-        padding: 10px 16px !important; box-shadow: 0 4px 12px rgba(142, 154, 134, 0.4) !important;
+        background: #bbc7a4 !important; color: #1E293B !important; font-weight: 800 !important; border-radius: 10px !important; border: none !important;
+        padding: 10px 16px !important; box-shadow: 0 4px 12px rgba(187, 199, 164, 0.4) !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; width: 100%; position: relative; overflow: hidden;
     }}
     .stButton > button:hover {{
-        background: #3D4A2F !important; color: #FFFFFF !important; transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 6px 18px rgba(61, 74, 47, 0.5) !important;
+        background: #a3b28b !important; color: #0F172A !important; transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 6px 18px rgba(163, 178, 139, 0.5) !important;
     }}
     .stButton > button:active {{ transform: translateY(1px) scale(0.99); }}
 
-    .badge-success {{ background-color: #8E9A86; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
+    .badge-success {{ background-color: #bbc7a4; color: #1E293B !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
     .badge-admin {{ background-color: #6A4C3B; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
 </style>
 """,
@@ -462,7 +471,7 @@ def generate_pdf(df_filtered, bulan_tahun, nama_kelas):
         ("FONTSIZE", (0, 0), (-1, 0), 8),
         ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
         ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#ECE7DC")),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#8E9A86")),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#bbc7a4")),
         ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
         ("FONTSIZE", (0, 1), (-1, -1), 7.5),
     ]))
@@ -648,7 +657,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Indeks Kelancaran Hafalan</div>
-                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#FFFFFF;">/ 100</span></div>
+                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#1E293B;">/ 100</span></div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -659,7 +668,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Predikat Evaluasi</div>
-                    <div class="metric-value" style="font-size: 20px; color: #FFFFFF; padding-top:6px;">{kualitas}</div>
+                    <div class="metric-value" style="font-size: 20px; color: #1E293B; padding-top:6px;">{kualitas}</div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -760,7 +769,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Nilai Akhir Ujian Tasmi'</div>
-                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#FFFFFF;">/ 100</span></div>
+                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#1E293B;">/ 100</span></div>
                 </div>
                 """,
                 unsafe_allow_html=True,
