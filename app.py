@@ -189,26 +189,28 @@ st.markdown(
         background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.82)), 
                     url("{img_logo_src}") no-repeat center center fixed !important;
         background-size: cover !important;
-        color: #1E293B !important;
+        color: #FFFFFF !important;
     }}
 
     .stMainBlockContainer {{ animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }}
 
-    /* PAKSA WARNA JUDUL / LABEL INPUT MENJADI PUTIH TERANG DAN JELAS */
-    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span, .stCaption p {{
+    /* PAKSA SEMUA WARNA TEKS, JUDUL, LABEL & CAPTION MENJADI PUTIH TERANG (#FFFFFF) */
+    h1, h2, h3, h4, h5, h6, p, span, label, div,
+    div[data-testid="stWidgetLabel"] p, 
+    div[data-testid="stWidgetLabel"] span, 
+    .stCaption, .stCaption p, .stMarkdown, .stMarkdown p {{
         color: #FFFFFF !important; 
         font-weight: 700 !important; 
-        font-size: 14px !important;
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     }}
 
     button[data-baseweb="tab"] p {{
-        color: #ECE7DC !important; font-weight: 600 !important; font-size: 14px !important; transition: all 0.3s ease;
+        color: #FFFFFF !important; font-weight: 600 !important; font-size: 14px !important; transition: all 0.3s ease;
     }}
     button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #8E9A86 !important; font-weight: 800 !important; text-shadow: 0 0 8px rgba(142, 154, 134, 0.6);
+        color: #FFFFFF !important; font-weight: 800 !important; text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
     }}
-    div[data-baseweb="tab-highlight"] {{ background-color: #8E9A86 !important; }}
+    div[data-baseweb="tab-highlight"] {{ background-color: #FFFFFF !important; }}
 
     .main-header {{
         background: linear-gradient(135deg, rgba(61, 74, 47, 0.45), rgba(142, 154, 134, 0.35)),
@@ -222,27 +224,27 @@ st.markdown(
         letter-spacing: 0.5px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
     }}
     .main-header p {{
-        font-size: 14px; margin-top: 6px; color: #ECE7DC !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
+        font-size: 14px; margin-top: 6px; color: #FFFFFF !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
     .card-box, div[data-testid="stForm"] {{
-        background-color: #ECE7DC !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
+        background-color: rgba(22, 27, 34, 0.85) !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
         padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
     .card-box:hover, div[data-testid="stForm"]:hover {{
-        border-color: #3D4A2F !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important; transform: translateY(-2px);
+        border-color: #FFFFFF !important; box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35) !important; transform: translateY(-2px);
     }}
 
-    .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{ color: #3D4A2F !important; }}
+    .card-box h3, div[data-testid="stForm"] h3, .card-box p, div[data-testid="stForm"] p {{ color: #FFFFFF !important; }}
 
-    .metric-value {{ font-size: 28px; font-weight: 800; color: #3D4A2F; text-shadow: 0 0 5px rgba(142, 154, 134, 0.3); }}
-    .metric-label {{ font-size: 12px; color: #6A4C3B; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
+    .metric-value {{ font-size: 28px; font-weight: 800; color: #FFFFFF !important; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }}
+    .metric-label {{ font-size: 12px; color: #FFFFFF !important; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }}
 
     div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {{
-        background-color: #FFFFFF !important; border: 1px solid #8E9A86 !important; color: #1E293B !important; border-radius: 8px !important;
+        background-color: #1E293B !important; border: 1px solid #8E9A86 !important; color: #FFFFFF !important; border-radius: 8px !important;
     }}
-    div[data-baseweb="input"] input {{ color: #1E293B !important; }}
+    div[data-baseweb="input"] input {{ color: #FFFFFF !important; }}
 
     .stButton > button {{
         background: #8E9A86 !important; color: #FFFFFF !important; font-weight: 700 !important; border-radius: 10px !important; border: none !important;
@@ -250,13 +252,13 @@ st.markdown(
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; width: 100%; position: relative; overflow: hidden;
     }}
     .stButton > button:hover {{
-        background: #3D4A2F !important; color: #ECE7DC !important; transform: translateY(-2px) scale(1.01);
+        background: #3D4A2F !important; color: #FFFFFF !important; transform: translateY(-2px) scale(1.01);
         box-shadow: 0 6px 18px rgba(61, 74, 47, 0.5) !important;
     }}
     .stButton > button:active {{ transform: translateY(1px) scale(0.99); }}
 
-    .badge-success {{ background-color: #8E9A86; color: #FFFFFF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
-    .badge-admin {{ background-color: #6A4C3B; color: #FFD8BF; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
+    .badge-success {{ background-color: #8E9A86; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
+    .badge-admin {{ background-color: #6A4C3B; color: #FFFFFF !important; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #3D4A2F; }}
 </style>
 """,
     unsafe_allow_html=True,
@@ -645,7 +647,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Indeks Kelancaran Hafalan</div>
-                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#6A4C3B;">/ 100</span></div>
+                    <div class="metric-value">{nilai_calc} <span style="font-size:16px; color:#FFFFFF;">/ 100</span></div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -656,7 +658,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Predikat Evaluasi</div>
-                    <div class="metric-value" style="font-size: 20px; color: #3D4A2F; padding-top:6px;">{kualitas}</div>
+                    <div class="metric-value" style="font-size: 20px; color: #FFFFFF; padding-top:6px;">{kualitas}</div>
                 </div>
             """,
                 unsafe_allow_html=True,
@@ -757,7 +759,7 @@ else:
                 f"""
                 <div class="card-box">
                     <div class="metric-label">Nilai Akhir Ujian Tasmi'</div>
-                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#6A4C3B;">/ 100</span></div>
+                    <div class="metric-value">{nilai_tasmi} <span style="font-size:16px; color:#FFFFFF;">/ 100</span></div>
                 </div>
                 """,
                 unsafe_allow_html=True,
