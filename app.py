@@ -227,8 +227,9 @@ st.markdown(
         font-size: 14px; margin-top: 6px; color: #FFFFFF !important; font-weight: 600; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
     }}
 
+    /* KOTAK BESAR DENGAN WARNA #3F4B3A */
     .card-box, div[data-testid="stForm"] {{
-        background-color: rgba(22, 27, 34, 0.85) !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
+        background-color: rgba(63, 75, 58, 0.85) !important; border: 1.5px solid #8E9A86 !important; border-radius: 14px !important;
         padding: 20px !important; margin-bottom: 15px !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
         animation: techFadeIn 0.8s ease-out; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
