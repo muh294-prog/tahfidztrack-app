@@ -194,8 +194,12 @@ st.markdown(
 
     .stMainBlockContainer {{ animation: techFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }}
 
-    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span {{
-        color: #3D4A2F !important; font-weight: 700 !important; font-size: 14px !important;
+    /* PAKSA WARNA JUDUL / LABEL INPUT MENJADI PUTIH TERANG DAN JELAS */
+    label, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span, .stCaption p {{
+        color: #FFFFFF !important; 
+        font-weight: 700 !important; 
+        font-size: 14px !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     }}
 
     button[data-baseweb="tab"] p {{
