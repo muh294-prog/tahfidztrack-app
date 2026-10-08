@@ -45,7 +45,7 @@ BUILTIN_CONFIG = {
         "mohfaizgufran@iqis.sch.id": "UST. Moh. Faiz Gufran, S.H.",
         "rafly@iqis.sch.id": "UST. Muhammad Rafly Rifadillah",
         "bagusammar@iqis.sch.id": "UST. Muhammad Bagus Ammar",
-        "hudzaifah@iqis.sch.id": "UST. Hudzaifah",
+        "huzaifah@iqis.sch.id": "UST. Hudzaifah",
     },
 }
 
@@ -820,7 +820,7 @@ def img_src(file_path, max_px):
     return "data:image/jpeg;base64," + base64.b64encode(data).decode("utf-8")
 
 # ----------------------------------------------------------------------------
-# CSS TEMA CERAH (BACKGROUND #E5E4E2 & KONTRASTING TEXT)
+# CSS TEMA CERAH (DENGAN PERBAIKAN TOMBOL & TEKS PUTIH TERANG)
 # ----------------------------------------------------------------------------
 CSS = """
 <style>
@@ -846,10 +846,10 @@ CSS = """
   padding-top: 1.5rem !important;
 }
 
-/* Typography Overrides */
+/* Typography Overrides (Kecuali elemen di dalam tombol) */
 .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
 .stApp [data-testid="stWidgetLabel"] p,
-.stApp [data-testid="stMarkdownContainer"] p,
+.stApp [data-testid="stMarkdownContainer"] p:not(.stButton p),
 .stApp [data-testid="stMetricLabel"] p,
 .stApp [data-testid="stMetricValue"],
 .stApp [data-testid="stCheckbox"] p {
@@ -860,7 +860,7 @@ CSS = """
   color: var(--sub-text) !important;
 }
 
-/* Modern Header Box */
+/* Header Box */
 .main-header {
   background: #FFFFFF;
   padding: 22px;
@@ -882,7 +882,7 @@ CSS = """
   font-weight: 600;
 }
 
-/* Category Title */
+/* Category Header */
 .category-header {
   font-size: 13px;
   font-weight: 800;
@@ -952,23 +952,35 @@ div[data-baseweb="select"] *, div[data-baseweb="input"] input, div[data-baseweb=
   color: var(--dark-text) !important;
 }
 
-/* Buttons Styling */
+/* ============================================================================
+   PERBAIKAN WARNA TEKS TOMBOL (PUTIH TERANG)
+   ============================================================================ */
 .stButton>button, .stDownloadButton>button, [data-testid="stFormSubmitButton"]>button {
-  background: var(--olive-primary) !important;
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
+  background-color: #2F3A2E !important;
   border: none !important;
   border-radius: 10px !important;
   padding: 10px 18px !important;
-  box-shadow: 0 4px 12px rgba(47,58,46,0.2) !important;
+  box-shadow: 0 4px 12px rgba(47,58,46,0.25) !important;
   transition: all 0.2s ease !important;
 }
+
+/* Memaksa semua elemen anak/teks di dalam button menjadi Putih Terang */
+.stButton>button *, .stDownloadButton>button *, [data-testid="stFormSubmitButton"]>button * {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
 .stButton>button:hover, .stDownloadButton>button:hover, [data-testid="stFormSubmitButton"]>button:hover {
-  background: #3B4A3A !important;
+  background-color: #1A2319 !important;
   transform: translateY(-2px);
 }
 
-/* Custom Badges */
+.stButton>button:hover *, .stDownloadButton>button:hover *, [data-testid="stFormSubmitButton"]>button:hover * {
+  color: #FFFFFF !important;
+}
+
+/* Badges */
 .badge-success { background: #DCFCE7; color: #166534; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #BBF7D0; }
 .badge-admin { background: #FEF3C7; color: #92400E; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; border: 1px solid #FDE68A; }
 </style>
@@ -997,7 +1009,7 @@ def require_admin():
         st.stop()
 
 # ----------------------------------------------------------------------------
-# COMPONENT LANDING PAGE / MENU GRID (SEPERTI DI GAMBAR)
+# COMPONENT LANDING PAGE / MENU GRID
 # ----------------------------------------------------------------------------
 def render_landing_dashboard(is_admin):
     st.markdown('<div class="category-header">MENU UTAMA</div>', unsafe_allow_html=True)
