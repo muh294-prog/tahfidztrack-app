@@ -45,7 +45,7 @@ BUILTIN_CONFIG = {
         "mohfaizgufran@iqis.sch.id": "UST. Moh. Faiz Gufran, S.H.",
         "rafly@iqis.sch.id": "UST. Muhammad Rafly Rifadillah",
         "bagusammar@iqis.sch.id": "UST. Muhammad Bagus Ammar",
-        "huzaifah@iqis.sch.id": "UST. Hudzaifah",
+        "hudzaifah@iqis.sch.id": "UST. Hudzaifah",
     },
 }
 
