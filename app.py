@@ -820,7 +820,7 @@ def img_src(file_path, max_px):
     return "data:image/jpeg;base64," + base64.b64encode(data).decode("utf-8")
 
 # ----------------------------------------------------------------------------
-# CSS TEMA CERAH (DENGAN PERBAIKAN TOMBOL & TEKS PUTIH TERANG)
+# CSS KUSTOM DENGAN PERBAIKAN LENGKAP TOMBOL & INPUT BOX
 # ----------------------------------------------------------------------------
 CSS = """
 <style>
@@ -846,10 +846,10 @@ CSS = """
   padding-top: 1.5rem !important;
 }
 
-/* Typography Overrides (Kecuali elemen di dalam tombol) */
+/* Typography Overrides */
 .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
 .stApp [data-testid="stWidgetLabel"] p,
-.stApp [data-testid="stMarkdownContainer"] p:not(.stButton p),
+.stApp [data-testid="stMarkdownContainer"] p,
 .stApp [data-testid="stMetricLabel"] p,
 .stApp [data-testid="stMetricValue"],
 .stApp [data-testid="stCheckbox"] p {
@@ -942,20 +942,37 @@ CSS = """
   margin-bottom: 12px;
 }
 
-/* Inputs & Form Controls */
-div[data-baseweb="input"]>div, div[data-baseweb="select"]>div, div[data-baseweb="textarea"]>div {
+/* ============================================================================
+   PERBAIKAN INPUT BOX, TEXTAREA, DENGAN KOTAK SANDI
+   ============================================================================ */
+div[data-baseweb="input"]>div, 
+div[data-baseweb="select"]>div, 
+div[data-baseweb="textarea"]>div,
+div[data-testid="stTextInput"] input,
+div[data-testid="stTextInput"]>div {
   background-color: #FFFFFF !important;
   border: 1px solid var(--border-color) !important;
   border-radius: 10px !important;
 }
-div[data-baseweb="select"] *, div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea {
-  color: var(--dark-text) !important;
+
+div[data-baseweb="input"] input, 
+div[data-baseweb="select"] *, 
+div[data-baseweb="textarea"] textarea,
+div[data-testid="stTextInput"] input {
+  color: #1E293B !important;
+  -webkit-text-fill-color: #1E293B !important;
 }
 
 /* ============================================================================
-   PERBAIKAN WARNA TEKS TOMBOL (PUTIH TERANG)
+   PERBAIKAN SELURUH TOMBOL (DOWNLOAD, FORM SUBMIT, & REGULAR BUTTON)
    ============================================================================ */
-.stButton>button, .stDownloadButton>button, [data-testid="stFormSubmitButton"]>button {
+button, 
+.stButton>button, 
+.stDownloadButton button, 
+div[data-testid="stDownloadButton"] button, 
+[data-testid="stFormSubmitButton"]>button,
+button[data-testid="stBaseButton-secondary"], 
+button[data-testid="stBaseButton-primary"] {
   background-color: #2F3A2E !important;
   border: none !important;
   border-radius: 10px !important;
@@ -964,20 +981,36 @@ div[data-baseweb="select"] *, div[data-baseweb="input"] input, div[data-baseweb=
   transition: all 0.2s ease !important;
 }
 
-/* Memaksa semua elemen anak/teks di dalam button menjadi Putih Terang */
-.stButton>button *, .stDownloadButton>button *, [data-testid="stFormSubmitButton"]>button * {
+/* Memaksa semua teks di dalam tombol menjadi Putih Terang (#FFFFFF) */
+button *, 
+.stButton>button *, 
+.stDownloadButton button *, 
+div[data-testid="stDownloadButton"] button *, 
+[data-testid="stFormSubmitButton"]>button *,
+button[data-testid="stBaseButton-secondary"] *, 
+button[data-testid="stBaseButton-primary"] * {
   color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 14px !important;
 }
 
-.stButton>button:hover, .stDownloadButton>button:hover, [data-testid="stFormSubmitButton"]>button:hover {
+button:hover, 
+.stButton>button:hover, 
+.stDownloadButton button:hover, 
+div[data-testid="stDownloadButton"] button:hover, 
+[data-testid="stFormSubmitButton"]>button:hover {
   background-color: #1A2319 !important;
   transform: translateY(-2px);
 }
 
-.stButton>button:hover *, .stDownloadButton>button:hover *, [data-testid="stFormSubmitButton"]>button:hover * {
+button:hover *, 
+.stButton>button:hover *, 
+.stDownloadButton button:hover *, 
+div[data-testid="stDownloadButton"] button:hover *, 
+[data-testid="stFormSubmitButton"]>button:hover * {
   color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
 }
 
 /* Badges */
